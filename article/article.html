@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>A a cross-platform replacement for all those office application packages in a single file</title>
+    <meta charset="utf-8"/>
+    <style type="text/css">
+        * { font-family: 'Verdana', 'Ububtu', sans-serif; }
+	.title { font-size: 250%; text-align: center; margin-bottom: 0; border-bottom: thin lightGray solid; }
+	.author { text-align: right; }
+	code { font-size: 120%; font-weight: bold; }
+	pre, code { color: darkGreen; padding: 0; font-family: 'Consolas', sans-serif }
+	pre code { color: black; font-weight: normal; font-size: 94%; }
+        pre { background-color: antiqueWhite; }
+        blockquote { border-left: thick blue solid; padding-left: 1em; }
+	h1, h2, h3, h4, h5, h6 { border: none; }
+	h1 { font-size: 200%; }
+	h2 { font-size: 162%; }
+	h3 { font-size: 134%; }
+	h4 { font-size: 114%; }
+	h5 { font-size: 105%; }
+	h6 { font-size: 100%; }
+    </style>
+</head>
+<body>
+
+<p class="title">A a cross-platform replacement for all those office application packages in a single file</p><p class="author"><a href="https://www.SAKryukov.org"><em>Sergey A Kryukov</em></a></p><p><em>Who needs presentations created with boring bulky office presentation packages not always available for all systems? All you need is a Web browser and a set of vector/pixel images. With a solution in just one HTML/CSS/JavaScript file you have all all the features people use in presentations.</em></p><!-- copy to CodeProject from here ------------------------------------------->
+<h2>Contents</h2>
+<p class="toc">
+<a style="margin-left: 0em;" href="#heading-introduction">Introduction</a><br/>
+<a style="margin-left: 0em;" href="#heading-usage">Usage</a><br/>
+<a style="margin-left: 3em;" href="#heading-presentation-data">Presentation Data</a><br/>
+<a style="margin-left: 3em;" href="#heading-optional-presentation-options">Optional Presentation Options</a><br/>
+<a style="margin-left: 3em;" href="#heading-image-file-types">Image File Types</a><br/>
+<a style="margin-left: 0em;" href="#heading-animation">Animation</a><br/>
+<a style="margin-left: 0em;" href="#heading-implementation-detail">Implementation Detail</a><br/>
+<a style="margin-left: 3em;" href="#heading-preserved-animation">Preserved Animation</a><br/>
+<a style="margin-left: 3em;" href="#heading-touchscreen-support">Touchscreen Support</a><br/>
+<a style="margin-left: 3em;" href="#heading-error-handling">Error Handling</a><br/>
+<a style="margin-left: 0em;" href="#heading-lisence-note">Lisence Note</a><br/>
+</p><h2 id="heading-introduction">Introduction</h2>
+<h2 id="heading-usage">Usage</h2>
+<h3 id="heading-presentation-data">Presentation Data</h3>
+<p>In addition to image files, the presentation needs to be described. First of all, it needs a list of relative paths to image file, to define both image data and the order of images in the presentation. All other options can be omitted, then the default settings are used. For example, let’s assume we put it in a file “demo/presentation.js”, path is relative to “presentation.html”:</p><pre lang="JavaScript" id="presentation-sample">const presentation = {
+    images: [ // relative to presentation.html
+        "demo/1.webp",
+        "demo/1.svg",
+        "demo/2.webp",
+    ],
+    rtl: false,
+    title: "Presentation Demo",
+    colors: {
+        background: "lightGray",
+        text: {
+            background: "azure",
+            foreground: "black",
+            border: "lightBlue"
+        }
+    }
+};
+</pre><p>This presentation can be loaded in a Web page by using the path to the presentation file in a query string of the URL. The easiest way to do it is havin a separate presentation-specific HTML file. Let’s assume this is the file “demo/index.html”, then it content could be:</p><pre lang="HTML" id="presentation-index-sample">&lt;!doctype HTML&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta http-equiv="refresh" content="0; url=
+        ../presentation.html?demo/presentation.js" /&gt;
+    &lt;/head&gt;
+&lt;/html&gt;
+</pre><h3 id="heading-optional-presentation-options">Optional Presentation Options</h3>
+<p>All paths are relative to “presentation.html”.</p><p><code>presentation.images</code>: an array of image file names, paths are relative to “presentation.html”.</p><h3 id="heading-image-file-types">Image File Types</h3>
+<p>For the presentation frames, all MIME types standardized for Web are acceptable. For vector graphics this is <a href="https://en.wikipedia.org/wiki/Scalable_Vector_Graphics">SVG</a>, image/svg+xml. For raster graphics and acceptable types are: image/apng, image/avif, image/gif, image/jpeg, image/png and image/webp.</p><p>Image file types accepted by specific browser but not standardized for Web, such as .bmp, .ico or .tif, should be best avoided.</p><p>For raster images, most practical and recommended format is <a href="https://en.wikipedia.org/wiki/WebP">WebP</a>. It provides much better compression than older image types, supports progressive rendering, separate presets optimized for Picture, Icon, Photo, Drawing and Text, and animation. Other types supporting animation for raster graphics are <a href="https://en.wikipedia.org/wiki/APNG">APNG</a>, <a href="https://en.wikipedia.org/wiki/AV1#AV1_Image_File_Format_(AVIF)">AVIF</a>, and <a href="https://en.wikipedia.org/wiki/GIF">GIF</a>.</p><p>However, for presentation purposes the most important type of animation is vector, SVG, because people widely use various transition effects. Even though such effects more distract from the presentation than help to understand the material, they are considered as a must.</p><h2 id="heading-animation">Animation</h2>
+<h2 id="heading-implementation-detail">Implementation Detail</h2>
+<p>The implementation is trivial enough to get into detail too much. The purpose of this article is to provide a comprehensive working tool for presentations, not so much to teach anything. If this work can teach something, it’s the taste for minimalism and sober practical look at all those commercial bloated products.</p><p>So, I’ll touch only few not so obvious aspects.</p><h3 id="heading-preserved-animation">Preserved Animation</h3>
+<p>Animation is preserved by not loading all images during the initialization phase. Instead, there is only one <code>img</code> element which is loaded from source by assignment to its <code>src</code> property only for the very first image of the presentation. All other images are loaded as the are shown:</p><pre lang="HTML" id="code-move">const move = backward => {
+    if (backward)
+        if (current > 0) --current; else current = presentation.images.length - 1;
+    else
+        if (current < presentation.images.length - 1) ++current; else current = 0;
+    image.src = presentation.images[current];
+    resize(image);
+};
+</pre><p>This way, each <code>image.src</code> property assignment starts the animation. Accordingly, the animation is started again every time the same image is shown.</p><h3 id="heading-touchscreen-support">Touchscreen Support</h3>
+<h3 id="heading-error-handling">Error Handling</h3>
+<h2 id="heading-lisence-note">Lisence Note</h2>
+<p>All photo and graphic materials used in the demo are created by the author of this article and protected by the license referenced below.</p>
+
+</body>
+</html>

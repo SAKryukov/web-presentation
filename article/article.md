@@ -95,6 +95,10 @@ This way, each `image.src` property assignment starts the animation. Accordingly
 
 ### Touchscreen Support
 
+### RTL Support
+
+Written writing cultures based on [right-to-left](https://en.wikipedia.org/wiki/Right-to-left) system also slightly modify the views of people. This cultural element can affect the way some people look at the [arrow of time](https://en.wikipedia.org/wiki/Arrow_of_time): while in Western cultures people imagine time as something floating from left to right, other people may think otherwise. In this case it can be more natural to view the flow of the presentation as somethin moving from right to left. For such people, `rtl` option is provided. It only changes the use of left/right arrows and left/right swipe with a touchscreen: the direction changed to is opposite. It is similar but has nothing to do with
+
 ### Error Handling
 
 ## Lisence Note

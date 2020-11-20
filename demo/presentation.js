@@ -1,12 +1,10 @@
 ﻿"use strict";
 const presentation = {
     images: [ // relative to presentation.html
-	"demo/1.webp",
-        "demo/1.svg",
-	"demo/2.webp",
-	"demo/3.webp",
-	"demo/4.webp",
-	"demo/wide.webp",
+        "demo/2007-06-23.panorama.webp",
+        "demo/2010-03-20-118.webp",
+        "demo/2012-05-19.70.webp",
+        "demo/2019-05-18.088.webp",
      ],
      rtl: false,
      title: "Presentation Demo",

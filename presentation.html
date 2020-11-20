@@ -1,0 +1,187 @@
+﻿<!doctype HTML>
+<!--
+    Web Presentation: a cross-platform replacement for all those office application packages in a single file :-)
+    Original publication:
+    https://www.codeproject.com/Articles/5286790/Web-Presentation
+    
+    Copyright (c) Sergey A Kryukov, 2017, 2020
+    http://www.SAKryukov.org
+    http://www.codeproject.com/Members/SAKryukov
+    https://github.com/SAKryukov
+-->
+<html lang="en-us">
+    <head>
+        <title>Web Presentation, Copyright &copy; Sergey A Kryukov, 2020</title>
+        <style>
+            * { font-family: sans-serif; margin: 0; padding: 0; border: none; touch-action: none; user-select: none; }
+            body { overflow: hidden; }
+            section { 
+                background-color: white; position: absolute;
+                padding: 1em; left: 1em; top: 1em; border: solid thin black;
+                font-size: 110%;
+            }
+            section > p { margin-top: 0; margin-bottom: 0; }
+            section > li { padding-left: 1em; list-style-type: none; }
+            section > nav { display:none; } /* RTL direction switch table */
+        </style>
+    </head>
+<body>
+
+    <section>
+        <p>F1: Toggle help</p>
+        <p>F11: Toggle full screen (default for most browsers)</p>
+        <p>&rarr; &darr; space, click: Next</p>
+        <p>&larr; &uarr; backspace, Ctrl+click: Previous</p>
+        <p>Touchscreen swipe:</p>
+        <li>&larr; &uarr;: Next</li>
+        <li>&rarr; &darr;: Previous</li>
+        <nav>&rarr;&larr;</nav>
+    </section>
+
+<script>
+
+        "use strict";
+
+        const textUtility = (() => {
+            let scriptError = false;
+            const textElement = document.querySelector("section");
+            const showError = text => textElement.textContent = text;
+            const setPresentationScriptError = scriptPath => {
+                window.onerror = () => {
+                    scriptError = true;
+                    showError(`Syntax error in ${scriptPath}`);
+                }; //window.onError
+            }; //setPresentationScriptError
+            const toggleHelp = (() => {
+                let helpActive = true;
+                return () => {
+                    helpActive = !helpActive;
+                    textElement.style.display = helpActive ? "block" : "none";
+                };
+            })();
+            const setupHelp = isRtl => {
+                textElement.title = document.title;
+                if (!isRtl) return;
+                const replaceMap = new Map();
+                const replacePairs = document.querySelectorAll("section > nav");
+                for (let element of replacePairs) {
+                    replaceMap.set(element.textContent[0], element.textContent[1]);
+                    replaceMap.set(element.textContent[1], element.textContent[0]);
+                }
+                for (let child of textElement.children) {
+                    if (child.constructor == HTMLLIElement || child.constructor == HTMLParagraphElement) {
+                        let newContent = "";
+                        for (let index = 0; index < child.textContent.length; ++index) {
+                            const replacement = replaceMap.get(child.textContent[index]);
+                            newContent += replacement ? replacement : child.textContent[index];
+                        } //index loop
+                        child.textContent = newContent;
+                    } //if
+                } //child loop
+            }; //setupHelp
+            return {
+                setPresentationScriptError, setPresentationScriptError,
+                textElement: textElement, setupHelp: setupHelp, showError: showError, toggleHelp: toggleHelp,
+                sciptErrorTest: () => scriptError };
+        })(); //textUtility
+        
+        (() => { //presentation setup script
+            const script = document.createElement("script");
+            const searchUrl = window.location.search;
+            if (!searchUrl || searchUrl.length < 2 || searchUrl[0] != "?")
+                throw textUtility.showError("Presentation file needs to be specified in the URL in the form ...presentation.html?path-to/presentation.js");
+            const scriptPath = searchUrl.slice(1);
+            textUtility.setPresentationScriptError(scriptPath);
+            script.src = scriptPath;
+            document.head.appendChild(script);
+        })(); //presentation setup script
+
+        const show = (element, doShow) => { element.style.display = doShow ? 'block' : 'none'; };
+        const toPixels = (size) => { return (size).toString() + "px"; };
+        
+        function initializeViewer(image, presentation) {
+            let current = 0;
+            image.src = presentation.images[current];
+            const resize = image => {
+                const imageAspect = image.naturalWidth / image.naturalHeight;
+                const windowAspect = window.innerWidth / window.innerHeight;
+                if (imageAspect > windowAspect) {
+                    image.width = window.innerWidth;
+                    image.height = image.width / imageAspect;
+                    image.style.marginLeft = 0;
+                    image.style.marginTop = toPixels((window.innerHeight - image.height) / 2);
+                } else {
+                    image.height = window.innerHeight;
+                    image.width = image.height * imageAspect;
+                    image.style.marginTop = 0;
+                    image.style.marginLeft = toPixels((window.innerWidth - image.width) / 2);
+                } //if
+            }; //resize
+            image.onload = event => { resize(event.target); };
+            window.onresize = () => resize(image);
+            const move = backward => {
+                if (backward)
+                    if (current > 0) --current; else current = presentation.images.length - 1;
+                else
+                    if (current < presentation.images.length - 1) ++current; else current = 0;
+                image.src = presentation.images[current];
+                resize(image);
+            }; //move
+            document.body.onclick = event => event.ctrlKey ? move(true) : move();
+            document.body.onkeydown = event => {
+                switch (event.code) {
+                    case "Space":
+                    case "ArrowDown": move(false); break;
+                    case "Backspace":
+                    case "ArrowUp": move(true); break;
+                    case "ArrowRight": move(presentation.rtl); break;
+                    case "ArrowLeft": move(!presentation.rtl); break;
+                    case "F11": document.requestFullscreen(); event.preventDefault(); break;
+                    case "F1": textUtility.toggleHelp(); event.preventDefault();
+                }
+            }; //document.body.onkeydown
+            let touchStart = undefined;
+            addEventListener("touchstart", event => {
+                touchStart = { x: event.changedTouches[0].clientX, y: event.changedTouches[0].clientY };
+            }, false);
+            addEventListener("touchend", event => { touchStart = undefined; }, false);
+            addEventListener("touchmove", event => {
+                if (touchStart == undefined) return;
+                const vector = { x: event.changedTouches[0].clientX - touchStart.x, y: event.changedTouches[0].clientY - touchStart.y };
+                const horizontal = Math.abs(vector.x) > Math.abs(vector.y);
+                let back = horizontal ? vector.x > 0 : vector.y > 0;
+                if (horizontal && presentation.rtl) back = !back;
+                move(back);
+                touchStart = undefined;
+            }, false);
+        }; //initializeViewer
+
+        document.body.onload = () => {
+            if (textUtility.sciptErrorTest()) return;
+            if (typeof (presentation) == typeof (undefined) || !presentation)
+               return textUtility.showError("presentation not found");
+            textUtility.setupHelp(presentation.rtl);
+            const image = document.createElement("img");
+            const setBackground = color => {
+                document.body.style.backgroundColor = color;
+                image.style.backgroundColor = color;
+            }; //setBackground
+            const setColors = (colors, textElement) => {
+                if (!colors) return;
+                if (colors.background) setBackground(colors.background);
+                if (!colors.text) return;
+                if (colors.text.background) textUtility.textElement.style.backgroundColor = colors.text.background;
+                if (colors.text.foreground) textUtility.textElement.style.color = colors.text.foreground;
+                if (colors.text.border) textUtility.textElement.style.borderColor = colors.text.border;
+            } //colors
+            if (!presentation.images || !presentation.images.length)
+                return textUtility.showError("presentation.images not found");
+            if (presentation.title) document.title = presentation.title;
+            setColors(presentation.colors, textUtility.textElement);
+            document.body.appendChild(image);
+            initializeViewer(image, presentation);
+        }; //document.body.onload
+
+</script>
+
+</body></html>

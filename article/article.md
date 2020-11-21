@@ -2,7 +2,7 @@
     enable: false
 }
 
-{title}A a cross-platform replacement for all those office application packages in a single file
+{title}A a cross-platform replacement for all those office presentation applications in a single file
 
 [*Sergey A Kryukov*](https://www.SAKryukov.org){.author}
 

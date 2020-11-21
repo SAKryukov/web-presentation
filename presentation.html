@@ -15,19 +15,21 @@
         <style>
             * { font-family: sans-serif; margin: 0; padding: 0; border: none; touch-action: none; user-select: none; }
             body { overflow: hidden; }
-            section { 
+            section, header {
+                display: none;
                 background-color: white; position: absolute;
                 padding: 1em; left: 1em; top: 1em; border: solid thin black;
                 font-size: 110%;
             }
             section > p { margin-top: 0; margin-bottom: 0; }
             section > li { padding-left: 1em; list-style-type: none; }
-            section > nav { display:none; } /* RTL direction switch table */
+            section > nav { display: none; } /* RTL direction switch table */
         </style>
     </head>
 <body>
 
-    <section>
+    <header></header> <!-- errors -->
+    <section> <!-- help -->
         <p>F1: Toggle help</p>
         <p>F11: Toggle full screen (default for most browsers)</p>
         <p>&rarr; &darr; space, click: Next</p>
@@ -44,8 +46,10 @@
 
         const textUtility = (() => {
             let scriptError = false;
+            const scriptErrorTest = () => scriptError;
             const textElement = document.querySelector("section");
-            const showError = text => textElement.textContent = text;
+            const errorElement = document.querySelector("header");
+            const showError = text => { errorElement.style.display = "block"; errorElement.textContent = text; }
             const setPresentationScriptError = scriptPath => {
                 window.onerror = () => {
                     scriptError = true;
@@ -53,7 +57,7 @@
                 }; //window.onError
             }; //setPresentationScriptError
             const toggleHelp = (() => {
-                let helpActive = true;
+                let helpActive = false;
                 return () => {
                     helpActive = !helpActive;
                     textElement.style.display = helpActive ? "block" : "none";
@@ -79,10 +83,19 @@
                     } //if
                 } //child loop
             }; //setupHelp
+            const setColors = colors => {
+                if (!colors.text) return;
+                for (let element of [textElement, errorElement]) {
+                    if (colors.text.background) element.style.backgroundColor = colors.text.background;
+                    if (colors.text.foreground) element.style.color = colors.text.foreground;
+                    if (colors.text.border) element.style.borderColor = colors.text.border;
+                } //loop
+            }; //setColors
             return {
                 setPresentationScriptError, setPresentationScriptError,
                 textElement: textElement, setupHelp: setupHelp, showError: showError, toggleHelp: toggleHelp,
-                sciptErrorTest: () => scriptError };
+                setColors: setColors,
+                scriptErrorTest: scriptErrorTest };
         })(); //textUtility
         
         (() => { //presentation setup script
@@ -157,27 +170,27 @@
         }; //initializeViewer
 
         document.body.onload = () => {
-            if (textUtility.sciptErrorTest()) return;
+            window.onerror = undefined;
+            if (textUtility.scriptErrorTest()) return;
             if (typeof (presentation) == typeof (undefined) || !presentation)
                return textUtility.showError("presentation not found");
+            if (!presentation.hideHelpOnStart)
+                textUtility.toggleHelp();
             textUtility.setupHelp(presentation.rtl);
             const image = document.createElement("img");
             const setBackground = color => {
                 document.body.style.backgroundColor = color;
                 image.style.backgroundColor = color;
             }; //setBackground
-            const setColors = (colors, textElement) => {
+            const setColors = colors => {
                 if (!colors) return;
                 if (colors.background) setBackground(colors.background);
-                if (!colors.text) return;
-                if (colors.text.background) textUtility.textElement.style.backgroundColor = colors.text.background;
-                if (colors.text.foreground) textUtility.textElement.style.color = colors.text.foreground;
-                if (colors.text.border) textUtility.textElement.style.borderColor = colors.text.border;
+                textUtility.setColors(colors);
             } //colors
             if (!presentation.images || !presentation.images.length)
                 return textUtility.showError("presentation.images not found");
             if (presentation.title) document.title = presentation.title;
-            setColors(presentation.colors, textUtility.textElement);
+            setColors(presentation.colors);
             document.body.appendChild(image);
             initializeViewer(image, presentation);
         }; //document.body.onload

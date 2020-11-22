@@ -22,6 +22,7 @@
                 font-size: 110%;
             }
             section > p { margin-top: 0; margin-bottom: 0; }
+            section > p:first-child { margin-bottom: 0.4em; }
             section > li { padding-left: 1em; list-style-type: none; }
             section > nav { display: none; } /* RTL direction switch table */
         </style>
@@ -30,6 +31,7 @@
 
     <header></header> <!-- errors -->
     <section> <!-- help -->
+        <p><span></span> v.&thinsp;<span></span></p>
         <p>F1: Toggle help</p>
         <p>F11: Toggle full screen (default for most browsers)</p>
         <p>&rarr; &darr; space, click: Next</p>
@@ -37,6 +39,7 @@
         <p>Touchscreen swipe:</p>
         <li>&larr; &uarr;: Next</li>
         <li>&rarr; &darr;: Previous</li>
+        <p>S: <a id="repository" href="">Source code repository at GitHub</a></p>
         <nav>&rarr;&larr;</nav>
     </section>
 
@@ -44,11 +47,20 @@
 
         "use strict";
 
+        const definitionSet = {
+            version: "0.2.0",
+            productName: "Web Presentation",
+            repository: "https://github.com/SAKryukov/web-presentation"
+        };
+
         const textUtility = (() => {
             let scriptError = false;
             const scriptErrorTest = () => scriptError;
             const textElement = document.querySelector("section");
             const errorElement = document.querySelector("header");
+            const productNameElement = document.querySelector("section > p:first-child > span:first-child");
+            const productVersionElement = document.querySelector("section > p:first-child > span:last-child");
+            const repositoryAnchorElement = document.querySelector("#repository");
             const showError = text => { errorElement.style.display = "block"; errorElement.textContent = text; }
             const setPresentationScriptError = scriptPath => {
                 window.onerror = () => {
@@ -64,6 +76,9 @@
                 };
             })();
             const setupHelp = isRtl => {
+                productNameElement.textContent = definitionSet.productName;
+                productVersionElement.textContent = definitionSet.version;
+                repositoryAnchorElement.href = definitionSet.repository;
                 textElement.title = document.title;
                 if (!isRtl) return;
                 const replaceMap = new Map();
@@ -150,7 +165,8 @@
                     case "ArrowRight": move(presentation.rtl); break;
                     case "ArrowLeft": move(!presentation.rtl); break;
                     case "F11": document.requestFullscreen(); event.preventDefault(); break;
-                    case "F1": textUtility.toggleHelp(); event.preventDefault();
+                    case "F1": textUtility.toggleHelp(); event.preventDefault(); break;
+                    case "KeyS": window.location = definitionSet.repository;
                 }
             }; //document.body.onkeydown
             let touchStart = undefined;

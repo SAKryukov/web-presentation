@@ -16,7 +16,7 @@
        id="Prompt"
        style="font-size:192px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:transparent"
        inkscape:label="Prompt">
-      <animate attributeName="fill" from="transparent" to="black" fill="freeze" begin="0s" dur="0.0001s" />
+      <animate attributeName="fill" from="transparent" to="black" fill="freeze" begin="4s" dur="2s" />
       <path
          d="m 4794.8447,3779.4229 h 25.5 l 62.0625,117.0937 v -117.0937 h 18.375 v 139.9687 h -25.5 l -62.0625,-117.0937 v 117.0937 h -18.375 z"
          id="path889" />
@@ -481,11 +481,11 @@
     <g
        aria-label="presentation.html"
        id="presentation-html"
-       style="opacity:0.5;font-size:320px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:darkGreen;transform-origin: 3408px 2160px"
+       style="font-size:320px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:darkGreen;transform-origin: 3408px 2160px"
        inkscape:label="presentation.html">
        <animate attributeName="fill" from="transparent" to="darkGreen" fill="freeze" begin="0s" dur="4s" />
-       <animateTransform attributeName="transform" type="rotate" from="0" to="-25" dur="0.1s" fill="freeze" additive="sum" repeatCount="2"/>
-       <animateTransform attributeName="transform" type="scale" from="12" to="2" dur="0.1s" fill="freeze" additive="sum"/>
+       <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="2s" fill="freeze" additive="sum" repeatCount="2"/>
+       <animateTransform attributeName="transform" type="scale" from="12" to="1" dur="4s" fill="freeze" additive="sum"/>
       <path
          d="m 2258.7371,2429.0703 v 92.8125 h -28.9063 v -241.5625 h 28.9063 v 26.5625 q 9.0625,-15.625 22.8125,-23.125 13.9062,-7.6562 33.125,-7.6562 31.875,0 51.7187,25.3125 20,25.3125 20,66.5625 0,41.25 -20,66.5625 -19.8437,25.3125 -51.7187,25.3125 -19.2188,0 -33.125,-7.5 -13.75,-7.6563 -22.8125,-23.2813 z m 97.8125,-61.0937 q 0,-31.7188 -13.125,-49.6875 -12.9688,-18.125 -35.7813,-18.125 -22.8125,0 -35.9375,18.125 -12.9687,17.9687 -12.9687,49.6875 0,31.7187 12.9687,49.8437 13.125,17.9688 35.9375,17.9688 22.8125,0 35.7813,-17.9688 13.125,-18.125 13.125,-49.8437 z"
          id="path1065" />

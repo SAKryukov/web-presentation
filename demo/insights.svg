@@ -3,14 +3,14 @@
 Timeline:
 "SVG: Scalable Vector Graphics" 0s 2s
 "Raster" 1s 2s
-"Transition-effects-Question" 2s 2s
-"Video-Animation-Question" 3s 2s
-"Animated-WebP-Answer" 4s 2s
-"Transition-effects-Question" 5.5s 0.1s (fade out)
-"Animated-Answer" 6s 2s
-"Video-Animation-Question" 6.5s 0.1s (fade out)
-"Put-all" 8s 2s
-Prompt 10s
+"Transition-effects-Question" 4s 2s
+"Video-Animation-Question" 6s 2s
+"Animated-WebP-Answer" 8s 2s
+"Transition-effects-Question" 10.2s 0.1s (fade out)
+"Animated-Answer" 10s 2s
+"Video-Animation-Question" 12.2s 0.1s (fade out)
+"Put-all" 13s -> 15s 2s
+Prompt 15s
 -->
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
@@ -29,9 +29,9 @@ Prompt 10s
    inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)">
   <g
      inkscape:label="Put-all" style="transform-origin:center;opacity:0">
-     <animate attributeName="opacity" from="0" to="1" begin="8s" dur="0.1s" fill="freeze" additive="sum"/>
-     <animateTransform attributeName="transform" type="scale" from="0.001" to="1" begin="8s" dur="1s" additive="sum"/>
-     <animateTransform attributeName="transform" type="scale" from="1" to="3" begin="10s" dur="1s" fill="freeze" additive="sum"/>
+     <animate attributeName="opacity" from="0" to="1" begin="13s" dur="0.1s" fill="freeze" additive="sum"/>
+     <animateTransform attributeName="transform" type="scale" from="0.001" to="1" begin="13s" dur="1s" additive="sum"/>
+     <animateTransform attributeName="transform" type="scale" from="1" to="3" begin="15s" dur="1s" fill="freeze" additive="sum"/>
     <path
        style="fill:#ffccaa;stroke:#000000;stroke-width:10;paint-order:markers stroke fill"
        d="M 6287.3875,1720.6581 A 2659.041,1666.8124 0 0 1 3628.3464,3387.4705 2659.041,1666.8124 0 0 1 969.30542,1720.6581 2659.041,1666.8124 0 0 1 3628.3464,53.845703 2659.041,1666.8124 0 0 1 6287.3875,1720.6581 Z"
@@ -114,7 +114,7 @@ Prompt 10s
      id="Prompt"
      style="font-size:192px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:transparent"
      inkscape:label="Prompt">
-    <animate attributeName="fill" from="transparent" to="black" fill="freeze" begin="10s" dur="2s" />
+    <animate attributeName="fill" from="transparent" to="black" fill="freeze" begin="15s" dur="2s" />
     <path
        d="m 4794.8447,3779.4229 h 25.5 l 62.0625,117.0937 v -117.0937 h 18.375 v 139.9687 h -25.5 l -62.0625,-117.0937 v 117.0937 h -18.375 z"
        id="path889" />
@@ -182,8 +182,7 @@ Prompt 10s
   <g
      aria-label="SVG: Scalable Vector Graphics"
      style="font-size:192px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:MidnightBlue"
-     inkscape:label="SVG"
-     id="g72">
+     inkscape:label="SVG">
      <animateTransform attributeName="transform" type="translate" from="-3000 -500" to="0 0" dur="2s" fill="freeze" additive="sum" />
     <path
        d="m 2270.0027,296.88287 v 18.46875 q -10.7813,-5.15625 -20.3438,-7.6875 -9.5625,-2.53125 -18.4687,-2.53125 -15.4688,0 -23.9063,6 -8.3437,6 -8.3437,17.0625 0,9.28125 5.5312,14.0625 5.625,4.6875 21.1875,7.59375 l 11.4375,2.34375 q 21.1875,4.03125 31.2188,14.25 10.125,10.125 10.125,27.1875 0,20.34375 -13.6875,30.84375 -13.5938,10.5 -39.9375,10.5 -9.9375,0 -21.1875,-2.25 -11.1563,-2.25 -23.1563,-6.65625 v -19.5 q 11.5313,6.46875 22.5938,9.75 11.0625,3.28125 21.75,3.28125 16.2187,0 25.0312,-6.375 8.8125,-6.375 8.8125,-18.1875 0,-10.3125 -6.375,-16.125 -6.2812,-5.8125 -20.7187,-8.71875 l -11.5313,-2.25 q -21.1875,-4.21875 -30.6562,-13.21875 -9.4688,-9 -9.4688,-25.03125 0,-18.5625 13.0313,-29.25 13.125,-10.6875 36.0937,-10.6875 9.8438,0 20.0625,1.78125 10.2188,1.78125 20.9063,5.34375 z"
@@ -267,9 +266,9 @@ Prompt 10s
   <g
      aria-label="WebP: Raster Graphics"
      id="text857-2"
-     style="font-size:192px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:transparent"
+     style="font-size:192px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:transparent;fill:transparent"
      inkscape:label="Raster">
-    <animate attributeName="fill" from="transparent" to="Purple" fill="freeze" begin="1s" dur="2s" />
+    <animate attributeName="fill" from="transparent" to="Purple" fill="freeze" begin="2s" dur="2s" />
     <animateTransform attributeName="transform" type="translate" from="3000 5000" to="0 0" begin="2s" dur="2s" fill="freeze" additive="sum" />
     <path
        d="m 2542.1121,587.58429 h 19.125 l 29.4375,118.3125 29.3437,-118.3125 h 21.2813 l 29.4375,118.3125 29.3437,-118.3125 h 19.2188 l -35.1563,139.96875 h -23.8125 l -29.5312,-121.5 -29.8125,121.5 h -23.8125 z"
@@ -335,9 +334,9 @@ Prompt 10s
      style="font-size:192px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ff0000;transform-origin:3605px 1644px;opacity:0"
      inkscape:label="Video-Animation-Question"
      transform="translate(483.95731)">
-    <animate attributeName="opacity" from="0" to="1" begin="3s" dur="0.1s" fill="freeze"/>
-    <animateTransform attributeName="transform" type="scale" from="0.001" to="1" begin="3s" dur="2s" fill="freeze" additive="sum" />
-    <animate attributeName="opacity" from="1" to="0" begin="5.5s" dur="0.1s" fill="freeze"/>
+    <animate attributeName="opacity" from="0" to="1" begin="6s" dur="0.1s" fill="freeze"/>
+    <animateTransform attributeName="transform" type="scale" from="0.001" to="1" begin="6s" dur="2s" fill="freeze" additive="sum" />
+    <animate attributeName="opacity" from="1" to="0" begin="12.2s" dur="0.1s" fill="freeze"/>
     <path
        d="m 2314.4673,1737.2625 -53.4375,-139.9688 h 19.7812 l 44.3438,117.8438 44.4375,-117.8438 h 19.6875 l -53.3438,139.9688 z"
        id="path1066" />
@@ -393,9 +392,9 @@ Prompt 10s
      style="font-size:192px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ff0000;opacity:0"
      inkscape:label="Transition-effects-Question"
      transform="translate(1728.516)">
-    <animate attributeName="opacity" from="0" to="1" begin="2s" dur="0.1s" fill="freeze"/>
-    <animateTransform attributeName="transform" type="scale" from="0.001" to="1" begin="2s" dur="2s" fill="freeze" additive="sum" />
-    <animate attributeName="opacity" from="1" to="0" begin="6.5s" dur="0.1s" fill="freeze"/>
+    <animate attributeName="opacity" from="0" to="1" begin="4s" dur="0.1s" fill="freeze"/>
+    <animateTransform attributeName="transform" type="scale" from="0.001" to="1" begin="4s" dur="2s" fill="freeze" additive="sum" />
+    <animate attributeName="opacity" from="1" to="0" begin="10.2s" dur="0.1s" fill="freeze"/>
     <path
        d="m 1034.2367,1137.001 h 118.4062 v 15.9375 h -49.6875 v 124.0312 h -19.0312 v -124.0312 h -49.6875 z"
        id="path1006" />
@@ -450,10 +449,11 @@ Prompt 10s
   </g>
   <g
      aria-label="Animated WebP from video clips (FFMpeg) Animated WebP from drawings (GIMP and a lot more)..."
-     style="font-size:192px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:DarkGreen;transform-origin:3605px 1644px"
+     style="font-size:192px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:DarkGreen;transform-origin:3605px 1644px;opacity:0"
      inkscape:label="Animated-Answer">
-    <animateTransform attributeName="transform" type="scale" from="8" to="1" begin="6s" dur="2s" fill="freeze" additive="sum" />
-    <animateTransform attributeName="transform" type="translate" from="0 0" to="0 -600" dur="2s" fill="freeze" additive="sum" />
+    <animate attributeName="opacity" from="0" to="1" begin="10s" dur="0.1s" fill="freeze"/>
+    <animateTransform attributeName="transform" type="scale" from="8" to="1" begin="10s" dur="2s" fill="freeze" additive="sum" />
+    <animateTransform attributeName="transform" type="translate" from="0 0" to="0 -600" begin="10s" dur="2s" fill="freeze" additive="sum" />
     <path
        d="m 1670.2188,2257.2205 -25.6875,69.6562 H 1696 Z m -10.6875,-18.6563 H 1681 l 53.3438,139.9688 h -19.6875 l -12.75,-35.9063 h -63.0938 l -12.75,35.9063 h -19.9687 z"
        id="path1099" />
@@ -693,10 +693,9 @@ Prompt 10s
      aria-label="Animated WebP Answer"
      style="font-size:192px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:Maroon;opacity:0;transform-origin:-150 1387"
      inkscape:label="Animated-WebP-Answer"
-     transform="translate(-352.28339,0)"
-     id="g220">
-    <animate attributeName="opacity" from="0" to="1" begin="4s" dur="0.1s" fill="freeze" additive="sum"/>
-    <animateTransform attributeName="transform" type="scale" from="8" to="1" begin="4s" dur="2s" fill="freeze" additive="sum" />
+     transform="translate(-352.28339,0)">
+    <animate attributeName="opacity" from="0" to="1" begin="8s" dur="0.1s" fill="freeze" additive="sum"/>
+    <animateTransform attributeName="transform" type="scale" from="8" to="1" begin="8s" dur="2s" fill="freeze" additive="sum" />
     <path
        d="m 3287.9111,1152.0789 -25.6875,69.6562 h 51.4688 z m -10.6875,-18.6563 h 21.4688 l 53.3437,139.9688 h -19.6875 l -12.75,-35.9063 h -63.0937 l -12.75,35.9063 h -19.9688 z"
        id="path1041" />

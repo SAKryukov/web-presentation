@@ -10,6 +10,8 @@
 
 <!-- copy to CodeProject from here ------------------------------------------->
 
+![presentation.h](main.webp)
+
 ## Contents{no-toc}
 
 @toc

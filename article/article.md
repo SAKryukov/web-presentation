@@ -29,16 +29,17 @@ const presentation = {
         "demo/1.svg",
         "demo/2.webp",
     ],
-    rtl: false,
     title: "Presentation Demo",
+    hideHelpOnStart: false,
     colors: {
-        background: "lightGray",
+        background: "white",
         text: {
             background: "azure",
             foreground: "black",
-            border: "lightBlue"
-        }
-    }
+            border: "lightBlue",
+        },
+    },
+    rtl: false,
 };
 ```
 
@@ -54,10 +55,25 @@ This presentation can be loaded in a Web page by using the path to the presentat
 &lt;/html&gt;
 ```
 
-### Optional Presentation Options
+### Presentation Options
+
 All paths are relative to "presentation.html".
 
 `presentation.images`: an array of image file names, paths are relative to "presentation.html".
+
+Optional Options:
+
+`title`: presentation title
+
+`hideHelpOnStart`: boolean (true/false), default: `false`, that is, by default help text is shown on started
+
+`colors`: colors for the presentation backround and rendering of text data
+
+`colors.background`: presentation background. It is also applied as a background for all images supporting transparency of alpha channel.
+
+`colors.text`: colors for the rendering of text data, an object with three self-explained properties.
+
+`rtl`: the option for [right-to-left cultures](https://en.wikipedia.org/wiki/Right-to-left), explained in detail [below](#heading-rtl-support), default: `false`.
 
 ### Image File Types
 
@@ -70,6 +86,8 @@ For raster images, most practical and recommended format is [WebP](https://en.wi
 However, for presentation purposes the most important type of animation is vector, SVG, because people widely use various transition effects. Even though such effects more distract from the presentation than help to understand the material, they are considered as a must.
 
 ## Animation
+
+???
 
 ## Implementation Detail
 
@@ -95,12 +113,49 @@ This way, each `image.src` property assignment starts the animation. Accordingly
 
 ### Touchscreen Support
 
+```
+let touchStart = undefined;{lang=JavaScript}{id=code-touch}
+addEventListener("touchstart", event => {
+    touchStart = { x: event.changedTouches[0].clientX,
+                   y: event.changedTouches[0].clientY };
+}, false);
+addEventListener("touchend", event => { touchStart = undefined; }, false);
+addEventListener("touchmove", event => {
+    if (touchStart == undefined) return;
+    const vector = { x: event.changedTouches[0].clientX - touchStart.x,
+                    y: event.changedTouches[0].clientY - touchStart.y };
+    const horizontal = Math.abs(vector.x) > Math.abs(vector.y);
+    let back = horizontal ? vector.x > 0 : vector.y > 0;
+    if (horizontal && presentation.rtl) back = !back;
+    move(back);
+    touchStart = undefined;
+}, false);
+```
+This behavior also depends on the `presentation.rtl` option explained below.
+
 ### RTL Support
 
-Written writing cultures based on [right-to-left](https://en.wikipedia.org/wiki/Right-to-left) system also slightly modify the views of people. This cultural element can affect the way some people look at the [arrow of time](https://en.wikipedia.org/wiki/Arrow_of_time): while in Western cultures people imagine time as something floating from left to right, other people may think otherwise. In this case it can be more natural to view the flow of the presentation as somethin moving from right to left. For such people, `rtl` option is provided. It only changes the use of left/right arrows and left/right swipe with a touchscreen: the direction changed to is opposite. It is similar but has nothing to do with
+Written writing cultures based on [right-to-left](https://en.wikipedia.org/wiki/Right-to-left) system also slightly modify the views of people. This cultural element can affect the way some people look at the [arrow of time](https://en.wikipedia.org/wiki/Arrow_of_time): while in Western cultures people imagine time as something floating from left to right, other people may think otherwise. In this case it can be more natural to view the flow of the presentation as somethin moving from right to left. For such people, `rtl` option is provided. It only changes the use of left/right arrows and left/right swipe with a touchscreen: the direction changed to is opposite. It has nothing to do with [CSS direction](https://developer.mozilla.org/en-US/docs/Web/CSS/direction), but is based on similar considerations.
+
+Effectively, it only affects how people treat arrow keys "&larr;" and "&rarr;" and the direction of the touchscreen swipe. In Western cultures it is implied that "&larr;" means "previous" and "&rarr;" means "next", a person performing these operation imagines a current frame as a window, showing a strip of frames, representing the timeline. For touch screen swipe, a person "moves" not a window, but a strip of frames itself, so "&larr;" means "next" and "&rarr;" means "previous". In RTL cultures, all four operations come in opposite directions. At the same time, the meaning of up and down directions don't depend on the culture.
+
+Therefore, as the function `move` accepts a boolean parameter with the meaning of "go to previous frame", the handling of arrow keys depends on the `presentation.rtl`, but only for horizontal directions:
+
+```{lang=JavaScript}{id=code-keyboard}
+switch (event.code) {
+    case "Space":
+    case "ArrowDown": move(false); break;
+    case "Backspace":
+    case "ArrowUp": move(true); break;
+    case "ArrowRight": move(presentation.rtl); break;
+    case "ArrowLeft": move(!presentation.rtl); break;
+    //...
+}
+```
+In a similar way, the direction in reverse is used for horizontal directions only in the implementation of the [touchscreen swipe gestures](#code-touch).
 
 ### Error Handling
 
 ## Lisence Note
 
-All photo and graphic materials used in the demo are created by the author of this article and protected by the license referenced below.
+All photo, video and graphics materials used in the demo are created by the author of this article and protected by the license referenced below.

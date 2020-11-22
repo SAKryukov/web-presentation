@@ -12,15 +12,15 @@ const presentation = {
         "demo/look-at-video.svg",
         "demo/2020-09-17.video.32.webp",
      ],
-     hideHelpOnStart: true,
-     rtl: false,
      title: "Presentation Demo",
+     hideHelpOnStart: false,
      colors: {
          background: "white",
          text: {
              background: "azure",
              foreground: "black",
-             border: "lightBlue"
-         }
-     }
+             border: "lightBlue",
+         },
+     },
+     rtl: false,
 };

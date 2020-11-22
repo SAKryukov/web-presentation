@@ -22,7 +22,7 @@
 
 In addition to image files, the presentation needs to be described. First of all, it needs a list of relative paths to image file, to define both image data and the order of images in the presentation. All other options can be omitted, then the default settings are used. For example, let's assume we put it in a file "demo/presentation.js", path is relative to "presentation.html":
 
-```{lang=JavaScript}{id=presentation-sample}
+```{lang=JavaScript}{#presentation-sample}
 const presentation = {
     images: [ // relative to presentation.html
         "demo/1.webp",
@@ -45,7 +45,7 @@ const presentation = {
 
 This presentation can be loaded in a Web page by using the path to the presentation file in a query string of the URL. The easiest way to do it is havin a separate presentation-specific HTML file. Let's assume this is the file "demo/index.html", then it content could be:
 
-```{lang=HTML}{id=presentation-index-sample}
+```{lang=HTML}{#presentation-index-sample}
 &lt;!doctype HTML&gt;
 &lt;html&gt;
     &lt;head&gt;
@@ -99,7 +99,7 @@ So, I'll touch only few not so obvious aspects.
 
 Animation is preserved by not loading all images during the initialization phase. Instead, there is only one `img` element which is loaded from source by assignment to its `src` property only for the very first image of the presentation. All other images are loaded as the are shown:
 
-```{lang=HTML}{id=code-move}
+```{lang=JavaScript}{#code-move}
 const move = backward => {
     if (backward)
         if (current > 0) --current; else current = presentation.images.length - 1;
@@ -113,8 +113,8 @@ This way, each `image.src` property assignment starts the animation. Accordingly
 
 ### Touchscreen Support
 
-```
-let touchStart = undefined;{lang=JavaScript}{id=code-touch}
+```{lang=JavaScript}{#code-touch}
+let touchStart = undefined;
 addEventListener("touchstart", event => {
     touchStart = { x: event.changedTouches[0].clientX,
                    y: event.changedTouches[0].clientY };
@@ -141,7 +141,7 @@ Effectively, it only affects how people treat arrow keys "&larr;" and "&rarr;" a
 
 Therefore, as the function `move` accepts a boolean parameter with the meaning of "go to previous frame", the handling of arrow keys depends on the `presentation.rtl`, but only for horizontal directions:
 
-```{lang=JavaScript}{id=code-keyboard}
+```{lang=JavaScript}{#code-keyboard}
 switch (event.code) {
     case "Space":
     case "ArrowDown": move(false); break;
@@ -152,7 +152,7 @@ switch (event.code) {
     //...
 }
 ```
-In a similar way, the direction in reverse is used for horizontal directions only in the implementation of the [touchscreen swipe gestures](#code-touch).
+In a similar way, the direction in reverse is used for horizontal directions only in the implementation of the [touchscreen swipe](##heading-touchscreen-support) gestures.
 
 ### Error Handling
 

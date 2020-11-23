@@ -25,6 +25,7 @@
             section > p:first-child { margin-bottom: 0.4em; }
             section > li { padding-left: 1em; list-style-type: none; }
             section > nav { display: none; } /* RTL direction switch table */
+            video { display: none; width: 800px; margin-top: 1em; margin-left: auto; margin-right: auto; }
         </style>
     </head>
 <body>
@@ -42,10 +43,17 @@
         <p>S: <a id="repository" href="">Source code repository at GitHub</a></p>
         <nav>&rarr;&larr;</nav>
     </section>
+	<video controls="controls">
+		<source/>
+        <p>Your Web browser does not support standard media content.<br/>Please use REAL Web browser instead.</p>
+	</video>
 
 <script>
 
         "use strict";
+
+        const image = source => { return { source: source }; };
+        const video = (source, options) => { return { video: true, source: source, title: options.title, poster: options.poster }; };
 
         const definitionSet = {
             version: "1.1.0",
@@ -127,9 +135,8 @@
         const show = (element, doShow) => { element.style.display = doShow ? 'block' : 'none'; };
         const toPixels = (size) => { return (size).toString() + "px"; };
         
-        function initializeViewer(image, presentation) {
+        function initializeViewer(image, video, videoSource, presentation) {
             let current = 0;
-            image.src = presentation.images[current];
             const resize = image => {
                 const imageAspect = image.naturalWidth / image.naturalHeight;
                 const windowAspect = window.innerWidth / window.innerHeight;
@@ -145,16 +152,39 @@
                     image.style.marginLeft = toPixels((window.innerWidth - image.width) / 2);
                 } //if
             }; //resize
-            image.onload = event => { resize(event.target); };
-            window.onresize = () => resize(image);
-            const move = backward => {
-                if (backward)
-                    if (current > 0) --current; else current = presentation.images.length - 1;
-                else
-                    if (current < presentation.images.length - 1) ++current; else current = 0;
-                image.src = presentation.images[current];
+            const initial = "start";
+            const move = (backward) => {
+                video.pause()
+                if (backward != initial) {
+                    if (backward)
+                        if (current > 0) --current; else current = presentation.images.length - 1;
+                    else
+                        if (current < presentation.images.length - 1) ++current; else current = 0;
+                } //if
+                const item = presentation.images[current];
+                let src = "";
+                if (item.constructor != String) { //advanced
+                    if (item.video) {
+                        //video.setAttribute("poster", item.poster);
+                        video.setAttribute("title", item.title);
+                        videoSource.setAttribute("src", item.source);
+                        video.onplay = event => event.target.requestFullscreen();
+                	    video.onended = event => document.exitFullscreen();
+                        video.load();
+                        video.play();
+                    } else
+                        src = item.source;
+                } else {
+                    src = item;
+                };
+                show(video, item.video);
+                show(image, !item.video);
+                image.src = src;
                 resize(image);
             }; //move
+            move(initial);
+            image.onload = event => { resize(event.target); };
+            window.onresize = () => resize(image);
             document.body.onclick = event => event.ctrlKey ? move(true) : move();
             document.body.onkeydown = event => {
                 switch (event.code) {
@@ -194,6 +224,8 @@
                 textUtility.toggleHelp();
             textUtility.setupHelp(presentation.rtl);
             const image = document.createElement("img");
+            const video = document.querySelector("video");
+            const videoSource = document.querySelector("video > source");
             const setBackground = color => {
                 document.body.style.backgroundColor = color;
                 image.style.backgroundColor = color;
@@ -208,7 +240,7 @@
             if (presentation.title) document.title = presentation.title;
             setColors(presentation.colors);
             document.body.appendChild(image);
-            initializeViewer(image, presentation);
+            initializeViewer(image, video, videoSource, presentation);
         }; //document.body.onload
 
 </script>

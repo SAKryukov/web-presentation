@@ -26,7 +26,7 @@ For the last presentation, I delivered I already had a collection of SVG images 
 
 So I quickly put together the images in a JavaScript file and added the simplest script used to move from one image to another. What a relief! Who would ever need anything else?
 
-For this article, I decided to share this joy and also added some more advanced options and a demo, to re-work it into a comprehensive solution. Even after this development, it remains a minimalistic single-file product, even easier to use.
+For this article, I decided to share this joy and also added some more advanced settings and a demo, to re-work it into a comprehensive solution. Even after this development, it remains a minimalistic single-file product, even easier to use.
 
 In the demo, I added some animated SVG, static WebP photographs, and a WebP video converted from an out-of-camera video in the form of WebP animation. These files and the features have nothing to do with the presentation product itself, they just demonstrate that all we need is already available, can be created using open-source products only. At the same time, we can have all the features expected from those bloated office software applications, in a much easier way.
 
@@ -36,11 +36,11 @@ The basic usage is probably as simple as it can be. The [live demo](http://www.s
 
 Basically, the presenter creates a set of files each representing a presentation frame, lists their paths in required order in a presentation data file, and loads "presentation.h" in a browser, passing the presentation data file in the URL query string. Presentation starts.
 
-There is also some minimal set of advanced settings, each of them is optional.
+There is also some minimal set of advanced properties; each of them is optional.
 
 ### Presentation Data
 
-In addition to image files, the presentation needs to be described. First of all, it needs a list of relative paths to image file, to define both image data and the order of images in the presentation. All other options can be omitted, then the default settings are used. For example, let's assume we put it in a file "demo/presentation.js", path is relative to "presentation.html":
+In addition to image files, the presentation needs to be described. First of all, it needs a list of relative paths to image file, to define both image data and the order of images in the presentation. All other properties can be omitted, then the default values are used. For example, let's assume we put it in a file "demo/presentation.js", path is relative to "presentation.html":
 
 ```{lang=JavaScript}{#presentation-sample}
 const presentation = {
@@ -63,7 +63,7 @@ const presentation = {
 };
 ```
 
-This presentation can be loaded in a Web page by using the path to the presentation file in a query string of the URL. The easiest way to do it is havin a separate presentation-specific HTML file. Let's assume this is the file "demo/index.html", then it content could be:
+This presentation can be loaded in a Web page by using the path to the presentation file in a query string of the URL. The easiest way to do it is havin a separate presentation-specific HTML file. Let's assume this is the file "demo/index.html", then its content could be:
 
 ```{lang=HTML}{#presentation-index-sample}
 &lt;!doctype HTML&gt;
@@ -75,13 +75,13 @@ This presentation can be loaded in a Web page by using the path to the presentat
 &lt;/html&gt;
 ```
 
-### Presentation Options
+### Presentation Properties
 
-All paths are relative to "presentation.html".
+All paths are relative to the location of "presentation.html".
 
-`presentation.images`: an array of image file names, paths are relative to "presentation.html".
+`presentation.images`: an array of image file names, paths are relative to "presentation.html". This property is the only mandatory one. If it is missing, or this is an empty list, the application will report an error.
 
-Optional Options:
+Optional Properties:
 
 `title`: presentation title
 
@@ -109,7 +109,7 @@ However, for presentation purposes, the most important type of animation is vect
 
 Even though the creation of the image files is the sole responsibility of the user, I just want to comment on the creation of animation, using only the image file types standardized for Web and only open-source products and standards. There are many tools for the creation of the animation.
 
-For example, SVG can be created using [InkScape](https://en.wikipedia.org/wiki/InkScape). There is a lot of documentation on SVG animation, first of all, [SMIL](https://en.wikipedia.org/wiki/SVG_animation#SVG_animation_using_SMIL), which is probably the most suitable approach for presentation purposes: each transition effect takes just one short line of XML code, and the effects can be combined on the same element. Also, some add-ons for animation are available.
+For example, SVG can be created using [Inkscape](https://en.wikipedia.org/wiki/Inkscape). There is a lot of documentation on SVG animation, first of all, [SMIL](https://en.wikipedia.org/wiki/SVG_animation#SVG_animation_using_SMIL), which is probably the most suitable approach for presentation purposes: each transition effect takes just one short line of XML code, and the effects can be combined on the same element. Also, some add-ons for animation are available.
 
 For raster graphics, the best approach is probably WebP. I used two tools for the creation of animation. First of all, the animation can be composed of a set of separate frames in [GIMP](https://en.wikipedia.org/wiki/GIMP). To do so, one needs to put each frame in a separate layer, perform animation optimization ([Main menu] => Filters => Animation => Optimize (Difference)), and save the result in a WebP image. At the moment of saving, GIMP will offer an option to create an animation.
 
@@ -163,11 +163,11 @@ addEventListener("touchmove", event => {
     touchStart = undefined;
 }, false);
 ```
-This behavior also depends on the `presentation.rtl` option explained below.
+This behavior also depends on the `presentation.rtl` property explained below.
 
 ### RTL Support
 
-Written writing cultures based on the [right-to-left](https://en.wikipedia.org/wiki/Right-to-left) system also slightly modify the views of people. This cultural element can affect the way some people look at the [arrow of time](https://en.wikipedia.org/wiki/Arrow_of_time): while in Western cultures people imagine time as something floating from left to right, other people may think otherwise. In this case, it can be more natural to view the flow of the presentation as something moving from right to left. For such people, the `rtl` option is provided. It only changes the use of left/right arrows and left/right swipe with a touchscreen: the direction changed to is opposite. It has nothing to do with [CSS direction](https://developer.mozilla.org/en-US/docs/Web/CSS/direction) but is based on similar considerations.
+Written writing cultures based on the [right-to-left](https://en.wikipedia.org/wiki/Right-to-left) system also slightly modify the views of people. This cultural element can affect the way some people look at the [arrow of time](https://en.wikipedia.org/wiki/Arrow_of_time): while in Western cultures people imagine time as something floating from left to right, other people may think otherwise. In this case, it can be more natural to view the flow of the presentation as something moving from right to left. For such people, the `rtl` property is provided. It only changes the use of left/right arrows and left/right swipe with a touchscreen: the direction changed to is opposite. It has nothing to do with [CSS direction](https://developer.mozilla.org/en-US/docs/Web/CSS/direction) but is based on similar considerations.
 
 Effectively, it only affects how people treat arrow keys "&larr;" and "&rarr;" and the direction of the touchscreen swipe. In Western cultures it is implied that "&larr;" means "previous" and "&rarr;" means "next", a person performing these operations imagines a current frame as a window, showing a strip of frames, representing the timeline. For touch screen swipe, a person "moves" not a window, but a strip of frames itself, so "&larr;" means "next" and "&rarr;" means "previous". In RTL cultures, all four operations come in opposite directions. At the same time, the meaning of up and down directions doesn't depend on the culture.
 
@@ -189,4 +189,4 @@ Similarly, the direction in reverse is used for horizontal directions only in th
 
 ## License Note
 
-All photo, video, and graphics materials used in the demo are created by the author of this article and protected by the license referenced below.
+All photo, video, and graphics materials used in the demo are created by the [author of this article](https://www.codeproject.com/Members/SAKryukov) and protected by the license referenced below.

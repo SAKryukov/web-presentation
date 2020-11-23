@@ -14,7 +14,7 @@ A cross-platform replacement for all those office presentation applications in a
 
 <!-- copy to CodeProject from here ------------------------------------------->
 
-![presentation.h](main.jpeg)
+![presentation.h](main.jpg)
 
 ## Contents{no-toc}
 

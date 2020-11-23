@@ -63,7 +63,7 @@ const presentation = {
 };
 ```
 
-This presentation can be loaded in a Web page by using the path to the presentation file in a query string of the URL. The easiest way to do it is havin a separate presentation-specific HTML file. Let's assume this is the file "demo/index.html", then its content could be:
+This presentation can be loaded in a Web page by using the path to the presentation file in a query string of the URL. The easiest way to do it is having a separate presentation-specific HTML file. Let's assume this is the file "demo/index.html", then its content could be:
 
 ```{lang=HTML}{#presentation-index-sample}
 &lt;!doctype HTML&gt;

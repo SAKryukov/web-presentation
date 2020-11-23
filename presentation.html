@@ -25,7 +25,7 @@
             section > p:first-child { margin-bottom: 0.4em; }
             section > li { padding-left: 1em; list-style-type: none; }
             section > nav { display: none; } /* RTL direction switch table */
-            video { display: none; width: 800px; margin-top: 1em; margin-left: auto; margin-right: auto; }
+            video { display: none; width:50%; margin-top: 1em; padding: 0; margin-left: auto; margin-right: auto; }
         </style>
     </head>
 <body>
@@ -43,7 +43,7 @@
         <p>S: <a id="repository" href="">Source code repository at GitHub</a></p>
         <nav>&rarr;&larr;</nav>
     </section>
-	<video controls="controls">
+	<video controls="controls" disablePictureInPicture="true">
 		<source/>
         <p>Your Web browser does not support standard media content.<br/>Please use REAL Web browser instead.</p>
 	</video>
@@ -53,7 +53,12 @@
         "use strict";
 
         const image = source => { return { source: source }; };
-        const video = (source, options) => { return { video: true, source: source, title: options.title, poster: options.poster }; };
+        const video = (source, options) => {
+            const result = new Object(options);
+            result.source = source;
+            result.video = true;
+            return result;
+        };
 
         const definitionSet = {
             version: "1.1.0",
@@ -154,7 +159,8 @@
             }; //resize
             const initial = "start";
             const move = (backward) => {
-                video.pause()
+                video.pause();
+                document.exitFullscreen();
                 if (backward != initial) {
                     if (backward)
                         if (current > 0) --current; else current = presentation.images.length - 1;
@@ -165,13 +171,14 @@
                 let src = "";
                 if (item.constructor != String) { //advanced
                     if (item.video) {
-                        //video.setAttribute("poster", item.poster);
+                        video.setAttribute("poster", item.poster);
                         video.setAttribute("title", item.title);
                         videoSource.setAttribute("src", item.source);
                         video.onplay = event => event.target.requestFullscreen();
                 	    video.onended = event => document.exitFullscreen();
                         video.load();
-                        video.play();
+                        if (item.play)
+                            video.play();
                     } else
                         src = item.source;
                 } else {

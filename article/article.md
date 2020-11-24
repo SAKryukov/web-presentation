@@ -2,13 +2,13 @@
     enable: false
 }
 
-{title}Web Presentation, an Application in a Single File
+{title}Web Presentation, an Application in a Single File, now with Video
 
 [*Sergey A Kryukov*](https://www.SAKryukov.org){.author}
 
 A cross-platform replacement for all those office presentation applications in a single file
 
-*Who needs presentations created with boring bulky office presentation packages not always available for all systems? All you need is a Web browser and a set of vector/pixel images. With a solution in just one HTML/CSS/JavaScript file, you have all the features people use in presentations.*
+*Who needs presentations created with boring bulky office presentation packages not always available for all systems? All you need is a Web browser and a set of vector/pixel images. With a solution in just one HTML/CSS/JavaScript file, you have all the features people use in presentations. Since v.2, in addition to graphics and animated graphics, video elements can be added and controlled from the presentation frames.*
 
 [Live demo](http://www.sakryukov.org/software/GitHub.live/web-presentation/demo)
 
@@ -63,7 +63,28 @@ const presentation = {
 };
 ```
 
-This presentation can be loaded in a Web page by using the path to the presentation file in a query string of the URL. The easiest way to do it is having a separate presentation-specific HTML file. Let's assume this is the file "demo/index.html", then its content could be:
+The extended syntax since v.&thinsp;2 allows for adding of the video elements in the list. Here is the example:
+
+```
+const presentation = {
+    images: [ // relative to presentation.html
+        "demo/1.webp",
+        image("demo/1.svg"), // same as "demo/1.svg"
+        video("demo/myClip.webm", {
+            title: "My concert",
+            poster: "demo/our-concert-hall.webp"
+        }),
+        video("demo/myTrip.webm", {
+            title: "On the road",
+            play: true, // auto-play
+        }),
+    ],
+}
+```
+
+This way, the list of the presentation frames can be polymorphic, a sequential mixture of the image and video elements. See the [video properties below](##heading-video-properties).
+
+This presentation can be loaded on a Web page by using the path to the presentation file in a query string of the URL. The easiest way to do it is to have a separate presentation-specific HTML file. Let's assume this is the file "demo/index.html", then its content could be:
 
 ```{lang=HTML}{#presentation-index-sample}
 &lt;!doctype HTML&gt;
@@ -85,15 +106,34 @@ Optional Properties:
 
 `title`: presentation title
 
-`hideHelpOnStart`: boolean (true/false), default: `false`, that is, by default help text is shown on started
+`hideHelpOnStart`: boolean (true/false), default: `false`, that is, by default help text is shown on started.
 
-`colors`: colors for the presentation background and rendering of text data
+`colors`: colors for the presentation background and rendering of text data.
 
 `colors.background`: presentation background. It is also applied as a background for all images supporting transparency or alpha channel.
 
 `colors.text`: colors for the rendering of text data, an object with three self-explained properties.
 
 `rtl`: the option for [right-to-left cultures](https://en.wikipedia.org/wiki/Right-to-left), explained in detail [below](#heading-rtl-support), default: `false`.
+
+### Video Properties
+
+Each video element is added in the form
+
+```
+video("path_to_video_source_file", // relative to presentation.html
+    { /* video properties... */ } // optional
+)
+```
+Properties:
+
+`title`: String, the title of the `<video>` element.
+
+`poster`: String, the path to the raster graphics file shown as the poster over the video element before the video starts.
+
+`play`: `true`/`false`: auto play; if it is `true`, the video starts to play when its presentation frame becomes active.
+
+Note that using both `poster` and `play` at the same time makes little sense because if the video is started to play automatically, the spectators won't have enough time to see the poster.
 
 ### Image File Types
 
@@ -133,15 +173,78 @@ Animation is preserved by not loading all images during the initialization phase
 
 ```{lang=JavaScript}{#code-move}
 const move = backward => {
-    if (backward)
-        if (current > 0) --current; else current = presentation.images.length - 1;
-    else
-        if (current < presentation.images.length - 1) ++current; else current = 0;
+    // ...
+    // undefined: initialization, boolean: backward/forward:
+    if (backward != undefined) {
+        if (backward)
+            if (current > 0) --current; else current = presentation.images.length - 1;
+        else
+            if (current < presentation.images.length - 1) ++current; else current = 0;
     image.src = presentation.images[current];
-    resize(image);
+    // ...
+    if (isVideo) {
+        // ...
+        videoSource.src = item.source;
+        // ...
+    } else {
+        image.src = item;
+        resize(image);
+    }
+    show(video, isVideo);
+    show(image, !isVideo);
 };
 ```
-This way, each `image.src` property assignment starts the animation. Accordingly, the animation is started again every time the same image is shown.
+This way, each `image.src` property assignment starts the animation. Accordingly, the animation is started again every time the same image is shown. After the video capability feature has been added in v.&thinsp;2, `<img>` and `<video>` elements are shown/hidden, depending on the type of the current element in the `images` list. In contrast to graphics animation, video is started either by explicit user command (key "P", Play/Pause) or automatically, when the frame with the video becomes active &mdash; this is controlled by the video boolean property `play`, optionally found in the image list.
+
+### Loading, Starting, Pausing, and Stopping Video
+
+There are several confusing parts of the video API, so I want to make some useful notes on it.
+
+I have to start from the aspects required by the design. There could be a clash between the navigation inside of a video and the "outer" navigation of the presentation frames. I decided to resolve it in the following design: let's consider the &larr; and &rarr; keys dedicated to the presentation frame navigation. Jumping between the location withing a video is rarely needed during the presentation, but even if it is needed, mouse/touchscreen/touchpad can be used. Additionally, I dedicate the key "P" for video Play/Pause. When the video has played to the end, it also works as the video restarts, because this is how the call to `HTMLVideoElement.play()` works.
+
+Now, when an active frame needs to load a video, a previously shown video or graphics image should be unloaded. In contrast to the `img` element, assignment a string value to the property `HTMLSourceElement.src` is not enough; also `HTMLVideoElement.load()` should be called.
+
+All of this is taken into consideration here:
+
+```
+const move = backward => {
+    video.pause();
+    document.exitFullscreen();
+    videoSource.src = undefined;
+    image.src = undefined;
+    // ...
+    if (isVideo) {
+        if (item.source) {
+            video.poster = item.poster;
+            video.title = item.title;
+            videoSource.src = item.source;
+            video.onplay = event => event.target.requestFullscreen();
+            video.onended = event => document.exitFullscreen();
+            video.load();
+            if (item.play)
+                video.play();
+        } else
+            video.title = "Video file not specified";
+    } else {
+        image.src = item;
+        resize(image);
+    } //if
+    // ...
+}
+```
+
+```
+document.body.onkeydown = event => {
+    switch (event.code) {
+        // ...
+        case "KeyP":
+            if (videoSource.src)
+                if (video.paused) video.play(); else video.pause();
+    }
+};
+```
+
+I would say, most confusing part here is `document.exitFullscreen()`. I use the fullscreen API to show video in fullscreen when it is started, and naturally, we need the previous mode to be restored when the active presentation frame is changed. But what happens if the user also uses the browser's fullscreen mode?  Surprisingly, nothing wrong. Despite the function name, `document.exitFullscreen()` will render the same browser's fullscreen or window mode as before playing of the video. Video fullscreen and browser window fullscreen are different things and do not clash.
 
 ### Touchscreen Support
 
@@ -186,6 +289,20 @@ switch (event.code) {
 ```
 
 Similarly, the direction in reverse is used for horizontal directions only in the implementation of the [touchscreen swipe](##heading-touchscreen-support) gestures.
+
+### Releases
+
+#### 1.1.0
+
+November 22, 2020
+
+First production release, supports only media compatible with the `<img>` element: vector/raster graphics, and animated vector/raster graphics.
+
+#### 2.1.0
+
+November 24, 2020
+
+Video-ready release. In addition to images, a video can be added. The syntax of the media list is extended to embrace a polymorphic list of a mixture of graphics and video elements, while original syntax is preserved.
 
 ## License Note
 

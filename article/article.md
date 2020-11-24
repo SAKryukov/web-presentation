@@ -206,7 +206,7 @@ Now, when an active frame needs to load a video, a previously shown video or gra
 
 All of this is taken into consideration here:
 
-```
+```{lang=JavaScript}
 const move = backward => {
     video.pause();
     document.exitFullscreen();
@@ -233,7 +233,7 @@ const move = backward => {
 }
 ```
 
-```
+```{lang=JavaScript}
 document.body.onkeydown = event => {
     switch (event.code) {
         // ...

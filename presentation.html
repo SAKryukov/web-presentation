@@ -55,6 +55,7 @@
 
         const image = source => source;
         const video = (source, options) => {
+            if (!options) return { source: source, play: true };
             const result = new Object(options);
             result.source = source;
             return result;

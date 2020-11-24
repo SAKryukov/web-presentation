@@ -5,15 +5,13 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="1920mm"
    height="1080mm"
    viewBox="0 0 7256.6929 4081.8896"
    version="1.1">
   <g
-     style="font-size:192px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:transparent"
-     inkscape:label="Prompt">
+     style="font-size:192px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:transparent"
+     id="Prompt">
     <animate attributeName="fill" from="transparent" to="black" fill="freeze" begin="0.5s" dur="2s" />
     <path
        d="m 4794.8447,3779.4229 h 25.5 l 62.0625,117.0937 v -117.0937 h 18.375 v 139.9687 h -25.5 l -62.0625,-117.0937 v 117.0937 h -18.375 z"/>
@@ -60,8 +58,8 @@
   </g>
   <g
      aria-label="Now it's time to look at some photographs"
-     style="font-size:266.667px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:Indigo"
-     inkscape:label="Top-text">
+     style="font-size:266.667px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:Indigo"
+     id="Top-text">
     <path
        d="m 811.67984,355.5123 h 35.41671 l 86.19802,162.6304 V 355.5123 h 25.52087 v 194.40127 h -35.41671 l -86.19802,-162.6304 v 162.6304 h -25.52087 z"/>
     <path
@@ -133,8 +131,8 @@
   </g>
   <g
      aria-label="Images are arranged depending on their aspect ratio"
-     style="font-size:192px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:Maroon"
-     inkscape:label="Middle-text">
+     style="font-size:192px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:Maroon"
+     id="Middle-text">
     <path
        d="m 1092.6902,1384.8398 h 18.9375 v 139.9688 h -18.9375 z"/>
     <path
@@ -224,8 +222,7 @@
     <path
        d="m 6115.8152,1431.9023 q -13.875,0 -21.9375,10.875 -8.0625,10.7813 -8.0625,29.625 0,18.8438 7.9687,29.7188 8.0625,10.7812 22.0313,10.7812 13.7812,0 21.8437,-10.875 8.0625,-10.875 8.0625,-29.625 0,-18.6562 -8.0625,-29.5312 -8.0625,-10.9688 -21.8437,-10.9688 z m 0,-14.625 q 22.5,0 35.3437,14.625 12.8438,14.625 12.8438,40.5 0,25.7813 -12.8438,40.5 -12.8437,14.625 -35.3437,14.625 -22.5938,0 -35.4375,-14.625 -12.75,-14.7187 -12.75,-40.5 0,-25.875 12.75,-40.5 12.8437,-14.625 35.4375,-14.625 z"/>
   </g>
-  <g transform="translate(268.34646)"
-     sodipodi:insensitive="true">
+  <g transform="translate(268.34646)">
     <g transform="translate(0,71.549362)">
       <rect
          style="fill:none;stroke:#000000;stroke-width:10;stroke-opacity:1;paint-order:markers stroke fill"

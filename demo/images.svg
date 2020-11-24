@@ -11,14 +11,12 @@ timeline:
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="1920mm"
    height="1080mm"
    viewBox="0 0 7256.6929 4081.8896"
    version="1.1">
   <g id="Prompt"
-     style="font-size:192px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:transparent">
+     style="font-size:192px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:transparent">
     <animate attributeName="fill" from="transparent" to="black" fill="freeze" begin="4.2s" dur="2s" />
     <path
        d="m 4794.8447,3779.4229 h 25.5 l 62.0625,117.0937 v -117.0937 h 18.375 v 139.9687 h -25.5 l -62.0625,-117.0937 v 117.0937 h -18.375 z"/>
@@ -64,8 +62,8 @@ timeline:
        d="m 6992.5322,3895.5791 h 19.7813 v 23.8125 h -19.7813 z"/>
   </g>
   <g
-     style="font-size:192px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px"
-     inkscape:label="Src">
+     style="font-size:192px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px"
+     id="Src">
     <path
        d="m 310.57861,666.49939 v 16.125 q -7.3125,-4.03125 -14.71875,-6 -7.3125,-2.0625 -14.8125,-2.0625 -16.78125,0 -26.0625,10.6875 -9.28125,10.59375 -9.28125,29.8125 0,19.21875 9.28125,29.90625 9.28125,10.59375 26.0625,10.59375 7.5,0 14.8125,-1.96875 7.40625,-2.0625 14.71875,-6.09375 v 15.9375 q -7.21875,3.375 -15,5.0625 -7.6875,1.6875 -16.40625,1.6875 -23.71875,0 -37.6875,-14.90625 -13.96875,-14.90625 -13.96875,-40.21875 0,-25.6875 14.0625,-40.40625 14.15625,-14.71875 38.71875,-14.71875 7.96875,0 15.5625,1.6875 7.59375,1.59375 14.71875,4.875 z"/>
     <path
@@ -611,17 +609,16 @@ timeline:
   </g>
   <g
      style="opacity:0"
-     inkscape:label="Arrow-text">
+     id="Arrow-text">
      <animate attributeName="opacity" from="0" to="1" begin="1s" dur="2s" fill="freeze" additive="sum"/>
     <path
        style="fill:#ff0000;stroke:#000000;stroke-width:16;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 4857.5946,1758.02 -473.8251,383.001 582.4053,1.98 -120.4283,-132.2764 615.9696,-173.7284 L 5440,1760 4824.0305,1933.7284 Z"
-       inkscape:label="Arrow" />
+       id="Arrow" />
     <g
        aria-label="List your own images"
-       id="text992"
-       style="font-size:266.667px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ff0000"
-       inkscape:label="List">
+       style="font-size:266.667px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ff0000"
+       id="List">
       <path
          d="m 4214.3955,1374.2976 h 26.3022 v 172.2658 h 94.6615 v 22.1355 h -120.9637 z"/>
       <path
@@ -660,9 +657,8 @@ timeline:
   </g>
   <g
      aria-label="Look at presentation.js:"
-     id="text992-4"
-     style="font-size:266.667px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000080"
-     inkscape:label="Look">
+     style="font-size:266.667px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000080"
+     id="Look">
     <path
        d="m 236.48734,183.09628 h 26.30211 v 172.26583 h 94.66158 v 22.13545 H 236.48734 Z"/>
     <path
@@ -710,8 +706,8 @@ timeline:
   </g>
   <g
      aria-label="Enjoy!"
-     style="font-size:266.667px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#008000;opacity:0"
-     inkscape:label="Enjoy">
+     style="font-size:266.667px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#008000;opacity:0"
+     id="Enjoy">
      <animate attributeName="opacity" from="0" to="1" begin="3s" dur="2s" fill="freeze" additive="sum"/>
     <path
        d="m 5228.1988,2907.2403 h 122.9168 v 22.1355 h -96.6147 v 57.5521 h 92.5782 v 22.1355 h -92.5782 v 70.4428 h 98.9584 v 22.1354 h -125.2605 z"/>

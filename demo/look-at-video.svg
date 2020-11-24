@@ -5,15 +5,12 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="1920mm"
    height="1080mm"
    viewBox="0 0 7256.6929 4081.8896"
    version="1.1">
   <g id="Prompt"
- style="font-size:192px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:transparent"
- inkscape:label="Prompt">
+ style="font-size:192px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:transparent">
 <animate attributeName="fill" from="transparent" to="black" fill="freeze" begin="1.5s" dur="2s" />
 <path
    d="m 4794.8447,3779.4229 h 25.5 l 62.0625,117.0937 v -117.0937 h 18.375 v 139.9687 h -25.5 l -62.0625,-117.0937 v 117.0937 h -18.375 z"/>
@@ -60,9 +57,7 @@
   </g>
   <g transform="translate(-542.24044)">
 <g
-   aria-label=""
-   style="font-size:192px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#8b008b;stroke:#000000;stroke-width:4.90262;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-   inkscape:label="t1"
+   style="font-size:192px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#8b008b;stroke:#000000;stroke-width:4.90262;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
    transform="matrix(2.4476695,0,0,2.4476695,-2654.1552,-1265.0745)"
    id="t1-and">
   <path
@@ -76,7 +71,7 @@ d="m 1912.0656,930.68213 v -56.8125 h 17.25 v 145.87497 h -17.25 v -15.75 q -5.4
 style="stroke:#000000;stroke-width:4.90262;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
 </g>
 <g id="t2-finally"
-   style="font-size:192px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#9400d3;stroke:#000000;stroke-width:4.90262;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;opacity:0"
+   style="font-size:192px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#9400d3;stroke:#000000;stroke-width:4.90262;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;opacity:0"
    transform="matrix(2.4476695,0,0,2.4476695,-2654.1552,-1265.0745)">
   <animate attributeName="opacity" from="0" to="1" begin="0.5s" dur="0.5s" fill="freeze" additive="sum" />
   <path
@@ -102,7 +97,7 @@ d="m 2657.2529,995.93213 h 19.7813 v 16.12497 l -15.375,30 h -12.0938 l 7.6875,-
 style="stroke:#000000;stroke-width:4.90262;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
 </g>
 <g
-   style="font-size:192px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#9932cc;stroke:#000000;stroke-width:4.90262;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;opacity:0"
+   style="font-size:192px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#9932cc;stroke:#000000;stroke-width:4.90262;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;opacity:0"
    transform="matrix(2.4476695,0,0,2.4476695,-2654.1552,-1265.0745)"
    id="t1-some">
   <animate attributeName="opacity" from="0" to="1" begin="1s" dur="0.5s" fill="freeze" additive="sum" />
@@ -120,7 +115,7 @@ d="m 3308.3154,962.93213 v 8.4375 h -79.3125 q 1.125,17.8125 10.6875,27.1875 9.6
 style="stroke:#000000;stroke-width:4.90262;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
 </g>
 <g id="t4-video"
-   style="font-size:192px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ff00ff;stroke:#000000;stroke-width:4.90262;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;opacity:0"
+   style="font-size:192px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ff00ff;stroke:#000000;stroke-width:4.90262;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;opacity:0"
    transform="matrix(2.4476695,0,0,2.4476695,-2654.1552,-1265.0745)">
   <animate attributeName="opacity" from="0" to="1" begin="1.5s" dur="0.5s" fill="freeze" additive="sum" />
   <path

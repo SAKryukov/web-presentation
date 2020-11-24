@@ -11,17 +11,10 @@
    height="1080mm"
    viewBox="0 0 7256.6929 4081.8896"
    version="1.1">
-  <g
- id="Prompt"
+  <g id="Prompt"
  style="font-size:192px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:transparent"
  inkscape:label="Prompt">
-<animate
-   attributeName="fill"
-   from="transparent"
-   to="black"
-   fill="freeze"
-   begin="1.5s"
-   dur="2s" />
+<animate attributeName="fill" from="transparent" to="black" fill="freeze" begin="1.5s" dur="2s" />
 <path
    d="m 4794.8447,3779.4229 h 25.5 l 62.0625,117.0937 v -117.0937 h 18.375 v 139.9687 h -25.5 l -62.0625,-117.0937 v 117.0937 h -18.375 z"/>
 <path
@@ -82,8 +75,7 @@ style="stroke:#000000;stroke-width:4.90262;stroke-miterlimit:4;stroke-dasharray:
 d="m 1912.0656,930.68213 v -56.8125 h 17.25 v 145.87497 h -17.25 v -15.75 q -5.4375,9.375 -13.7813,13.9688 -8.25,4.5 -19.875,4.5 -19.0312,0 -31.0312,-15.1875 -11.9063,-15.18752 -11.9063,-39.93752 0,-24.75 11.9063,-39.9375 12,-15.1875 31.0312,-15.1875 11.625,0 19.875,4.59375 8.3438,4.5 13.7813,13.875 z m -58.7813,36.65625 q 0,19.03125 7.7813,29.90625 7.875,10.78127 21.5625,10.78127 13.6875,0 21.5625,-10.78127 7.875,-10.875 7.875,-29.90625 0,-19.03125 -7.875,-29.8125 -7.875,-10.875 -21.5625,-10.875 -13.6875,0 -21.5625,10.875 -7.7813,10.78125 -7.7813,29.8125 z"
 style="stroke:#000000;stroke-width:4.90262;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
 </g>
-<g
-   id="t2-finally"
+<g id="t2-finally"
    style="font-size:192px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#9400d3;stroke:#000000;stroke-width:4.90262;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;opacity:0"
    transform="matrix(2.4476695,0,0,2.4476695,-2654.1552,-1265.0745)">
   <animate attributeName="opacity" from="0" to="1" begin="0.5s" dur="0.5s" fill="freeze" additive="sum" />

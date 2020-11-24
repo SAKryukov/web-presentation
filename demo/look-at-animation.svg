@@ -5,18 +5,13 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="1920mm"
    height="1080mm"
    viewBox="0 0 7256.6929 4081.8896"
-   version="1.1"
-   sodipodi:docname="look-at-animation.svg"
-   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)">
+   version="1.1">
   <g
      id="Prompt"
-     style="font-size:192px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:transparent"
-     inkscape:label="Prompt">
+     style="font-size:192px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:transparent">
     <animate attributeName="fill" from="transparent" to="black" fill="freeze" begin="0s" dur="2s" />
     <path
        d="m 4794.8447,3779.4229 h 25.5 l 62.0625,117.0937 v -117.0937 h 18.375 v 139.9687 h -25.5 l -62.0625,-117.0937 v 117.0937 h -18.375 z"/>
@@ -65,7 +60,7 @@
      transform="translate(39.804238,200)">
     <g
        aria-label="WebP animation converted from video"
-       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:293.333px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#ffe680;stroke:#000000;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:293.333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffe680;stroke:#000000;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
       <path
          d="m 421.19562,707.74619 h 52.8515 l 36.95309,155.40347 36.66662,-155.40347 h 53.13796 l 36.66663,155.40347 36.95308,-155.40347 h 52.42182 L 676.42971,921.5871 H 612.83603 L 574.02097,759.02217 535.6356,921.5871 h -63.59368 z"
          style="stroke:#000000;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
@@ -162,7 +157,7 @@
     </g>
     <g
        aria-label="using FFMpeg"
-       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:293.333px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#ff9955;stroke:#000000;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:293.333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ff9955;stroke:#000000;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
       <path
          d="m 435.37529,1337.1393 v -97.9686 h 51.56244 v 16.0416 q 0,13.0339 -0.14323,32.7995 -0.14323,19.6223 -0.14323,26.2109 0,19.3359 1.00261,27.9296 1.0026,8.4505 3.43749,12.3177 3.15104,5.013 8.16406,7.7344 5.15624,2.7213 11.74478,2.7213 16.04164,0 25.2083,-12.3177 9.16666,-12.3177 9.16666,-34.2317 v -79.2056 h 51.27598 v 160.4165 h -51.27598 v -23.2031 q -11.60155,14.0364 -24.63539,20.7682 -12.89061,6.5885 -28.50257,6.5885 -27.78643,0 -42.39579,-17.0443 -14.46613,-17.0442 -14.46613,-49.5572 z"
          style="fill:#ff9955;stroke:#000000;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />

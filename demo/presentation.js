@@ -1,7 +1,7 @@
 ﻿"use strict";
 const presentation = {
     images: [ // relative to presentation.html
-        "demo/introduction.svg",
+        image("demo/introduction.svg"),
         "demo/insights.svg",
         "demo/images.svg",
         "demo/look-at-photo.svg",
@@ -10,6 +10,11 @@ const presentation = {
         "demo/2012-05-19.70.webp",
         "demo/2019-05-18.088.webp",
         "demo/look-at-video.svg",
+        video(""),
+        video("demo/CapeCode.20151108.143402.webm", {
+                                                         title: "Cape Code, Provincetown, Blackwater Pond",
+                                                         poster: "demo/2015-11-08-ProvinceTown-Blackwater-Pond-11.webp" 
+        }),
         "demo/2020-09-17.video.32.webp",
      ],
      title: "Presentation Demo",

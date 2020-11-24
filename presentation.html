@@ -40,6 +40,7 @@
         <p>Touchscreen swipe:</p>
         <li>&larr; &uarr;: Next</li>
         <li>&rarr; &darr;: Previous</li>
+        <p>P: Toggle Play/Pause in video mode</p>
         <p>S: <a id="repository" href="">Source code repository at GitHub</a></p>
         <nav>&rarr;&larr;</nav>
     </section>
@@ -52,11 +53,10 @@
 
         "use strict";
 
-        const image = source => { return { source: source }; };
+        const image = source => source;
         const video = (source, options) => {
             const result = new Object(options);
             result.source = source;
-            result.video = true;
             return result;
         };
 
@@ -157,42 +157,42 @@
                     image.style.marginLeft = toPixels((window.innerWidth - image.width) / 2);
                 } //if
             }; //resize
-            const initial = "start";
-            const move = (backward) => {
+            const move = backward => { //backward true <= backward, backward false => forward, else initialization
                 video.pause();
                 document.exitFullscreen();
-                if (backward != initial) {
+                videoSource.src = undefined;
+                image.src = undefined;
+                if (backward != undefined) {
                     if (backward)
                         if (current > 0) --current; else current = presentation.images.length - 1;
                     else
                         if (current < presentation.images.length - 1) ++current; else current = 0;
                 } //if
                 const item = presentation.images[current];
-                let src = "";
-                if (item.constructor != String) { //advanced
-                    if (item.video) {
-                        video.setAttribute("poster", item.poster);
-                        video.setAttribute("title", item.title);
-                        videoSource.setAttribute("src", item.source);
+                let isVideo = item.constructor != String;
+                if (isVideo) {
+                    if (item.source) {
+                        video.poster = item.poster;
+                        video.title = item.title;
+                        videoSource.src = item.source;
                         video.onplay = event => event.target.requestFullscreen();
-                	    video.onended = event => document.exitFullscreen();
+                        video.onended = event => document.exitFullscreen();
                         video.load();
                         if (item.play)
                             video.play();
                     } else
-                        src = item.source;
+                        video.title = "Video file not specified";
                 } else {
-                    src = item;
-                };
-                show(video, item.video);
-                show(image, !item.video);
-                image.src = src;
-                resize(image);
+                    image.src = item;
+                    resize(image);
+                } //if
+                show(video, isVideo);
+                show(image, !isVideo);
             }; //move
-            move(initial);
+            move();
             image.onload = event => { resize(event.target); };
             window.onresize = () => resize(image);
-            document.body.onclick = event => event.ctrlKey ? move(true) : move();
+            document.body.onclick = event =>  move(event.ctrlKey);
             document.body.onkeydown = event => {
                 switch (event.code) {
                     case "Space":
@@ -204,8 +204,12 @@
                     case "F11": document.requestFullscreen(); event.preventDefault(); break;
                     case "F1": textUtility.toggleHelp(); event.preventDefault(); break;
                     case "KeyS": window.location = definitionSet.repository;
+                    case "KeyP": 
+                        if (videoSource.src)
+                            if (video.paused) video.play(); else video.pause();
                 }
             }; //document.body.onkeydown
+            
             let touchStart = undefined;
             addEventListener("touchstart", event => {
                 touchStart = { x: event.changedTouches[0].clientX, y: event.changedTouches[0].clientY };
@@ -232,6 +236,7 @@
             textUtility.setupHelp(presentation.rtl);
             const image = document.createElement("img");
             const video = document.querySelector("video");
+            video.disablePictureInPicture = true;
             const videoSource = document.querySelector("video > source");
             const setBackground = color => {
                 document.body.style.backgroundColor = color;

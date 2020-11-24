@@ -10,11 +10,12 @@ const presentation = {
         "demo/2012-05-19.70.webp",
         "demo/2019-05-18.088.webp",
         "demo/look-at-animation.svg",
-        "demo/2020-09-17.video.32.webp",
+        image("demo/2020-09-17.video.32.webp"),
         image("demo/look-at-video.svg"),
         video("demo/CapeCode.20151108.143402.webm", {
             title: "Cape Code, Provincetown, Blackwater Pond",
-            poster: "demo/2015-11-08-ProvinceTown-Blackwater-Pond-11.webp" 
+            poster: "demo/2015-11-08-ProvinceTown-Blackwater-Pond-11.webp",
+            start: false
         }),
      ],
      title: "Presentation Demo",

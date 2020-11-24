@@ -5,17 +5,14 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="1920mm"
    height="1080mm"
    viewBox="0 0 7256.6929 4081.8896"
    version="1.1">
   <g>
     <g
-       id="Prompt"
-       style="font-size:192px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:transparent"
-       inkscape:label="Prompt">
+       style="font-size:192px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:transparent"
+       id="Prompt">
       <animate attributeName="fill" from="transparent" to="black" fill="freeze" begin="4s" dur="2s" />
       <path
          d="m 4794.8447,3779.4229 h 25.5 l 62.0625,117.0937 v -117.0937 h 18.375 v 139.9687 h -25.5 l -62.0625,-117.0937 v 117.0937 h -18.375 z"/>
@@ -62,9 +59,9 @@
     </g>
     <g
        aria-label="Web Presentation"
-       style="font-size:480px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:orange;stroke:black;stroke-width:10;stroke-miterlimit:4"
+       style="font-size:480px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:orange;stroke:black;stroke-width:10;stroke-miterlimit:4"
        transform="translate(371.29016,205.68129)"
-       inkscape:label="Title">
+       id="Title">
       <path
          d="m 1179.3223,74.295776 h 47.8125 l 73.5937,295.781254 73.3594,-295.781254 h 53.2031 l 73.5938,295.781254 73.3593,-295.781254 h 48.0469 l -87.8906,349.921874 h -59.5313 l -73.8281,-303.75 -74.5312,303.75 h -59.5313 z"
          style="fill:#ff910d;fill-opacity:1;stroke:#000000;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
@@ -113,8 +110,8 @@
     </g>
     <g
        aria-label="A a cross-platform replacement for all those office presentation applications in a single file..."
-       style="fill:darkSlateBlue;stroke:darkSlateBlue;font-size:192.445px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;stroke-width:20"
-       inkscape:label="Subtitle">
+       style="fill:darkSlateBlue;stroke:darkSlateBlue;font-size:192.445px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;stroke-width:20"
+       id="Subtitle">
       <path
          d="m 793.02429,1356.5859 -25.74703,69.8177 h 51.58804 z m -10.71227,-18.6995 h 21.51851 l 53.46739,140.2932 h -19.73313 l -12.77955,-35.9895 h -63.23999 l -12.77955,35.9895 h -20.01503 z"
          style="stroke-width:1"/>
@@ -361,9 +358,8 @@
     </g>
     <g
        aria-label="presentation.html"
-       id="presentation-html"
-       style="font-size:320px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:darkGreen;transform-origin: 3408px 2160px"
-       inkscape:label="presentation.html">
+       style="font-size:320px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:darkGreen;transform-origin: 3408px 2160px"
+       id="presentation.html">
        <animate attributeName="fill" from="transparent" to="darkGreen" fill="freeze" begin="0s" dur="4s" />
        <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="2s" fill="freeze" additive="sum" repeatCount="2"/>
        <animateTransform attributeName="transform" type="scale" from="12" to="1" dur="4s" fill="freeze" additive="sum"/>

@@ -65,7 +65,7 @@ const presentation = {
 
 The extended syntax since v.&thinsp;2 allows for adding of the video elements in the list. Here is the example:
 
-```
+```{lang=JavaScript}
 const presentation = {
     images: [ // relative to presentation.html
         "demo/1.webp",
@@ -120,7 +120,7 @@ Optional Properties:
 
 Each video element is added in the form
 
-```
+```{lang=JavaScript}
 video("path_to_video_source_file", // relative to presentation.html
     { /* video properties... */ } // optional
 )

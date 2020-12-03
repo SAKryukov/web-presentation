@@ -14,7 +14,8 @@
         <title>, Copyright &copy; Sergey A Kryukov, 2020</title>
         <style>
             * { font-family: sans-serif; margin: 0; padding: 0; border: none; touch-action: none; user-select: none; }
-            body { overflow: hidden; }
+            html { height: 100%; }
+            body { overflow: hidden; height: 100%; display: block; justify-content: center; align-items: center; }
             section, header {
                 display: none;
                 background-color: white; position: absolute;
@@ -25,7 +26,7 @@
             section > p:first-child { margin-bottom: 0.4em; }
             section > li { padding-left: 1em; list-style-type: none; }
             section > nav { display: none; } /* RTL direction switch table */
-            video { display: none; width: 50%; padding: 0; margin-left: auto; margin-right: auto; }
+            video { display: none; width: 40%; padding: 0; margin-left: auto; margin-right: auto; }
         </style>
     </head>
 <body>
@@ -144,31 +145,19 @@
         function initializeViewer(image, video, videoSource, presentation) {
             let current = 0;
             const resize = image => {
+                const imageAspect = image.naturalWidth / image.naturalHeight;
                 const windowAspect = window.innerWidth / window.innerHeight;
-                const isVideo = image.constructor == HTMLVideoElement;
-                if (isVideo)
-                    console.log("is video");
-                let imageWidth = isVideo ? image.offsetWidth : image.naturalWidth;
-                let imageHeight = isVideo ? image.offsetHeight : image.naturalHeight;
-                const imageAspect = imageWidth / imageHeight;
                 if (imageAspect > windowAspect) {
-                    imageWidth = window.innerWidth;
-                    imageHeight = imageWidth / imageAspect;
+                    image.width = window.innerWidth;
+                    image.height = image.width / imageAspect;
                     image.style.marginLeft = 0;
-                    image.style.marginTop = toPixels((window.innerHeight - imageHeight) / 2);
+                    image.style.marginTop = toPixels((window.innerHeight - image.height) / 2);
                 } else {
-                    imageHeight = window.innerHeight;
-                    imageWidth = imageHeight * imageAspect;
+                    image.height = window.innerHeight;
+                    image.width = image.height * imageAspect;
                     image.style.marginTop = 0;
-                    image.style.marginLeft = toPixels((window.innerWidth - imageWidth) / 2);
+                    image.style.marginLeft = toPixels((window.innerWidth - image.width) / 2);
                 } //if
-                if (isVideo) {
-                    image.style.width = `${imageWidth}px`;
-                    image.style.height = `${imageHeight}px`;
-                } else {
-                    image.width = imageWidth;
-                    image.height = imageHeight;
-                }
             }; //resize
             const move = backward => { //backward true <= backward, backward false => forward, else initialization
                 video.pause();
@@ -183,6 +172,7 @@
                 } //if
                 const item = presentation.images[current];
                 let isVideo = item.constructor != String;
+                document.body.style.display = isVideo ? "flex" : "block";
                 if (isVideo) {
                     if (item.source) {
                         video.poster = item.poster;
@@ -191,7 +181,6 @@
                         video.onplay = event => event.target.requestFullscreen();
                         video.onended = event => document.exitFullscreen();
                         video.load();
-                        setTimeout(() => resize(video));
                         if (item.play)
                             video.play();
                     } else
@@ -199,13 +188,13 @@
                 } else {
                     image.src = item;
                     resize(image);
-                }
+                } //if
                 show(video, isVideo);
                 show(image, !isVideo);
             }; //move
             move();
             image.onload = event => { resize(event.target); };
-            window.onresize = () => videoSource.src ? resize(video) : resize(image);
+            window.onresize = () => resize(image);
             document.body.onclick = event =>  move(event.ctrlKey);
             document.body.onkeydown = event => {
                 switch (event.code) {

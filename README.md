@@ -4,7 +4,7 @@ Web browser-based application, analogous to those office presentation applicatio
 
 ### Live Demo
 
-See the live demo presentation in ./demo, run the [life demo](http://www.SAKryukov.org/software/GitHub.live/web-presentation/demo) in the browser.
+See the live demo presentation in ./demo, run the [live demo](http://www.SAKryukov.org/software/GitHub.live/web-presentation/demo) in the browser.
 
 ### Usage
 

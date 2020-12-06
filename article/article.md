@@ -10,9 +10,14 @@ A cross-platform replacement for all those office presentation applications in a
 
 *Who needs presentations created with boring bulky office presentation packages not always available for all systems? All you need is a Web browser and a set of vector/pixel images. With a solution in just one HTML/CSS/JavaScript file, you have all the features people use in presentations. Since v.2, in addition to graphics and animated graphics, video elements can be added and controlled from the presentation frames.*
 
-[Live demo](http://www.sakryukov.org/software/GitHub.live/web-presentation/demo)
-
 <!-- copy to CodeProject from here ------------------------------------------->
+
+<ul class="download">
+	<li><a href="Web-presentation.zip">Download source code file and demo &mdash; 11.7 MB</a></li>
+	<li><a href="http://www.sakryukov.org/software/GitHub.live/web-presentation/demo">Live demo</a></li>
+</ul>
+
+(This demo uses one AV1 video, which is compatible with almost all browsers, but not Microsoft Edge)
 
 ![presentation.h](main.jpg)
 
@@ -303,6 +308,12 @@ First production release, supports only media compatible with the `<img>` elemen
 November 24, 2020
 
 Video-ready release. In addition to images, a video can be added. The syntax of the media list is extended to embrace a polymorphic list of a mixture of graphics and video elements, while original syntax is preserved.
+
+#### 3.0.0
+
+December 6, 2020
+
+Style improvements for video. In response to feature requests (CodeProject member [gunamoi1](https://www.codeproject.com/Members/gunamoi1)), the video element is always centered or in the fullscreen mode.
 
 ## License Note
 

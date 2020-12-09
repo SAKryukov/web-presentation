@@ -27,13 +27,11 @@ A cross-platform replacement for all those office presentation applications in a
 
 ## Motivation
 
-For the last presentation, I delivered I already had a collection of SVG images mostly representing some architectural solutions. When you develop architectural and design solutions, you always have some, as SVG is the most universal vector format. While photos can be easily shown in a presentation manner using a suitable image viewer, SVG typically takes some extra effort, and probably the worst option would be messing with those office presentation applications. Why not showing the images themselves? After all, they are scalable and compatible with all non-nonsense Web browsers.
+For the last presentation I delivered, I already had a collection of SVG images mostly representing some architectural solutions. When you develop architectural and design solutions, you always have some, as SVG is the most universal vector format. While photos can be easily shown in a presentation manner using a suitable image viewer, SVG typically takes some extra effort, and probably the worst option would be messing with those office presentation applications. Why not showing the images themselves? After all, they are scalable and compatible with all non-nonsense Web browsers.
 
 So I quickly put together the images in a JavaScript file and added the simplest script used to move from one image to another. What a relief! Who would ever need anything else?
 
-For this article, I decided to share this joy and also added some more advanced settings and a demo, to re-work it into a comprehensive solution. Even after this development, it remains a minimalistic single-file product, even easier to use.
-
-In the demo, I added some animated SVG, static WebP photographs, and a WebP video converted from an out-of-camera video in the form of WebP animation. These files and the features have nothing to do with the presentation product itself, they just demonstrate that all we need is already available, can be created using open-source products only. At the same time, we can have all the features expected from those bloated office software applications, in a much easier way.
+In the demo, I added some animated SVG, static WebP photographs, and a WebP video converted from an out-of-camera video in the form of WebP animation, and, in a later version, also a real WebM video sample. These files and the features have nothing to do with the presentation product itself, they just demonstrate that all we need is already available, can be created using open-source products only. At the same time, we can have all the features expected from those bloated office software applications, in a much easier way.
 
 ## Usage
 

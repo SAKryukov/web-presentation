@@ -5,6 +5,7 @@
             "type": "chrome",
             "request": "launch",
             "name": "Launch Chrome",
+            "runtimeArgs": ["--incognito", "--enable-precise-memory-info"],
             "file": "presentation.html?demo/presentation.js",
         }
     ]

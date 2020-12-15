@@ -2,9 +2,7 @@
 
 Web browser-based application, analogous to those office presentation applications, in a single file.
 
-There are two independent solutions: 1) the single file is presentation.html, then the user lists presentation items in a JavaScript file, 2) the signle file is presentation.js, then the user lists in an HTML files.
-Both solutions have their benefits and drawbacks. The second solution is a bit more complicated, but it offers extra flexibility, embedded HTML presentation frames, and detailed diagnostic of 
-
+There are two independent solutions: 1) the single file is presentation.html, then the user lists the presentation items in a JavaScript file, 2) the single file is presentation.js, then the user list is in an HTML file. Both solutions have their benefits and drawbacks. The second solution is a bit more complicated, but it offers extra flexibility, embedded HTML presentation frames, and detailed diagnostic of possible user errors.
 ### Live Demo
 
 See the live demo presentation in ./demo, run the [live demo](http://www.SAKryukov.org/software/GitHub.live/web-presentation/demo) in the browser.

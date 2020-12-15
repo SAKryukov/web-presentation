@@ -57,6 +57,7 @@ const presentationFrameParser = selector => {
             const videoFrameInfo = { type: frameType.video, file: files[0].trim() };
             if (files.length == 2) videoFrameInfo.poster = files[1].trim();
             if (typeInfo == true)  videoFrameInfo.autostart = typeInfo == videoAutostart;
+            if (element.title) videoFrameInfo.title = element.title;
             frames.push(videoFrameInfo);
             continue;          
         } //if
@@ -67,6 +68,11 @@ const presentationFrameParser = selector => {
 }; //presentationFrameParser
 
 const optionParser = selector => {
+    const getValue = stringValue => {
+        if (stringValue.toLowerCase() == true.toString()) return true;
+        else if (stringValue.toLowerCase() == false.toString()) return false;
+        else return stringValue;
+    }; //getValue
     const optionDefaults = { hideHelpOnStart: false, rtl: false, background: "white" };
     let validOptionNames = [];
     for (let optionName in optionDefaults) validOptionNames.push(optionName);
@@ -83,7 +89,7 @@ const optionParser = selector => {
             } //lf
         if (!valid)
             return `Invalid option name: "${option.textContent}". Valid options: ${messageValidOptionNames}.`;
-        options[option.textContent] = option.value;
+        options[option.textContent] = getValue(option.value);
     } //loop
     return options;
 } //optionParser
@@ -93,6 +99,11 @@ window.onload = () => {
     const frames = presentationFrameParser("body > *:not(select)");
     const options = optionParser("body > select");
     document.body.innerHTML = "";
+
+    const savedStyle = {
+        html: document.body.parentElement.style,
+        body: document.body.style,
+    }; //savedStyle
     
     const frameElements = (() => {
         const elements = {};
@@ -112,20 +123,17 @@ window.onload = () => {
             elements.help.style.top = "0.4em";
             document.body.appendChild(elements.help); 
         })(); //help
+        elements.videoSource = document.createElement("source");
+        elements.video.appendChild(elements.videoSource);
         return elements;
     })();
 
+    const show = (element, doShow) => element.style.display = doShow ? "block" : "none";
     const setVisibility = type => {
         let numericIndex = 0;
         for (let type in frameType)
-            frameElements[type].style.display = numericIndex++ == frameType[type] ? "block" : "none";
+            show(frameElements[type], numericIndex++ == frameType[type] ? true : false);
     } //setVisibility
-    for (let frame of frames) {
-        if (frame.type == frameType.html) {
-            setVisibility(frameType.html);
-            frameElements.html.innerHTML = frame.html;
-        }
-    } //loop
 
     const textUtility = (() => {
         const setErrorStyle = () => {
@@ -138,12 +146,11 @@ window.onload = () => {
             setErrorStyle();
             document.body.textContent = text;
         }; //showError
-        const setHelpVisibility = show => frameElements.help.style.display = show ? "block" : "none";
         const toggleHelp = (() => {
             let helpActive = false;
             return () => {
                 helpActive = !helpActive;
-                setHelpVisibility(helpActive);
+                show(frameElements.help, helpActive);
             };
         })(); //toggleHelp
         const setupHelp = isRtl => {
@@ -157,15 +164,100 @@ window.onload = () => {
     if (options.constructor == String)
         return textUtility.showError(options);
     textUtility.setupHelp(options.rtl);
-    if (!(options.hideHelpOnStart == true.toString()))
+    if (!options.hideHelpOnStart)
         textUtility.toggleHelp();
     document.body.style.backgroundColor = options.background;
     document.body.parentElement.style.backgroundColor = options.background;
 
-    const savedStyle = {
-        html: document.body.parentElement.style,
-        body: document.body.style,
-    };
+    ////////////////////////////////////////////////////////////////////////////////////
+
+    const toPixels = (size) => { return (size).toString() + "px"; };    
+
+    function initializeViewer(image, video, videoSource, frames) {
+        let current = 0;
+        const resize = image => {
+            const imageAspect = image.naturalWidth / image.naturalHeight;
+            const windowAspect = window.innerWidth / window.innerHeight;
+            if (imageAspect > windowAspect) {
+                image.width = window.innerWidth;
+                image.height = image.width / imageAspect;
+                image.style.marginLeft = 0;
+                image.style.marginTop = toPixels((window.innerHeight - image.height) / 2);
+            } else {
+                image.height = window.innerHeight;
+                image.width = image.height * imageAspect;
+                image.style.marginTop = 0;
+                image.style.marginLeft = toPixels((window.innerWidth - image.width) / 2);
+            } //if
+        }; //resize
+        const move = backward => { //backward true <= backward, backward false => forward, else initialization
+            video.pause();
+            //document.exitFullscreen();
+            videoSource.src = undefined;
+            image.src = undefined;
+            if (backward != undefined) {
+                if (backward)
+                    if (current > 0) --current; else current = frames.length - 1;
+                else
+                    if (current < frames.length - 1) ++current; else current = 0;
+            } //if
+            const item = frames[current];
+            let isVideo = item.type == frameType.video;
+            document.body.style.display = isVideo ? "flex" : "block";
+            if (isVideo) {
+                if (item.file) {
+                    video.poster = item.poster;
+                    video.title = item.title;
+                    videoSource.src = item.file;
+                    video.onplay = event => event.target.requestFullscreen();
+                    video.onended = () => document.exitFullscreen();
+                    video.load();
+                    if (item.play)
+                        video.play();
+                } else
+                    video.title = "Video file not specified";
+            } else {
+                image.src = item.file;
+                resize(image);
+            } //if
+            setVisibility(item.type);
+        }; //move
+        move();
+        frameElements.image.onload = event => { resize(event.target); };
+        window.onresize = () => resize(image);
+        document.body.onclick = event =>  move(event.ctrlKey);
+        document.body.onkeydown = event => {
+            switch (event.code) {
+                case "Space":
+                case "ArrowDown": move(false); break;
+                case "Backspace":
+                case "ArrowUp": move(true); break;
+                case "ArrowRight": move(options.rtl); break;
+                case "ArrowLeft": move(!options.rtl); break;
+                case "F11": document.requestFullscreen(); event.preventDefault(); break;
+                case "F1": textUtility.toggleHelp(); event.preventDefault(); break;
+                case "KeyS": window.location = definitionSet.repository;
+                case "KeyP": 
+                    if (videoSource.src)
+                        if (video.paused) video.play(); else video.pause();
+            }
+        }; //document.body.onkeydown
+        let touchStart = undefined;
+        addEventListener("touchstart", event => {
+            touchStart = { x: event.changedTouches[0].clientX, y: event.changedTouches[0].clientY };
+        }, false);
+        addEventListener("touchend", event => { touchStart = undefined; }, false);
+        addEventListener("touchmove", event => {
+            if (touchStart == undefined) return;
+            const vector = { x: event.changedTouches[0].clientX - touchStart.x, y: event.changedTouches[0].clientY - touchStart.y };
+            const horizontal = Math.abs(vector.x) > Math.abs(vector.y);
+            let back = horizontal ? vector.x > 0 : vector.y > 0;
+            if (horizontal && options.rtl) back = !back;
+            move(back);
+            touchStart = undefined;
+        }, false);
+    }; //initializeViewer
+    initializeViewer(frameElements.image, frameElements.video, frameElements.videoSource, frames);
 
     const toSaved = () => {
         document.body.parentElement.style = savedStyle.html;
@@ -177,12 +269,5 @@ window.onload = () => {
         document.body.style.backgroundColor = "yellow";
         document.body.style.fontWeight = "normal";
     };
-
-    window.onkeydown = event => {
-        switch (event.code) {
-            case "KeyA": toPresentation(); break;
-            case "KeyS": toSaved();
-        }
-    }
 
 }; //window.onload

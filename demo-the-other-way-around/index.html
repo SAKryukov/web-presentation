@@ -4,12 +4,18 @@
         <script src="presentation.js"></script>
         <title>User Title</title>
         <style>
-            * { font-family: "Impact"; touch-action: none; user-select: none; }
-            p { color: darkslateblue; font-style: italic; font-variant-caps: petit-caps; font-variant-position: super; }
-            body, html { background-color: beige; }
-            h1 { text-align: center; }
-            p { text-align: center; }
-            body { font-family: "Impact"; }
+            /** { font-family: "Impact"; touch-action: none; user-select: none; }*/
+            /* { padding: 0; margin: 0; } */
+            p { color: darkslateblue; }
+            body, html { background-color: beige; height: 100%; overflow: hidden; }
+            main { display: flex; height: 100%; flex-direction: column;
+                align-items: center; justify-content: space-around;
+                padding: 2em; padding-bottom: 0; margin-bottom: 0;
+            }
+            main > h1 { font-size: 200%; }
+            main p { font-size: 140%; }
+            main > p:last-child { align-self: flex-end; justify-self: right; }
+            body { font-family: "Arial"; }
         </style>
     </head>
 <body>
@@ -22,7 +28,11 @@
 <i class="video" title="My video">../demo/CapeCode.20151108.143402.webm : ../demo/2015-11-08-ProvinceTown-Blackwater-Pond-11.webp</i>
 <i class="html">
     <h1>HTML Demo</h1>
-    <p>Paragraph</p>
+    <section>
+        <p>Paragraph</p>
+        <p>Long Paragraph</p>
+    </section>
+    <p>Next: press space bar...</p>
 </i>
 
 <select>

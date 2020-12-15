@@ -7,7 +7,7 @@ const definitionSet = {
 }; //definitionSet
 
 const frameType = { image: 0, html: 1, video: 2, };
-const frameTypeElement = { image: "img", html: "main", video: "video", };
+const frameTypeElement = { image: "img", html: "main", video: "video", help: "header" };
 const presentationFrameParser = selector => {
     const autoStartClass = "autostart";
     const videoAutostart = -1;
@@ -27,7 +27,7 @@ const presentationFrameParser = selector => {
         if (classes.length == 1) {
             let index = 0;
             for (let name of frameTypeNames) {
-                if (name.toLowerCase() == classes[0].toLowerCase())
+              if (name.toLowerCase() == classes[0].toLowerCase())
                     return index;
                 ++index;
             } //loop
@@ -102,10 +102,17 @@ const optionParser = selector => {
 
 window.onload = () => {
 
+    // const testElement = document.createElement("main");
+    // document.body.appendChild(testElement);
+    // //setTimeout(() => {
+    //     const testDisplayStyle = window.getComputedStyle(testElement, null).getPropertyValue("display");
+    //     console.log(1);
+    // //}, 1);
+
     const getStyle = () => {
         return {
             html: document.body.parentElement.style,
-            body: document.body.style    
+            body: document.body.style
         }
     }; // getStyle
     const setStyle = style => {
@@ -120,14 +127,21 @@ window.onload = () => {
     document.body.innerHTML = "";
 
     const frameElements = (() => {
-        const elements = {};
+        const elements = {};        
+        elements.userHtmlStyle = (() => {
+            const testElement = document.createElement(frameTypeElement.html);
+            document.body.appendChild(testElement);
+            const result = getComputedStyle(testElement, null).getPropertyValue("display");
+            document.body.removeChild(testElement);
+            return result;
+        })(); //elements.userHtmlStyle
         for (let type in frameType) {
             elements[type] = document.createElement(frameTypeElement[type]);
             elements[type].style.display = "none";
             document.body.appendChild(elements[type]); 
         } //loop
         (() => { // help
-            elements.help = document.createElement("section");
+            elements.help = document.createElement(frameTypeElement.help);
             elements.help.style.display = "none";
             elements.help.style.position = "absolute";
             document.body.appendChild(elements.help); 
@@ -146,7 +160,10 @@ window.onload = () => {
         return elements;
     })();
 
-    const show = (element, doShow) => element.style.display = doShow ? "block" : "none";
+    const show = (element, doShow) => element.style.display = doShow ? 
+        (element == frameElements.html ? frameElements.userHtmlStyle : "block")
+        :
+        "none";
     const setVisibility = type => {
         for (let typeName in frameType)
             show(frameElements[typeName], type == frameType[typeName] ? true : false);

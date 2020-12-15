@@ -102,21 +102,23 @@ const optionParser = selector => {
 
 window.onload = () => {
 
-    document.body.style.height = "100%";
-    document.body.parentElement.style.height = "100%";
-    document.body.style.justifyContent = "center";
-    document.body.style.alignItems = "center";
-    document.body.style.overflow = "hidden";
+    const getStyle = () => {
+        return {
+            html: document.body.parentElement.style,
+            body: document.body.style    
+        }
+    }; // getStyle
+    const setStyle = style => {
+        document.body.parentElement.style = style.html;
+        document.body.style = style.body;    
+    } //setStyle
+    
+    const userStyle = getStyle();
 
     const frames = presentationFrameParser("body > *:not(select)");
     const options = optionParser("body > select");
     document.body.innerHTML = "";
 
-    const savedStyle = {
-        html: document.body.parentElement.style,
-        body: document.body.style,
-    }; //savedStyle
-    
     const frameElements = (() => {
         const elements = {};
         for (let type in frameType) {
@@ -128,11 +130,6 @@ window.onload = () => {
             elements.help = document.createElement("section");
             elements.help.style.display = "none";
             elements.help.style.position = "absolute";
-            elements.help.style.backgroundColor = "white";
-            elements.help.style.padding = "1em";
-            elements.help.style.border = "solid black thin";
-            elements.help.style.left = "1em";
-            elements.help.style.top = "0.4em";
             document.body.appendChild(elements.help); 
         })(); //help
         (() => { // video
@@ -174,11 +171,15 @@ window.onload = () => {
             };
         })(); //toggleHelp
         const setupHelp = isRtl => {
+            frameElements.help.style.border = "solid thin lightBlue";
+            frameElements.help.style.backgroundColor = "azure";
+            frameElements.help.style.padding = "0.6em 1.2em 0.6em 1.2em";
+            frameElements.help.style.left = "1.2em";
+            frameElements.help.style.top = "0.6em";
             const keyNext = isRtl ? "&rarr;" : "&larr;";
             const keyPrevious = isRtl ? "&larr;" : "&rarr;";
             frameElements.help.innerHTML = 
                 `<h3>${definitionSet.productName} v.&thinsp;${definitionSet.version}</h3>`
-                + "<br/>"
                 + "<p>F1: Toggle help</p>"
                 + "<p>F11: Toggle fullscreen (default for most browsers)</p>"
                 + `<p>${keyNext} &darr; space, click: Next</p>`
@@ -187,8 +188,28 @@ window.onload = () => {
                 + `<p>&emsp;&emsp;${keyPrevious} &uarr;: Next</p>`
                 + `<p>&emsp;&emsp;${keyNext} &darr;: Previous</p>`
                 + "<p>P: Toggle Play/Pause in video mode</p>"
-                + `<p>C: <a href="${definitionSet.repository}">Source code repository at GitHub</a></p>`;
+                + `<p>S: <a href="${definitionSet.repository}">Source code repository at GitHub</a></p>`;
         }; //setupHelp
+        const normalizeStyles = (element, isAnchor) => {
+            element.tabIndex = -1;
+            element.style.marginTop = 0;
+            element.style.marginBottom = element.constructor == HTMLHeadingElement ? "0.4em" : 0;
+            element.style.textAlign = "left";
+            element.style.color = isAnchor ? "navy" : "black";
+            element.style.fontFamily = "sans-serif";
+            element.style.fontWeight = element.constructor == HTMLHeadingElement ? "bold" : "normal";
+            element.style.fontStyle = "normal";
+            element.style.fontVariant = "normal";
+            element.style.fontSize = element.constructor == HTMLHeadingElement ? "120%" : "100%";
+            element.style.textDecoration = isAnchor ? "underline" : "none";
+        }
+        setTimeout(() => {
+            for (let element of frameElements.help.children) {
+                normalizeStyles(element);
+                for (let child of element.children)
+                    normalizeStyles(child, true);
+            }                
+        }); //child styles
         return { showError: showError, toggleHelp: toggleHelp, setupHelp: setupHelp};
     })(); //textUtility
 
@@ -199,14 +220,24 @@ window.onload = () => {
     textUtility.setupHelp(options.rtl);
     if (!options.hideHelpOnStart)
         textUtility.toggleHelp();
-    document.body.style.backgroundColor = options.background;
-    document.body.parentElement.style.backgroundColor = options.background;
 
-    ////////////////////////////////////////////////////////////////////////////////////
+    const setPresentationStyle = () => {
+        document.body.style.backgroundColor = options.background;
+        document.body.parentElement.style.backgroundColor = options.background;
+        document.body.style.padding = 0;
+        document.body.style.margin = 0;
+        document.body.parentElement.style.padding = 0;
+        document.body.parentElement.style.margin = 0;
+        document.body.style.height = "100%";
+        document.body.parentElement.style.height = "100%";
+        document.body.style.justifyContent = "center";
+        document.body.style.alignItems = "center";
+        document.body.style.overflow = "hidden";    
+    }; //setPresentationStyle
 
     const toPixels = (size) => { return (size).toString() + "px"; };    
 
-    function initializeViewer(image, video, videoSource, frames) {
+    function initializeViewer(image, video, videoSource, userStyle, frames) {
         let current = 0;
         const resize = image => {
             const imageAspect = image.naturalWidth / image.naturalHeight;
@@ -236,6 +267,10 @@ window.onload = () => {
             } //if
             const item = frames[current];
             let isVideo = item.type == frameType.video;
+            if (item.type == frameType.html)
+                setStyle(userStyle)
+            else
+                setPresentationStyle();
             document.body.style.display = isVideo ? "flex" : "block";
             if (isVideo) {
                 video.poster = item.poster;
@@ -256,7 +291,7 @@ window.onload = () => {
         move();
         frameElements.image.onload = event => { resize(event.target); };
         window.onresize = () => resize(image);
-        document.body.onclick = event =>  move(event.ctrlKey);
+        window.onclick = event =>  move(event.ctrlKey);
         document.body.onkeydown = event => {
             switch (event.code) {
                 case "Space":
@@ -274,11 +309,11 @@ window.onload = () => {
             }
         }; //document.body.onkeydown
         let touchStart = undefined;
-        addEventListener("touchstart", event => {
+        window.addEventListener("touchstart", event => {
             touchStart = { x: event.changedTouches[0].clientX, y: event.changedTouches[0].clientY };
         }, false);
-        addEventListener("touchend", event => { touchStart = undefined; }, false);
-        addEventListener("touchmove", event => {
+        window.addEventListener("touchend", event => { touchStart = undefined; }, false);
+        window.addEventListener("touchmove", event => {
             if (touchStart == undefined) return;
             const vector = { x: event.changedTouches[0].clientX - touchStart.x, y: event.changedTouches[0].clientY - touchStart.y };
             const horizontal = Math.abs(vector.x) > Math.abs(vector.y);
@@ -288,17 +323,6 @@ window.onload = () => {
             touchStart = undefined;
         }, false);
     }; //initializeViewer
-    initializeViewer(frameElements.image, frameElements.video, frameElements.videoSource, frames);
-
-    const toSaved = () => {
-        document.body.parentElement.style = savedStyle.html;
-        document.body.style = savedStyle.body;
-    };
-    const toPresentation = () => {
-        document.body.parentElement.style.padding = "3em";
-        document.body.parentElement.style.backgroundColor = "red";
-        document.body.style.backgroundColor = "yellow";
-        document.body.style.fontWeight = "normal";
-    };
+    initializeViewer(frameElements.image, frameElements.video, frameElements.videoSource, userStyle, frames);
 
 }; //window.onload

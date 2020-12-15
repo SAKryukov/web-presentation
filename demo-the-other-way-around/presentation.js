@@ -141,6 +141,8 @@ window.onload = () => {
             elements.video.style.padding = "0";
             elements.video.style.marginLeft = "auto";
             elements.video.style.marginRight = "auto";
+            elements.video.disablePictureInPicture = true;
+            elements.video.controls = true;
             elements.videoSource = document.createElement("source");
             elements.video.appendChild(elements.videoSource);
         })(); //video

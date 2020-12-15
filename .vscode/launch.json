@@ -6,7 +6,7 @@
             "request": "launch",
             "name": "Launch Chrome",
             "runtimeArgs": ["--incognito", "--enable-precise-memory-info"],
-            "file": "presentation.html?demo/presentation.js",
+            "file": "demo-the-other-way-around/index.html",
         }
     ]
 }

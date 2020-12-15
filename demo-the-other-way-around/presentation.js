@@ -105,17 +105,30 @@ window.onload = () => {
             elements[type].style.display = "none";
             document.body.appendChild(elements[type]); 
         } //loop
+        elements.error = document.createElement("header");
+        elements.help = document.createElement("section");
+        for (let element of [elements.error, elements.help]) {
+            element.style.display = "none";
+            element.style.position = "absolute";
+            element.style.backgroundColor = "white";
+            element.style.padding = "1em";
+            element.style.border = "solid black thin";
+            element.style.left = "1em";
+            element.style.top = "0.4em";
+            document.body.appendChild(element); 
+        } //loop
         return elements;
     })();
 
     const setVisibility = type => {
         let numericIndex = 0;
-        for (let index in frameElements)
-            frameElements[index].style.display = numericIndex++ == type ? "block" : "none";
+        for (let type in frameType)
+            frameElements[type].style.display = numericIndex++ == frameType[type] ? "block" : "none";
     } //setVisibility
-
+    const setTextVisibility = (element, show) => {
+        element.style.display = show ? "block" : "none";
+    };
     for (let frame of frames) {
-        const frame1 = frame;
         if (frame.type == frameType.html) {
             setVisibility(frameType.html);
             frameElements.html.innerHTML = frame.html;

@@ -1,6 +1,7 @@
 "use strict";
 
 const frameType = { image: 0, html: 1, video: 2, };
+const frameTypeElement = { image: "img", html: "main", video: "video", };
 const presentationFrameParser = selector => {
     const autoStartClass = "autostart";
     const videoAutostart = -1;
@@ -97,13 +98,28 @@ window.onload = () => {
     if (options.constructor == String)
         return alert(options);
     
-    const htmlContainer = document.createElement("main");
-    htmlContainer.display = "block";
-    document.body.appendChild(htmlContainer);
+    const frameElements = (() => {
+        const elements = {};
+        for (let type in frameType) {
+            elements[type] = document.createElement(frameTypeElement[type]);
+            elements[type].style.display = "none";
+            document.body.appendChild(elements[type]); 
+        } //loop
+        return elements;
+    })();
+
+    const setVisibility = type => {
+        let numericIndex = 0;
+        for (let index in frameElements)
+            frameElements[index].style.display = numericIndex++ == type ? "block" : "none";
+    } //setVisibility
+
     for (let frame of frames) {
         const frame1 = frame;
-        if (frame.type == frameType.html)
-            htmlContainer.innerHTML = frame.html;
+        if (frame.type == frameType.html) {
+            setVisibility(frameType.html);
+            frameElements.html.innerHTML = frame.html;
+        }
     } //loop
 
     const savedStyle = {

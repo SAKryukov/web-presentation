@@ -56,7 +56,7 @@ const presentationFrameParser = selector => {
                 return `Invalid list of file names in the text content "${element.textContent}" of the element "${element.tagName.toLowerCase()}": exactly one video file should be specified, an optional second file is the image file uses as a poster`;
             const videoFrameInfo = { type: frameType.video, file: files[0].trim() };
             if (files.length == 2) videoFrameInfo.poster = files[1].trim();
-            if (typeInfo == true)  videoFrameInfo.autostart = typeInfo == videoAutostart;
+            if (typeInfo == videoAutostart)  videoFrameInfo.autostart = typeInfo == videoAutostart;
             if (element.title) videoFrameInfo.title = element.title;
             frames.push(videoFrameInfo);
             continue;          
@@ -130,9 +130,8 @@ window.onload = () => {
 
     const show = (element, doShow) => element.style.display = doShow ? "block" : "none";
     const setVisibility = type => {
-        let numericIndex = 0;
-        for (let type in frameType)
-            show(frameElements[type], numericIndex++ == frameType[type] ? true : false);
+        for (let typeName in frameType)
+            show(frameElements[typeName], type == frameType[typeName] ? true : false);
     } //setVisibility
 
     const textUtility = (() => {
@@ -192,7 +191,7 @@ window.onload = () => {
         }; //resize
         const move = backward => { //backward true <= backward, backward false => forward, else initialization
             video.pause();
-            //document.exitFullscreen();
+            document.exitFullscreen();
             videoSource.src = undefined;
             image.src = undefined;
             if (backward != undefined) {
@@ -205,21 +204,19 @@ window.onload = () => {
             let isVideo = item.type == frameType.video;
             document.body.style.display = isVideo ? "flex" : "block";
             if (isVideo) {
-                if (item.file) {
-                    video.poster = item.poster;
-                    video.title = item.title;
-                    videoSource.src = item.file;
-                    video.onplay = event => event.target.requestFullscreen();
-                    video.onended = () => document.exitFullscreen();
-                    video.load();
-                    if (item.play)
-                        video.play();
-                } else
-                    video.title = "Video file not specified";
-            } else {
+                video.poster = item.poster;
+                video.title = item.title;
+                videoSource.src = item.file;
+                video.onplay = event => event.target.requestFullscreen();
+                video.onended = () => document.exitFullscreen();
+                video.load();
+                if (item.autostart)
+                    video.play();
+            } else if (item.type == frameType.image) {
                 image.src = item.file;
                 resize(image);
-            } //if
+            } else //html
+                frameElements.html.innerHTML = item.html;
             setVisibility(item.type);
         }; //move
         move();

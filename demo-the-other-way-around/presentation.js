@@ -1,5 +1,11 @@
 "use strict";
 
+const definitionSet = {
+    version: "4.0.0",
+    productName: "Web Presentation",
+    repository: "https://github.com/SAKryukov/web-presentation"
+}; //definitionSet
+
 const frameType = { image: 0, html: 1, video: 2, };
 const frameTypeElement = { image: "img", html: "main", video: "video", };
 const presentationFrameParser = selector => {
@@ -96,6 +102,12 @@ const optionParser = selector => {
 
 window.onload = () => {
 
+    document.body.style.height = "100%";
+    document.body.parentElement.style.height = "100%";
+    document.body.style.justifyContent = "center";
+    document.body.style.alignItems = "center";
+    document.body.style.overflow = "hidden";
+
     const frames = presentationFrameParser("body > *:not(select)");
     const options = optionParser("body > select");
     document.body.innerHTML = "";
@@ -123,8 +135,15 @@ window.onload = () => {
             elements.help.style.top = "0.4em";
             document.body.appendChild(elements.help); 
         })(); //help
-        elements.videoSource = document.createElement("source");
-        elements.video.appendChild(elements.videoSource);
+        (() => { // video
+            elements.video.style.height = "60%";
+            elements.video.style.maxWidth = "90%";
+            elements.video.style.padding = "0";
+            elements.video.style.marginLeft = "auto";
+            elements.video.style.marginRight = "auto";
+            elements.videoSource = document.createElement("source");
+            elements.video.appendChild(elements.videoSource);
+        })(); //video
         return elements;
     })();
 
@@ -153,7 +172,20 @@ window.onload = () => {
             };
         })(); //toggleHelp
         const setupHelp = isRtl => {
-            frameElements.help.innerHTML = "This is help (SA???)";
+            const keyNext = isRtl ? "&rarr;" : "&larr;";
+            const keyPrevious = isRtl ? "&larr;" : "&rarr;";
+            frameElements.help.innerHTML = 
+                `<h3>${definitionSet.productName} v.&thinsp;${definitionSet.version}</h3>`
+                + "<br/>"
+                + "<p>F1: Toggle help</p>"
+                + "<p>F11: Toggle fullscreen (default for most browsers)</p>"
+                + `<p>${keyNext} &darr; space, click: Next</p>`
+                + `<p>${keyPrevious} &uarr; backspace, Ctrl+click: Previous</p>`
+                + "<p>Touchscren swipe:</p>"
+                + `<p>&emsp;&emsp;${keyPrevious} &uarr;: Next</p>`
+                + `<p>&emsp;&emsp;${keyNext} &darr;: Previous</p>`
+                + "<p>P: Toggle Play/Pause in video mode</p>"
+                + `<p>C: <a href="${definitionSet.repository}">Source code repository at GitHub</a></p>`;
         }; //setupHelp
         return { showError: showError, toggleHelp: toggleHelp, setupHelp: setupHelp};
     })(); //textUtility

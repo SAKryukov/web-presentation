@@ -7,7 +7,7 @@ const definitionSet = {
 }; //definitionSet
 
 const frameType = { image: 0, html: 1, video: 2, };
-const frameTypeElement = { image: "img", html: "main", video: "video", help: "header" };
+const frameTypeElement = { image: "img", html: "main", video: "video", help: "header", fakeContent: "i" };
 const presentationFrameParser = selector => {
     const autoStartClass = "autostart";
     const videoAutostart = -1;
@@ -43,7 +43,12 @@ const presentationFrameParser = selector => {
     } //getFrameType
     // creating and returning frames:
     const frames = [];
-    const frameElements = document.querySelectorAll(selector);
+    let frameElements = document.querySelectorAll(selector);
+    if (frameElements.length < 1) { //the fake content
+        const fakeElement = document.createElement(frameTypeElement.fakeContent);
+        fakeElement.textContent = document.body.textContent;
+        frameElements = [fakeElement];
+    } //fake content
     for (let element of frameElements) {
         if (element.innerHTML.trim().length < 1)
             return `Invalid empty text content of the element "${element.tagName.toLowerCase()}"`;

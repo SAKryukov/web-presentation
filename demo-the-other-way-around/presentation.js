@@ -93,10 +93,6 @@ window.onload = () => {
     const frames = presentationFrameParser("body > *:not(select)");
     const options = optionParser("body > select");
     document.body.innerHTML = "";
-    if (frames.constructor == String)
-        return alert(iterator);
-    if (options.constructor == String)
-        return alert(options);
     
     const frameElements = (() => {
         const elements = {};
@@ -105,18 +101,17 @@ window.onload = () => {
             elements[type].style.display = "none";
             document.body.appendChild(elements[type]); 
         } //loop
-        elements.error = document.createElement("header");
-        elements.help = document.createElement("section");
-        for (let element of [elements.error, elements.help]) {
-            element.style.display = "none";
-            element.style.position = "absolute";
-            element.style.backgroundColor = "white";
-            element.style.padding = "1em";
-            element.style.border = "solid black thin";
-            element.style.left = "1em";
-            element.style.top = "0.4em";
-            document.body.appendChild(element); 
-        } //loop
+        (() => { // help
+            elements.help = document.createElement("section");
+            elements.help.style.display = "none";
+            elements.help.style.position = "absolute";
+            elements.help.style.backgroundColor = "white";
+            elements.help.style.padding = "1em";
+            elements.help.style.border = "solid black thin";
+            elements.help.style.left = "1em";
+            elements.help.style.top = "0.4em";
+            document.body.appendChild(elements.help); 
+        })(); //help
         return elements;
     })();
 
@@ -125,15 +120,47 @@ window.onload = () => {
         for (let type in frameType)
             frameElements[type].style.display = numericIndex++ == frameType[type] ? "block" : "none";
     } //setVisibility
-    const setTextVisibility = (element, show) => {
-        element.style.display = show ? "block" : "none";
-    };
     for (let frame of frames) {
         if (frame.type == frameType.html) {
             setVisibility(frameType.html);
             frameElements.html.innerHTML = frame.html;
         }
     } //loop
+
+    const textUtility = (() => {
+        const setErrorStyle = () => {
+            const css = "color: black; background-color: white; padding: 1em; padding-top: 0.4em;"
+                + "font-family: sans-serif; font-weight: normal; font-size: 120%";
+            document.body.style.cssText = css;
+            document.body.parentElement.style.cssText = css;
+        }; //setErrorStyle
+        const showError = text => {
+            setErrorStyle();
+            document.body.textContent = text;
+        }; //showError
+        const setHelpVisibility = show => frameElements.help.style.display = show ? "block" : "none";
+        const toggleHelp = (() => {
+            let helpActive = false;
+            return () => {
+                helpActive = !helpActive;
+                setHelpVisibility(helpActive);
+            };
+        })(); //toggleHelp
+        const setupHelp = isRtl => {
+            frameElements.help.innerHTML = "This is help (SA???)";
+        }; //setupHelp
+        return { showError: showError, toggleHelp: toggleHelp, setupHelp: setupHelp};
+    })(); //textUtility
+
+    if (frames.constructor == String)
+        return textUtility.showError(frames);
+    if (options.constructor == String)
+        return textUtility.showError(options);
+    textUtility.setupHelp(options.rtl);
+    if (!(options.hideHelpOnStart == true.toString()))
+        textUtility.toggleHelp();
+    document.body.style.backgroundColor = options.background;
+    document.body.parentElement.style.backgroundColor = options.background;
 
     const savedStyle = {
         html: document.body.parentElement.style,

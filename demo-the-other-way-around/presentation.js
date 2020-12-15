@@ -138,6 +138,8 @@ window.onload = () => {
         for (let type in frameType) {
             elements[type] = document.createElement(frameTypeElement[type]);
             elements[type].style.display = "none";
+            elements[type].style.touchAction = "none";
+            elements[type].style.userSelect = "none";    
             document.body.appendChild(elements[type]); 
         } //loop
         (() => { // help
@@ -240,12 +242,16 @@ window.onload = () => {
 
     const setPresentationStyle = () => {
         document.body.style.backgroundColor = options.background;
-        document.body.parentElement.style.backgroundColor = options.background;
+        document.body.style.touchAction = "none";
+        document.body.style.userSelect = "none";
         document.body.style.padding = 0;
         document.body.style.margin = 0;
+        document.body.style.height = "100%";
+        document.body.parentElement.style.backgroundColor = options.background;
+        document.body.parentElement.style.touchAction = "none";
+        document.body.parentElement.style.userSelect = "none";
         document.body.parentElement.style.padding = 0;
         document.body.parentElement.style.margin = 0;
-        document.body.style.height = "100%";
         document.body.parentElement.style.height = "100%";
         document.body.style.justifyContent = "center";
         document.body.style.alignItems = "center";

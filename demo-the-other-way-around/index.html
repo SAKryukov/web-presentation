@@ -11,7 +11,7 @@
             body { margin: 0; }
             main { height: 100%; width: 100%; }
             main p { padding-left: 1em; padding-right: 1em; }
-            #intro, #insights, #src { display: flex; width: 100%; height: 100%; flex-direction: column;
+            #intro, #insights, #src, #autostart { display: flex; width: 100%; height: 100%; flex-direction: column;
                 align-items: center; justify-content: space-between;
             }
             #intro > p:first-child { font-size: 15vmin; font-weight: bold; margin-top:10vmin; 
@@ -33,7 +33,7 @@
             #insights > p:nth-of-type(5) { animation: 3s 15s both ease-out; animation-name: scaleIn, fromRight; color: olive }
             #insights > p:nth-of-type(6) { animation: 3s 17s both ease-out; animation-name: scaleIn, fromLeft; color: brown }
             #insights > p:nth-of-type(7), #insights > p:last-child { animation: scaleIn 2s 19s both ease-out; }
-            #intro > p:last-child, #insights > p:last-child, #src > p:last-child
+            #intro > p:last-child, #insights > p:last-child, #src > p:last-child, #autostart > p:last-child
                 { align-self: flex-end; justify-self: right; font-size: 3.2vmin; color: black; }
             pre { font-size: 3vmin; }
             pre:first-of-type { position: absolute; left: 5vmin; top: 10vmin; animation: zoomOut 3s 0.4s forwards ease-in; color: brown }
@@ -41,6 +41,7 @@
             #src { background-color:honeydew }
             #src p:first-child { font-weight: bold; font-size: 4vmin; color:darkGreen }
             #src p:last-child { animation: scaleIn 2s 2.4s both ease-in; }
+            #autostart > p:first-child { font-size: 4vmin; padding-top: 10vmin; color:darkmagenta }
             @keyframes land { 
                 from { transform: rotate(-120deg); opacity: 0.3; font-size: 120vmin; font-weight: 900; }
                 to { transform: rotate(340deg); opacity: 1; font-size: 9vmin; font-weight: bold; }
@@ -128,6 +129,13 @@
 </i>
 <i class="image">../demo-resources/look-at-video.svg</i>
 <i class="video" title="My video">../demo-resources/CapeCode.20151108.143402.webm : ../demo-resources/2015-11-08-ProvinceTown-Blackwater-Pond-11.webp</i>
+<i class="html">
+    <article id="autostart">
+	<p>Same video with the demonstration of the autostart option</p>
+        <p>Next: press space bar...</p>
+    </article>
+</i>
+<i class="video autostart" title="My video, autostart demonstration">../demo-resources/CapeCode.20151108.143402.webm</i>
 
 <select>
     <option value="false">hideHelpOnStart</option>

@@ -103,35 +103,49 @@ const optionParser = selector => {
         options[option.textContent] = getValue(option.value);
     } //loop
     return options;
-} //optionParser
+}; //optionParser
+
+const getStyle = () => {
+    return {
+        html: document.body.parentElement.style,
+        body: document.body.style
+    }
+}; // getStyle
+const setStyle = style => {
+    document.body.parentElement.style = style.html;
+    document.body.style = style.body;    
+}; //setStyle
+const toPixels = (size) => { return (size).toString() + "px"; };
+
+const setPresentationStyle = (options) => {
+    document.body.style.backgroundColor = options.background;
+    document.body.style.touchAction = "none";
+    document.body.style.userSelect = "none";
+    document.body.style.padding = 0;
+    document.body.style.margin = 0;
+    document.body.style.height = "100%";
+    document.body.parentElement.style.backgroundColor = options.background;
+    document.body.parentElement.style.touchAction = "none";
+    document.body.parentElement.style.userSelect = "none";
+    document.body.parentElement.style.padding = 0;
+    document.body.parentElement.style.margin = 0;
+    document.body.parentElement.style.height = "100%";
+    document.body.style.justifyContent = "center";
+    document.body.style.alignItems = "center";
+    document.body.style.overflow = "hidden";    
+}; //setPresentationStyle
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 window.onload = () => {
-
-    // const testElement = document.createElement("main");
-    // document.body.appendChild(testElement);
-    // //setTimeout(() => {
-    //     const testDisplayStyle = window.getComputedStyle(testElement, null).getPropertyValue("display");
-    //     console.log(1);
-    // //}, 1);
-
-    const getStyle = () => {
-        return {
-            html: document.body.parentElement.style,
-            body: document.body.style
-        }
-    }; // getStyle
-    const setStyle = style => {
-        document.body.parentElement.style = style.html;
-        document.body.style = style.body;    
-    } //setStyle
-    
+  
     const userStyle = getStyle();
 
     const frames = presentationFrameParser("body > *:not(select)");
     const options = optionParser("body > select");
     document.body.innerHTML = "";
 
-    const frameElements = (() => {
+    const presentationElements = (() => {
         const elements = {};        
         elements.userHtmlStyle = (() => {
             const testElement = document.createElement(frameTypeElement.html);
@@ -165,15 +179,14 @@ window.onload = () => {
             elements.video.appendChild(elements.videoSource);
         })(); //video
         return elements;
-    })();
+    })(); //presentationElements
 
     const show = (element, doShow) => element.style.display = doShow ? 
-        (element == frameElements.html ? frameElements.userHtmlStyle : "block")
-        :
-        "none";
+        (element == presentationElements.html ? presentationElements.userHtmlStyle : "block")
+        : "none";
     const setVisibility = type => {
         for (let typeName in frameType)
-            show(frameElements[typeName], type == frameType[typeName] ? true : false);
+            show(presentationElements[typeName], type == frameType[typeName] ? true : false);
     } //setVisibility
 
     const textUtility = (() => {
@@ -191,18 +204,18 @@ window.onload = () => {
             let helpActive = false;
             return () => {
                 helpActive = !helpActive;
-                show(frameElements.help, helpActive);
+                show(presentationElements.help, helpActive);
             };
         })(); //toggleHelp
         const setupHelp = isRtl => {
-            frameElements.help.style.border = "solid thin lightBlue";
-            frameElements.help.style.backgroundColor = "azure";
-            frameElements.help.style.padding = "0.6em 1.2em 0.6em 1.2em";
-            frameElements.help.style.left = "1.2em";
-            frameElements.help.style.top = "0.6em";
+            presentationElements.help.style.border = "solid thin lightBlue";
+            presentationElements.help.style.backgroundColor = "azure";
+            presentationElements.help.style.padding = "0.6em 1.2em 0.6em 1.2em";
+            presentationElements.help.style.left = "1.2em";
+            presentationElements.help.style.top = "0.6em";
             const keyNext = isRtl ? "&rarr;" : "&larr;";
             const keyPrevious = isRtl ? "&larr;" : "&rarr;";
-            frameElements.help.innerHTML = 
+            presentationElements.help.innerHTML = 
                 `<h3>${definitionSet.productName} v.&thinsp;${definitionSet.version}</h3>`
                 + "<p>F1: Toggle help</p>"
                 + "<p>F11: Toggle fullscreen (default for most browsers)</p>"
@@ -228,7 +241,7 @@ window.onload = () => {
             element.style.textDecoration = isAnchor ? "underline" : "none";
         }
         setTimeout(() => {
-            for (let element of frameElements.help.children) {
+            for (let element of presentationElements.help.children) {
                 normalizeStyles(element);
                 for (let child of element.children)
                     normalizeStyles(child, true);
@@ -244,26 +257,6 @@ window.onload = () => {
     textUtility.setupHelp(options.rtl);
     if (!options.hideHelpOnStart)
         textUtility.toggleHelp();
-
-    const setPresentationStyle = () => {
-        document.body.style.backgroundColor = options.background;
-        document.body.style.touchAction = "none";
-        document.body.style.userSelect = "none";
-        document.body.style.padding = 0;
-        document.body.style.margin = 0;
-        document.body.style.height = "100%";
-        document.body.parentElement.style.backgroundColor = options.background;
-        document.body.parentElement.style.touchAction = "none";
-        document.body.parentElement.style.userSelect = "none";
-        document.body.parentElement.style.padding = 0;
-        document.body.parentElement.style.margin = 0;
-        document.body.parentElement.style.height = "100%";
-        document.body.style.justifyContent = "center";
-        document.body.style.alignItems = "center";
-        document.body.style.overflow = "hidden";    
-    }; //setPresentationStyle
-
-    const toPixels = (size) => { return (size).toString() + "px"; };    
 
     function initializeViewer(image, video, videoSource, userStyle, frames) {
         let current = 0;
@@ -298,7 +291,7 @@ window.onload = () => {
             if (item.type == frameType.html)
                 setStyle(userStyle)
             else
-                setPresentationStyle();
+                setPresentationStyle(options);
             document.body.style.display = isVideo ? "flex" : "block";
             if (isVideo) {
                 video.poster = item.poster;
@@ -313,11 +306,11 @@ window.onload = () => {
                 image.src = item.file;
                 resize(image);
             } else //html
-                frameElements.html.innerHTML = item.html;
+            presentationElements.html.innerHTML = item.html;
             setVisibility(item.type);
         }; //move
         move();
-        frameElements.image.onload = event => { resize(event.target); };
+        presentationElements.image.onload = event => { resize(event.target); };
         window.onresize = () => resize(image);
         window.onclick = event =>  move(event.ctrlKey);
         document.body.onkeydown = event => {
@@ -351,6 +344,7 @@ window.onload = () => {
             touchStart = undefined;
         }, false);
     }; //initializeViewer
-    initializeViewer(frameElements.image, frameElements.video, frameElements.videoSource, userStyle, frames);
+
+    initializeViewer(presentationElements.image, presentationElements.video, presentationElements.videoSource, userStyle, frames);
 
 }; //window.onload

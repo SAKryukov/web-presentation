@@ -34,9 +34,10 @@
             #intro > p:last-child, #insights > p:last-child, #src > p:last-child
                 { align-self: flex-end; justify-self: right; font-size: 3.2vmin; color: black; padding-right: 1em; }
             pre { font-size: 3vmin; }
-            pre:first-of-type { position: absolute; left: 2vmin; top: 1vmin; animation: zoomOut 3s 0.4s forwards ease-in; color: brown }
+            pre:first-of-type { position: absolute; left: 5vmin; top: 10vmin; animation: zoomOut 3s 0.4s forwards ease-in; color: brown }
             pre:last-of-type { animation: scaleIn 3s 0.6s both ease-in; color:purple }
-            #src { background-color: lightcyan }
+            #src { background-color:honeydew }
+            #src p:first-child { font-weight: bold; font-size: 4vmin; color:darkGreen }
             #src p:last-child { animation: scaleIn 2s 2.4s both ease-in; }
             @keyframes land { 
                 from { transform: rotate(-120deg); opacity: 0.3; font-size: 120vmin; font-weight: 900; }
@@ -85,6 +86,7 @@
 </i>
 <i class="html">
     <article id="src">
+        <p>How to create a presentation?</p>
         <pre>
 &lt;html&gt;
     &lt;head&gt;

@@ -10,14 +10,43 @@
                 align-items: center; justify-content: space-around;
                 padding: 2em; padding-bottom: 0; margin-bottom: 0;
             }
-            main > h1 { font-size: 240%; }
+            main > h1 { font-size: 500%; animation-duration: 3s; animation-name: rotate, zoom, slide; }
             main p { font-size: 180%; }
-            main > p:last-child { align-self: flex-end; justify-self: right; font-size: 140%; }
+            main > p:last-child { align-self: flex-end; justify-self: right; font-size: 140%; animation-duration: 4s; animation-name: materialize; opacity: 1; }
+            main > section:nth-of-type(2) > p { color: brown; animation-duration: 2s; animation-name: twinkle; }
             body { font-family: "Arial"; }
+            @keyframes slide {
+                from { padding-right: 100% } to { padding: 0; }
+            }
+            @keyframes zoom {
+                from { font-size: 0.1%; } to { font-size: 500%; }
+            }
+            @keyframes rotate {
+                0% { transform: rotate(0); } 33% { transform: rotate(50deg); } 66% { transform: rotate(-20deg); } 100% { transform: rotate(360deg); }
+            }
+            @keyframes materialize {
+                from { font-size: 0.1%; opacity: 0; } to { font-size: 140%; opacity: 1; }
+            }
+            @keyframes twinkle {
+                0% { color: purple } 10% { color: DodgerBlue; } 20% { color: red } 30% { color: yellow; } 40% { color: saddleBrown}
+                50% { color: pink } 60% { color: olive; } 70% { color: red; } 80% { color: lightblue }
+                90% { color: yellow; } 100% { color: brown; }
+            }
         </style>
     </head>
 <body>
 
+<i class="html">
+    <h1>HTML Demo</h1>
+    <section>
+        <p>Flex style can be used for HTML frames</p>
+        <p>Note that paragraphs are not centered, but aligned to left, and its parent element is centered</p>
+    </section>
+     <section>
+        <p>Everything can be animated...</p>
+    </section>
+    <p>Next: press space bar...</p>
+</i>
 <i>
     ../demo-resources/introduction.svg         :
     ../demo-resources/insights.svg             :
@@ -32,14 +61,6 @@
 </i>
 <i class="image">../demo-resources/look-at-video.svg</i>
 <i class="video" title="My video">../demo-resources/CapeCode.20151108.143402.webm : ../demo-resources/2015-11-08-ProvinceTown-Blackwater-Pond-11.webp</i>
-<i class="html">
-    <h1>HTML Demo</h1>
-    <section>
-        <p>Flex style can be used for HTML frames</p>
-        <p>Note that paragraphs are not centered, but aligned to left, and its parent element is centered</p>
-    </section>
-    <p>Next: press space bar...</p>
-</i>
 
 <select>
     <option value="false">hideHelpOnStart</option>

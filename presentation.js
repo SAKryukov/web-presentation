@@ -301,7 +301,6 @@ window.onload = () => {
                 + `<p>S: <a href="${definitionSet.repository}">Source code repository at GitHub</a></p>`;
         }; //setupHelp
         const normalizeStyles = (element, isAnchor) => {
-            element.tabIndex = -1;
             element.style.marginTop = 0;
             element.style.marginBottom = element.constructor == HTMLHeadingElement ? "0.4em" : 0;
             element.style.textAlign = "left";

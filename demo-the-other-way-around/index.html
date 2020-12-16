@@ -41,7 +41,9 @@
             #src { background-color:honeydew }
             #src p:first-child { font-weight: bold; font-size: 4vmin; color:darkGreen }
             #src p:last-child { animation: scaleIn 2s 2.4s both ease-in; }
-            #autostart > p:first-child { font-size: 4vmin; padding-top: 10vmin; color:darkmagenta }
+            #autostart > p:first-child { font-size: 9vmin; padding-top: 10vmin; color:darkmagenta;
+                animation: twist 0.6s infinite ease-in-out alternate; }
+            #autostart > p:first-child > small { font-size: 4vmin; padding-top:0; color:darkviolet }
             @keyframes land { 
                 from { transform: rotate(-120deg); opacity: 0.3; font-size: 120vmin; font-weight: 900; }
                 to { transform: rotate(340deg); opacity: 1; font-size: 9vmin; font-weight: bold; }
@@ -60,6 +62,9 @@
             }
             @keyframes zoomOut { 
                 from { transform: scale(1); } to { transform: scale(0); }
+            }
+            @keyframes twist {
+               0% { transform: rotate(-2deg); } 100% { transform: rotate(2deg) }
             }
         </style>
     </head>
@@ -131,7 +136,7 @@
 <i class="video" title="My video">../demo-resources/CapeCode.20151108.143402.webm : ../demo-resources/2015-11-08-ProvinceTown-Blackwater-Pond-11.webp</i>
 <i class="html">
     <article id="autostart">
-	<p>Same video with the demonstration of the autostart option</p>
+	<p>Same video<br/><small>with the demonstration of the autostart option...</small></p>
         <p>Next: press space bar...</p>
     </article>
 </i>

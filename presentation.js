@@ -135,6 +135,93 @@ const setPresentationStyle = (options) => {
     document.body.style.overflow = "hidden";    
 }; //setPresentationStyle
 
+function initializeViewer(image, video, videoSource, html, textUtility, userStyle, options, setVisibility, frames) {
+    let current = 0;
+    const resize = image => {
+        const imageAspect = image.naturalWidth / image.naturalHeight;
+        const windowAspect = window.innerWidth / window.innerHeight;
+        if (imageAspect > windowAspect) {
+            image.width = window.innerWidth;
+            image.height = image.width / imageAspect;
+            image.style.marginLeft = 0;
+            image.style.marginTop = toPixels((window.innerHeight - image.height) / 2);
+        } else {
+            image.height = window.innerHeight;
+            image.width = image.height * imageAspect;
+            image.style.marginTop = 0;
+            image.style.marginLeft = toPixels((window.innerWidth - image.width) / 2);
+        } //if
+    }; //resize
+    const move = backward => { //backward true <= backward, backward false => forward, else initialization
+        video.pause();
+        document.exitFullscreen();
+        videoSource.src = undefined;
+        image.src = undefined;
+        if (backward != undefined) {
+            if (backward)
+                if (current > 0) --current; else current = frames.length - 1;
+            else
+                if (current < frames.length - 1) ++current; else current = 0;
+        } //if
+        const item = frames[current];
+        let isVideo = item.type == frameType.video;
+        if (item.type == frameType.html)
+            setStyle(userStyle)
+        else
+            setPresentationStyle(options);
+        document.body.style.display = isVideo ? "flex" : "block";
+        if (isVideo) {
+            video.poster = item.poster;
+            video.title = item.title;
+            videoSource.src = item.file;
+            video.onplay = event => event.target.requestFullscreen();
+            video.onended = () => document.exitFullscreen();
+            video.load();
+            if (item.autostart)
+                video.play();
+        } else if (item.type == frameType.image) {
+            image.src = item.file;
+            resize(image);
+        } else //html
+        html.innerHTML = item.html;
+        setVisibility(item.type);
+    }; //move
+    move();
+    image.onload = event => { resize(event.target); };
+    window.onresize = () => resize(image);
+    window.onclick = event =>  move(event.ctrlKey);
+    document.body.onkeydown = event => {
+        switch (event.code) {
+            case "Space":
+            case "ArrowDown": move(false); break;
+            case "Backspace":
+            case "ArrowUp": move(true); break;
+            case "ArrowRight": move(options.rtl); break;
+            case "ArrowLeft": move(!options.rtl); break;
+            case "F11": document.requestFullscreen(); event.preventDefault(); break;
+            case "F1": textUtility.toggleHelp(); event.preventDefault(); break;
+            case "KeyS": window.location = definitionSet.repository;
+            case "KeyP": 
+                if (videoSource.src)
+                    if (video.paused) video.play(); else video.pause();
+        }
+    }; //document.body.onkeydown
+    let touchStart = undefined;
+    window.addEventListener("touchstart", event => {
+        touchStart = { x: event.changedTouches[0].clientX, y: event.changedTouches[0].clientY };
+    }, false);
+    window.addEventListener("touchend", event => { touchStart = undefined; }, false);
+    window.addEventListener("touchmove", event => {
+        if (touchStart == undefined) return;
+        const vector = { x: event.changedTouches[0].clientX - touchStart.x, y: event.changedTouches[0].clientY - touchStart.y };
+        const horizontal = Math.abs(vector.x) > Math.abs(vector.y);
+        let back = horizontal ? vector.x > 0 : vector.y > 0;
+        if (horizontal && options.rtl) back = !back;
+        move(back);
+        touchStart = undefined;
+    }, false);
+}; //initializeViewer
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 window.onload = () => {
@@ -258,93 +345,8 @@ window.onload = () => {
     if (!options.hideHelpOnStart)
         textUtility.toggleHelp();
 
-    function initializeViewer(image, video, videoSource, userStyle, frames) {
-        let current = 0;
-        const resize = image => {
-            const imageAspect = image.naturalWidth / image.naturalHeight;
-            const windowAspect = window.innerWidth / window.innerHeight;
-            if (imageAspect > windowAspect) {
-                image.width = window.innerWidth;
-                image.height = image.width / imageAspect;
-                image.style.marginLeft = 0;
-                image.style.marginTop = toPixels((window.innerHeight - image.height) / 2);
-            } else {
-                image.height = window.innerHeight;
-                image.width = image.height * imageAspect;
-                image.style.marginTop = 0;
-                image.style.marginLeft = toPixels((window.innerWidth - image.width) / 2);
-            } //if
-        }; //resize
-        const move = backward => { //backward true <= backward, backward false => forward, else initialization
-            video.pause();
-            document.exitFullscreen();
-            videoSource.src = undefined;
-            image.src = undefined;
-            if (backward != undefined) {
-                if (backward)
-                    if (current > 0) --current; else current = frames.length - 1;
-                else
-                    if (current < frames.length - 1) ++current; else current = 0;
-            } //if
-            const item = frames[current];
-            let isVideo = item.type == frameType.video;
-            if (item.type == frameType.html)
-                setStyle(userStyle)
-            else
-                setPresentationStyle(options);
-            document.body.style.display = isVideo ? "flex" : "block";
-            if (isVideo) {
-                video.poster = item.poster;
-                video.title = item.title;
-                videoSource.src = item.file;
-                video.onplay = event => event.target.requestFullscreen();
-                video.onended = () => document.exitFullscreen();
-                video.load();
-                if (item.autostart)
-                    video.play();
-            } else if (item.type == frameType.image) {
-                image.src = item.file;
-                resize(image);
-            } else //html
-            presentationElements.html.innerHTML = item.html;
-            setVisibility(item.type);
-        }; //move
-        move();
-        presentationElements.image.onload = event => { resize(event.target); };
-        window.onresize = () => resize(image);
-        window.onclick = event =>  move(event.ctrlKey);
-        document.body.onkeydown = event => {
-            switch (event.code) {
-                case "Space":
-                case "ArrowDown": move(false); break;
-                case "Backspace":
-                case "ArrowUp": move(true); break;
-                case "ArrowRight": move(options.rtl); break;
-                case "ArrowLeft": move(!options.rtl); break;
-                case "F11": document.requestFullscreen(); event.preventDefault(); break;
-                case "F1": textUtility.toggleHelp(); event.preventDefault(); break;
-                case "KeyS": window.location = definitionSet.repository;
-                case "KeyP": 
-                    if (videoSource.src)
-                        if (video.paused) video.play(); else video.pause();
-            }
-        }; //document.body.onkeydown
-        let touchStart = undefined;
-        window.addEventListener("touchstart", event => {
-            touchStart = { x: event.changedTouches[0].clientX, y: event.changedTouches[0].clientY };
-        }, false);
-        window.addEventListener("touchend", event => { touchStart = undefined; }, false);
-        window.addEventListener("touchmove", event => {
-            if (touchStart == undefined) return;
-            const vector = { x: event.changedTouches[0].clientX - touchStart.x, y: event.changedTouches[0].clientY - touchStart.y };
-            const horizontal = Math.abs(vector.x) > Math.abs(vector.y);
-            let back = horizontal ? vector.x > 0 : vector.y > 0;
-            if (horizontal && options.rtl) back = !back;
-            move(back);
-            touchStart = undefined;
-        }, false);
-    }; //initializeViewer
-
-    initializeViewer(presentationElements.image, presentationElements.video, presentationElements.videoSource, userStyle, frames);
+    initializeViewer(
+        presentationElements.image, presentationElements.video, presentationElements.videoSource, presentationElements.html,
+        textUtility, userStyle, options, setVisibility, frames);
 
 }; //window.onload

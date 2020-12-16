@@ -25,5 +25,13 @@ Another variant of the cross-platform replacement for all those office presentat
 
 @toc
 
+## Why Another Variant?
+
+This is a second article on the topic of Web Presentation in a single file:
+- [Web Presentation, the Other Way Around](https://www.codeproject.com/Articles/5286790/Web-Presentation-an-Application-in-a-Single-File)
+- This article
+
+Initially, a CodeProject member [Helena Munzarova](https://www.codeproject.com/script/Membership/View.aspx?mid=11286055) suggested another a different approach to , 
+
 ## Motivation
 

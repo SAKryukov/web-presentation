@@ -4,21 +4,23 @@
         <script src="../presentation.js"></script>
         <title>Presentation Demo: the Other Way Around</title>
         <style> /* only for user HTML frames, see <i class="html"> element */
+            :root { --zoomIn-font-size: 4vmin; }
             body { font-family: sans-serif; }
             p { color: darkslateblue; }
             body, html { background-color: beige; height: 100%; overflow: hidden; }
             body { margin: 0; }
             main { height: 100%; width: 100%; }
+            main p { padding-left: 1em; padding-right: 1em; }
             #intro, #insights, #src { display: flex; width: 100%; height: 100%; flex-direction: column;
                 align-items: center; justify-content: space-between;
             }
-            #intro > p:first-child { font-size: 15vmin; font-weight: bold; color: #FFCCA0; -webkit-text-stroke: black 2.2px;}
-            #intro > section { font-size: 4.2vmin; }
-            #intro > p:nth-last-of-type(2) { color: darkGreen;
+            #intro > p:first-child { font-size: 15vmin; font-weight: bold; margin-top:10vmin; 
+                -webkit-text-stroke: black 2.2px; color: #FFCCA0;}
+            #intro > p:nth-child(2) { font-size: 4.2vmin; }
+            #intro > p:nth-child(3) { color: darkGreen;
                 animation: 4s land forwards ease-in-out; }
-            #intro > section > p { margin: 0; padding: 0; }
             #insights { background-color:whitesmoke; }
-            #insights > p { font-size: 4.5vmin; }
+            #insights > p { font-size: var(--zoomIn-font-size) }
             #insights > p:not(:last-child) { font-weight: bold; }
             #insights > p:first-of-type { animation: fromLeft 3s 0s both ease-out; color:purple }
             #insights > p:nth-of-type(2) { animation: fromRight 3s 3s both ease-out; color:slateblue }
@@ -30,9 +32,9 @@
             #insights > p:nth-of-type(4) > b:last-of-type { animation: zoomIn 3s 10s both ease-out; }
             #insights > p:nth-of-type(5) { animation: 3s 15s both ease-out; animation-name: scaleIn, fromRight; color: olive }
             #insights > p:nth-of-type(6) { animation: 3s 17s both ease-out; animation-name: scaleIn, fromLeft; color: brown }
-            #insights > p:last-child { animation: scaleIn 2s 19s both ease-out; }
+            #insights > p:nth-of-type(7), #insights > p:last-child { animation: scaleIn 2s 19s both ease-out; }
             #intro > p:last-child, #insights > p:last-child, #src > p:last-child
-                { align-self: flex-end; justify-self: right; font-size: 3.2vmin; color: black; padding-right: 1em; }
+                { align-self: flex-end; justify-self: right; font-size: 3.2vmin; color: black; }
             pre { font-size: 3vmin; }
             pre:first-of-type { position: absolute; left: 5vmin; top: 10vmin; animation: zoomOut 3s 0.4s forwards ease-in; color: brown }
             pre:last-of-type { animation: scaleIn 3s 0.6s both ease-in; color:purple }
@@ -41,16 +43,16 @@
             #src p:last-child { animation: scaleIn 2s 2.4s both ease-in; }
             @keyframes land { 
                 from { transform: rotate(-120deg); opacity: 0.3; font-size: 120vmin; font-weight: 900; }
-                to { transform: rotate(350deg); opacity: 1; font-size: 9vmin; font-weight: bold; }
+                to { transform: rotate(340deg); opacity: 1; font-size: 9vmin; font-weight: bold; }
             }
             @keyframes fromLeft { 
                 from { margin-left: -300vmin; opacity: 0 } to { margin-left: 0; opacity: 1 }
             }
             @keyframes fromRight { 
-                from { margin-right: -300vmin; opacity: 0 } to { margin-right: 0 opacity: 1 }
+                from { margin-right: -300vmin; opacity: 0 } to { margin-right: 0; opacity: 1 }
             }
             @keyframes zoomIn { 
-                from { font-size: 0px; } to { font-size: 4.5vmin; }
+                from { font-size: 0px; } to { font-size: var(--zoomIn-font-size); }
             }
             @keyframes scaleIn { 
                 from { transform: scale(0); } to { transform: scale(1); }
@@ -65,10 +67,8 @@
 <i class="html">
     <article id="intro">
         <p>Web Presentation</p>
-        <section>
-            <p>A cross-platform replacement</p>
-            <p>for all those office presentation packages in a single file</p>
-        </section>
+        <p>A cross-platform replacement</br>
+        for all those office presentation packages in a single file</p>
         <p>presentation.js</p>
         <p>Next: press space bar...</p>
     </article>
@@ -78,9 +78,10 @@
         <p>SVG: Scalable Vector Graphics</p>
         <p>WepP: Raster Graphics</p>
         <p>User-supplied custom HTML</p>
-        <p><b>Transition effects?</b> <b>Video?</b> <b>Animation?</b></p>
-        <p><b>SVG Animation</b>, <b>HTML with CSS Animation</b></p>
-        <p><b>Animated WebP</b>, <b>Video: WebM, any browser-compatible containers and codecs</b></p>
+        <p><b>Transition effects?</b> <b>Animation?</b> <b>Video?</b></p>
+        <p>SVG Animation, HTML with CSS Animation</p>
+        <p>Animated WebP</p>
+        <p>Video: any browser-compatible containers and codecs</p>
         <p>Next: press space bar...</p>
     </article>
 </i>

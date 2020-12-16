@@ -10,11 +10,11 @@
                 align-items: center; justify-content: space-around;
                 padding: 2em; padding-bottom: 0; margin-bottom: 0;
             }
-            main > h1 { font-size: 500%; animation-duration: 3s; animation-name: rotate, zoom, slide; }
+            main > h1 { font-size: 500%; animation-duration: 3s; animation-name: rotate, zoom, slide; -webkit-text-stroke: 3px black; color: yellow; }
             main p { font-size: 180%; }
             main > p:last-child { align-self: flex-end; justify-self: right; font-size: 140%; animation-duration: 4s; animation-name: materialize; opacity: 1; }
             main > section:nth-of-type(2) > p { color: brown; animation-duration: 2s; animation-name: twinkle; }
-            body { font-family: "Arial"; }
+            body { font-family: sans-serif; }
             @keyframes slide {
                 from { padding-right: 100% } to { padding: 0; }
             }
@@ -22,7 +22,7 @@
                 from { font-size: 0.1%; } to { font-size: 500%; }
             }
             @keyframes rotate {
-                0% { transform: rotate(0); } 33% { transform: rotate(50deg); } 66% { transform: rotate(-20deg); } 100% { transform: rotate(360deg); }
+                0% { transform: rotate(0); } 20% { transform: rotate(50deg); } 40% { transform: rotate(-20deg); } 60% { transform: rotate(0deg); } 100% { transform: rotate(720deg); }
             }
             @keyframes materialize {
                 from { font-size: 0.1%; opacity: 0; } to { font-size: 140%; opacity: 1; }

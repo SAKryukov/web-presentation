@@ -28,14 +28,15 @@
             #insights > p:nth-of-type(4) > b:first-of-type { animation: zoomIn 3s 9s both ease-out; }
             #insights > p:nth-of-type(4) > b:nth-of-type(2) { animation: zoomIn 3s 12s both ease-out; }
             #insights > p:nth-of-type(4) > b:last-of-type { animation: zoomIn 3s 10s both ease-out; }
-            #insights > p:nth-of-type(5) { animation: scaleIn 3s 15s both ease-out; color: olive }
-            #insights > p:nth-of-type(6) { animation: scaleIn 3s 17s both ease-out; color: brown }
+            #insights > p:nth-of-type(5) { animation: 3s 15s both ease-out; animation-name: scaleIn, fromRight; color: olive }
+            #insights > p:nth-of-type(6) { animation: 3s 17s both ease-out; animation-name: scaleIn, fromLeft; color: brown }
             #insights > p:last-child { animation: scaleIn 2s 19s both ease-out; }
             #intro > p:last-child, #insights > p:last-child, #src > p:last-child
                 { align-self: flex-end; justify-self: right; font-size: 3.2vmin; color: black; padding-right: 1em; }
             pre { font-size: 3vmin; }
-            pre:first-of-type { position: absolute; left: 2vmin; top: 1vmin; animation: zoomOut 3s 0.4s forwards ease-in; }
-            pre:last-of-type { animation: scaleIn 3s 0.6s both ease-in; }
+            pre:first-of-type { position: absolute; left: 2vmin; top: 1vmin; animation: zoomOut 3s 0.4s forwards ease-in; color: brown }
+            pre:last-of-type { animation: scaleIn 3s 0.6s both ease-in; color:purple }
+            #src { background-color: lightcyan }
             #src p:last-child { animation: scaleIn 2s 2.4s both ease-in; }
             @keyframes land { 
                 from { transform: rotate(-120deg); opacity: 0.3; font-size: 120vmin; font-weight: 900; }

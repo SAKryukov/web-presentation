@@ -1,3 +1,14 @@
+/*
+    Web Presentation: a cross-platform replacement for all those office application packages in a single file :-)
+    Original publication:
+    SA???
+    
+    Copyright (c) Sergey A Kryukov, 2017, 2020
+    http://www.SAKryukov.org
+    http://www.codeproject.com/Members/SAKryukov
+    https://github.com/SAKryukov
+*/
+
 "use strict";
 
 const definitionSet = {
@@ -155,7 +166,7 @@ function initializeViewer(image, video, videoSource, html, textUtility, userStyl
     let currentFrameElement = undefined;
     const move = backward => { //backward true <= backward, backward false => forward, else initialization
         video.pause();
-        //document.exitFullscreen();
+        document.exitFullscreen();
         videoSource.src = undefined;
         image.src = undefined;
         if (backward != undefined) {

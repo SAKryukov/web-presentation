@@ -135,7 +135,7 @@ const setPresentationStyle = (options) => {
     document.body.style.overflow = "hidden";    
 }; //setPresentationStyle
 
-function initializeViewer(image, video, videoSource, html, textUtility, userStyle, options, setVisibility, frames) {
+function initializeViewer(image, video, videoSource, html, textUtility, userStyle, options, frames) {
     let current = 0;
     const resize = image => {
         const imageAspect = image.naturalWidth / image.naturalHeight;
@@ -152,9 +152,10 @@ function initializeViewer(image, video, videoSource, html, textUtility, userStyl
             image.style.marginLeft = toPixels((window.innerWidth - image.width) / 2);
         } //if
     }; //resize
+    let currentFrameElement = undefined;
     const move = backward => { //backward true <= backward, backward false => forward, else initialization
         video.pause();
-        document.exitFullscreen();
+        //document.exitFullscreen();
         videoSource.src = undefined;
         image.src = undefined;
         if (backward != undefined) {
@@ -164,7 +165,7 @@ function initializeViewer(image, video, videoSource, html, textUtility, userStyl
                 if (current < frames.length - 1) ++current; else current = 0;
         } //if
         const item = frames[current];
-        let isVideo = item.type == frameType.video;
+        const isVideo = item.type == frameType.video;
         if (item.type == frameType.html)
             setStyle(userStyle)
         else
@@ -184,7 +185,9 @@ function initializeViewer(image, video, videoSource, html, textUtility, userStyl
             resize(image);
         } else //html
         html.innerHTML = item.html;
-        setVisibility(item.type);
+        if (currentFrameElement) document.body.removeChild(currentFrameElement);
+        currentFrameElement = isVideo ? video : (item.type == frameType.image ? image : html);
+        document.body.insertBefore(currentFrameElement, document.body.firstElementChild);
     }; //move
     move();
     image.onload = event => { resize(event.target); };
@@ -234,19 +237,10 @@ window.onload = () => {
 
     const presentationElements = (() => {
         const elements = {};        
-        elements.userHtmlStyle = (() => {
-            const testElement = document.createElement(frameTypeElement.html);
-            document.body.appendChild(testElement);
-            const result = getComputedStyle(testElement, null).getPropertyValue("display");
-            document.body.removeChild(testElement);
-            return result;
-        })(); //elements.userHtmlStyle
         for (let type in frameType) {
             elements[type] = document.createElement(frameTypeElement[type]);
-            elements[type].style.display = "none";
             elements[type].style.touchAction = "none";
             elements[type].style.userSelect = "none";    
-            document.body.appendChild(elements[type]); 
         } //loop
         (() => { // help
             elements.help = document.createElement(frameTypeElement.help);
@@ -268,14 +262,6 @@ window.onload = () => {
         return elements;
     })(); //presentationElements
 
-    const show = (element, doShow) => element.style.display = doShow ? 
-        (element == presentationElements.html ? presentationElements.userHtmlStyle : "block")
-        : "none";
-    const setVisibility = type => {
-        for (let typeName in frameType)
-            show(presentationElements[typeName], type == frameType[typeName] ? true : false);
-    } //setVisibility
-
     const textUtility = (() => {
         const setErrorStyle = () => {
             const css = "color: black; background-color: white; padding: 1em; padding-top: 0.4em;"
@@ -291,7 +277,7 @@ window.onload = () => {
             let helpActive = false;
             return () => {
                 helpActive = !helpActive;
-                show(presentationElements.help, helpActive);
+                presentationElements.help.style.display = helpActive ? "block" : "none";
             };
         })(); //toggleHelp
         const setupHelp = isRtl => {
@@ -347,6 +333,6 @@ window.onload = () => {
 
     initializeViewer(
         presentationElements.image, presentationElements.video, presentationElements.videoSource, presentationElements.html,
-        textUtility, userStyle, options, setVisibility, frames);
+        textUtility, userStyle, options, frames);
 
 }; //window.onload

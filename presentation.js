@@ -141,6 +141,14 @@ const setStyle = style => {
     document.body.style = style.body;    
 }; //setStyle
 const toPixels = (size) => { return (size).toString() + "px"; };
+const findIndirectParent = (element, elementToFind) => {
+    let current = element;
+    while (current && current != document.body) {
+        if (current == elementToFind) return elementToFind;
+        current = current.parentElement;
+    } //loop
+    return null;
+}; // findIndirectParent
 
 const setPresentationStyle = (options) => {
     document.body.style.backgroundColor = options.background;
@@ -217,14 +225,6 @@ function initializeViewer(image, video, videoSource, html, textUtility, userStyl
     move();
     image.onload = event => { resize(event.target); };
     window.onresize = () => resize(image);
-    const findIndirectParent = (element, elementToFind) => {
-        let current = element;
-        while (current && current != document.body) {
-            if (current == elementToFind) return elementToFind;
-            current = current.parentElement;
-        } //loop
-        return null;
-    }; // findIndirectParent
     window.onclick = event => {
         if (event.target.constructor != HTMLAnchorElement) {
             if (findIndirectParent(event.target, textUtility.helpElement) == textUtility.helpElement) {

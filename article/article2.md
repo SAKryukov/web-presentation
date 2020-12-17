@@ -48,17 +48,33 @@ Let's take a look at the presentaion sample "demo-the-other-way-around/minimal.h
         &lt;title&gt;Minimal Presentation Demo&lt;/title&gt;
     &lt;/head&gt;
 &lt;body&gt;
-    ../demo-resources/introduction.svg :
-	../demo-resources/insights.svg :
-	../demo-resources/images.svg
+    "../demo-resources/2007-06-23.panorama.webp"
+    "../demo-resources/2019-05-18.088.webp"
+    "../demo-resources/2020-09-17.video.32.webp"
 &lt;/body&gt;
 &lt;/html&gt;
 ```
 SA???
 
+### File Name Separators
+
+The sample of the presentation shown above suggests that the image files should be entered enclosed in qouble quotation marks. They are also separated with blank space and text line separator, but these characters are simply ignored (it they are not the part of a file name) and are not required. Another allowed separator is colon `:`. Both separators can be used in the same file and sometimes even in the same text content of an HTML node. This is possible, because the use of the separator is dictated by the following rules:
+
+1. The text content is trimmed; if the trimmed string is empty, it is considered as an empty array of files.
+
+1. If first character in the trimmed non-empty string is the primary separator `"`, this character is used as an effective separator, otherwise the effective separator is the secondary separator `:`.
+
+1. The entire text string it splitted using the effective separator. Every fragment of the split is trimmed and ignored if empty, otherwise it is added to the list of the file names.
+
+Perhaps I have to explain why the rules use two separators. First of all, in Windows, double quotation mark is not a valid character for file names, but colon is used in the special cases we all know. Using colon as a part of a file names makes little practical sense, but still, a user can enter such names using double quotation marks. These marks are also usually used to enter file names with some blank characters inside.
+
+For [*NIX](https://en.wikipedia.org/wiki/Unix-like), including Linux, only null character and `/` are special; all other characters can be used. Nevertheless, different application may make it difficult to enter the names with colon or double quotation marks, as these characters are used for different special purposes, pretty much in the same way as in Windows. At the same time, colon is a usual "path separator" in *NIX configuration, shell, and other files.
+
+The set of more than one file are used in two cases: to prescribe a list of image files in a single HTML node, or to specify a video file name with corresponding poster file name. The use of video will be explained below, a
+
 ### Presentation with Frames of Different types
 
-SA???
+The
 
 ### Video Options
 
@@ -72,11 +88,13 @@ And, naturally, the method of collection of the user-defined presentation data i
 
 ### Collecting Presentation Data
 
+### Presentation Data Validation
+
 ### Preserving Styles
 
 As I expected, the most serious problem in this approach is rooted in the fact that the user, a presentation creator, can use HTML frames and can introduce any stylesheet. Before I introduce this option???
 
-Hiding elements needed for the application frames requires the use of the style property `display` with the value `none`. When the element has to be shown, what value of the `display` property should be assigned. Before I introduced the HTML frame feature, it always was `block`, quite suitable for both `&lt;img&gt;` and `&lt;video&gt;` elements. For arbitrary HTML content, it makes no sense, because the user can use any other `display` value for the top HTML element used for the presentation frame. For example, for the layouts specific for presentations, `flex` is particularly useful. Of course, the initial style of this element can be detected on the `load` of the `window` content, but this is not a reasonable complication. Instead, now the frame element is inserted into the list of `body` children and removed when it is no longer needed.
+Hiding elements needed for the application frames requires the use of the style property `display` with the value `none`. When the element has to be shown, what value of the `display` property should be assigned. Before I introduced the HTML frame feature, it always was `block`, quite suitable for both `<img>` and `<video>` elements. For arbitrary HTML content, it makes no sense, because the user can use any other `display` value for the top HTML element used for the presentation frame. For example, for the layouts specific for presentations, `flex` is particularly useful. Of course, the initial style of this element can be detected on the `load` of the `window` content, but this is not a reasonable complication. Instead, now the frame element is inserted into the list of `body` children and removed when it is no longer needed.
 
 SA???
 

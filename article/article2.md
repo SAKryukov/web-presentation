@@ -58,13 +58,17 @@ SA???
 
 ### File Name Separators
 
-The sample of the presentation shown above suggests that the image files should be entered enclosed in qouble quotation marks. They are also separated with blank space and text line separator, but these characters are simply ignored (it they are not the part of a file name) and are not required. Another allowed separator is colon `:`. Both separators can be used in the same file and sometimes even in the same text content of an HTML node. This is possible, because the use of the separator is dictated by the following rules:
+The sample of the presentation shown above suggests that the image files should be entered enclosed in qouble quotation marks. They are also separated with blank space and text line separator, but these characters are simply ignored (it they are not the part of a file name) and are not required. Another allowed separator is colon `:`. Both separators can be used in the same file. The use of the separator is dictated by the following rules:
 
 1. The text content is trimmed; if the trimmed string is empty, it is considered as an empty array of files.
 
 1. If first character in the trimmed non-empty string is the primary separator `"`, this character is used as an effective separator, otherwise the effective separator is the secondary separator `:`.
 
 1. The entire text string it splitted using the effective separator. Every fragment of the split is trimmed and ignored if empty, otherwise it is added to the list of the file names.
+
+Naturally, both forms allow the file names with space characters inside. If a file name contains one of the separator characters, another one should can be used as a separator.
+
+Recommendation: the best idea is avoiding the use of any separator characters in file names. I would even not recommend blank space characters in file names. Everything will work with this particular application, but with many pther applications, this is a source of invonveniences.
 
 Perhaps I have to explain why the rules use two separators. First of all, in Windows, double quotation mark is not a valid character for file names, but colon is used in the special cases we all know. Using colon as a part of a file names makes little practical sense, but still, a user can enter such names using double quotation marks. These marks are also usually used to enter file names with some blank characters inside.
 
@@ -74,11 +78,16 @@ The set of more than one file are used in two cases: to prescribe a list of imag
 
 ### Presentation with Frames of Different types
 
-The
+The...
+SA???
 
 ### Video Options
 
+SA???
+
 ### Presentation Options
+
+SA???
 
 ## Implementation Detail
 

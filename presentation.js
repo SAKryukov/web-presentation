@@ -19,10 +19,12 @@ const definitionSet = {
 
 const frameType = { image: 0, html: 1, video: 2, };
 const frameTypeElement = { image: "img", html: "main", video: "video", help: "header", fakeContent: "i" };
+
 const presentationFrameParser = selector => {
     const autoStartClass = "autostart";
     const videoAutostart = -1;
-    const fileNameSeparator = ":";
+    const primaryFileNameSeparator = `"`;
+    const secondaryFileNameSeparator = ":";
     const validOptionSeparator = ", ";
     let frameTypeNames = [];
     for (let frameTypeName in frameType) frameTypeNames.push(frameTypeName);
@@ -53,6 +55,18 @@ const presentationFrameParser = selector => {
             return invalidClassAttributeMessage(classAttributeValue);
     } //getFrameType
     // creating and returning frames:
+    const fileNameSplit = text => {
+        text = text.trim();
+        if (!text) return [];
+        const result = [];
+        const effectiveSeparator = text[0] == primaryFileNameSeparator ? primaryFileNameSeparator : secondaryFileNameSeparator;
+        const aSplit = text.split(effectiveSeparator);
+        for (let element of aSplit) {
+            const aTrim = element.trim();
+            if (aTrim) result.push(aTrim);
+        } //loop
+        return result;
+    }; //fileNameSplit
     const frames = [];
     let frameElements = document.querySelectorAll(selector);
     if (frameElements.length < 1) { //the fake content
@@ -70,21 +84,21 @@ const presentationFrameParser = selector => {
             frames.push({ type: typeInfo, html: element.innerHTML });
             continue;
         } //if html
-        const files = element.textContent.split(fileNameSeparator);
+        let files = fileNameSplit(element.textContent);
         if (files.length < 1 || files[0].length < 1)
             return `Invalid list of file names in the text content "${element.textContent}" of the element "${element.tagName.toLowerCase()}": at least one file name should be provided`;
         if (typeInfo == videoAutostart || typeInfo == frameType.video) { // video, autostart or not
             if (files.length != 1 && files.length != 2)
                 return `Invalid list of file names in the text content "${element.textContent}" of the element "${element.tagName.toLowerCase()}": exactly one video file should be specified, an optional second file is the image file uses as a poster`;
-            const videoFrameInfo = { type: frameType.video, file: files[0].trim() };
-            if (files.length == 2) videoFrameInfo.poster = files[1].trim();
+            const videoFrameInfo = { type: frameType.video, file: files[0] };
+            if (files.length == 2) videoFrameInfo.poster = files[1];
             if (typeInfo == videoAutostart)  videoFrameInfo.autostart = typeInfo == videoAutostart;
             if (element.title) videoFrameInfo.title = element.title;
             frames.push(videoFrameInfo);
             continue;          
         } //if
         for (let file of files)
-            frames.push({ type: typeInfo, file: file.trim()});
+            frames.push({ type: typeInfo, file: file });
     } //loop
     return frames;
 }; //presentationFrameParser

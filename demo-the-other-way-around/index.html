@@ -26,7 +26,7 @@
             #insights > p:nth-of-type(2) { animation: fromRight 3s 3s both ease-out; color:slateblue }
             #insights > p:nth-of-type(3) { animation: fromLeft 3s 6s both ease-out; color:darkcyan }
             #insights > p:nth-of-type(4) { color: red }
-            #insights > p:nth-of-type(4) { white-space: nowrap; animation: 3s 15s forwards ease-in; animation-name: zoomOut, disperse }
+            #insights > p:nth-of-type(4) { white-space: nowrap; animation: 3s 15s forwards ease-in; animation-name: disperse }
             #insights > p:nth-of-type(4) > b:first-of-type { animation: zoomIn 3s 9s both ease-out; }
             #insights > p:nth-of-type(4) > b:nth-of-type(2) { animation: zoomIn 3s 12s both ease-out; }
             #insights > p:nth-of-type(4) > b:last-of-type { animation: zoomIn 3s 10s both ease-out; }
@@ -67,7 +67,9 @@
                 from { transform: scale(1); } to { transform: scale(0); }
             }
             @keyframes disperse {
-                from { letter-spacing: auto; } to { letter-spacing: 50vmax; }
+                from { opacity: 1; }
+                99% { letter-spacing: 50vmin; opacity: 0; transform: scale(1) }
+                to { transform: scale(0); padding: 0 }
             }
             @keyframes twist {
                0% { transform: rotate(-2deg); } 100% { transform: rotate(2deg) }

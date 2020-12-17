@@ -26,11 +26,14 @@
             #insights > p:nth-of-type(2) { animation: fromRight 3s 3s both ease-out; color:slateblue }
             #insights > p:nth-of-type(3) { animation: fromLeft 3s 6s both ease-out; color:darkcyan }
             #insights > p:nth-of-type(4) { color: red }
-            #insights > p:nth-of-type(4) { animation: zoomOut 3s 15s forwards ease-in; }
+            #insights > p:nth-of-type(4) { white-space: nowrap; animation: 3s 15s forwards ease-in; animation-name: zoomOut, disperse }
             #insights > p:nth-of-type(4) > b:first-of-type { animation: zoomIn 3s 9s both ease-out; }
             #insights > p:nth-of-type(4) > b:nth-of-type(2) { animation: zoomIn 3s 12s both ease-out; }
             #insights > p:nth-of-type(4) > b:last-of-type { animation: zoomIn 3s 10s both ease-out; }
-            #insights > p:nth-of-type(5) { animation: 3s 15s both ease-out; animation-name: scaleIn, fromRight; color: olive }
+            #insights > p:nth-of-type(5) > b:first-child { color:orangered }
+            #insights > p > span { animation: 3s 15s both ease-out; animation-name: fromSides; }
+            #insights > p:nth-of-type(5) > b:last-child { color:deeppink }
+            #insights > p:nth-of-type(5) { animation: 3s 15s both ease-out; white-space: nowrap; animation-name: scaleIn; }
             #insights > p:nth-of-type(6) { animation: 3s 17s both ease-out; animation-name: scaleIn, fromLeft; color: brown }
             #insights > p:nth-of-type(7), #insights > p:last-child { animation: scaleIn 2s 19s both ease-out; }
             #intro > p:last-child, #insights > p:last-child, #src > p:last-child, #autostart > p:last-child
@@ -63,8 +66,14 @@
             @keyframes zoomOut { 
                 from { transform: scale(1); } to { transform: scale(0); }
             }
+            @keyframes disperse {
+                from { letter-spacing: auto; } to { letter-spacing: 50vmax; }
+            }
             @keyframes twist {
                0% { transform: rotate(-2deg); } 100% { transform: rotate(2deg) }
+            }
+            @keyframes fromSides {
+               0% { margin-left: 100vmin; } 100% { margin-left: 2em; }
             }
         </style>
     </head>
@@ -85,7 +94,7 @@
         <p>WepP: Raster Graphics</p>
         <p>User-supplied custom HTML</p>
         <p><b>Transition effects?</b> <b>Animation?</b> <b>Video?</b></p>
-        <p>SVG Animation, HTML with CSS Animation</p>
+        <p><b>SVG Animation</b><span> </span><b>HTML with CSS Animation</b></p>
         <p>Animated WebP</p>
         <p>Video: any browser-compatible containers and codecs</p>
         <p>Next: press space bar...</p>

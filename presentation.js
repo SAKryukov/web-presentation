@@ -217,7 +217,23 @@ function initializeViewer(image, video, videoSource, html, textUtility, userStyl
     move();
     image.onload = event => { resize(event.target); };
     window.onresize = () => resize(image);
-    window.onclick = event =>  move(event.ctrlKey);
+    const findIndirectParent = (element, elementToFind) => {
+        let current = element;
+        while (current && current != document.body) {
+            if (current == elementToFind) return elementToFind;
+            current = current.parentElement;
+        } //loop
+        return null;
+    }; // findIndirectParent
+    window.onclick = event => {
+        if (event.target.constructor != HTMLAnchorElement) {
+            if (findIndirectParent(event.target, textUtility.helpElement) == textUtility.helpElement) {
+                textUtility.toggleHelp();
+                event.preventDefault();
+            } else
+                move(event.ctrlKey);
+        } //if
+    }; //window.onclick
     document.body.onkeydown = event => {
         switch (event.code) {
             case "Space":
@@ -238,7 +254,7 @@ function initializeViewer(image, video, videoSource, html, textUtility, userStyl
     window.addEventListener("touchstart", event => {
         touchStart = { x: event.changedTouches[0].clientX, y: event.changedTouches[0].clientY };
     }, false);
-    window.addEventListener("touchend", event => { touchStart = undefined; }, false);
+    window.addEventListener("touchend", _ => { touchStart = undefined; }, false);
     window.addEventListener("touchmove", event => {
         if (touchStart == undefined) return;
         const vector = { x: event.changedTouches[0].clientX - touchStart.x, y: event.changedTouches[0].clientY - touchStart.y };
@@ -252,7 +268,7 @@ function initializeViewer(image, video, videoSource, html, textUtility, userStyl
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-window.onload = () => {
+window.addEventListener("load", () => {
   
     const userStyle = getStyle();
 
@@ -306,7 +322,7 @@ window.onload = () => {
             };
         })(); //toggleHelp
         const setupHelp = isRtl => {
-            presentationElements.help.style.border = "solid thin lightBlue";
+            presentationElements.help.style.border = "solid 1px lightBlue";
             presentationElements.help.style.backgroundColor = "azure";
             presentationElements.help.style.padding = "0.6em 1.2em 0.6em 1.2em";
             presentationElements.help.style.left = "1.2em";
@@ -315,7 +331,7 @@ window.onload = () => {
             const keyPrevious = isRtl ? "&larr;" : "&rarr;";
             presentationElements.help.innerHTML = 
                 `<h3>${definitionSet.productName} v.&thinsp;${definitionSet.version}</h3>`
-                + "<p>F1: Toggle help</p>"
+                + "<p>F1: Toggle help (click to hide)</p>"
                 + "<p>F11: Toggle fullscreen (default for most browsers)</p>"
                 + `<p>${keyNext} &darr; space, click: Next</p>`
                 + `<p>${keyPrevious} &uarr; backspace, Ctrl+click: Previous</p>`
@@ -324,8 +340,10 @@ window.onload = () => {
                 + `<p>&emsp;&emsp;${keyNext} &darr;: Previous</p>`
                 + "<p>P: Toggle Play/Pause in video mode</p>"
                 + `<p>S: <a href="${definitionSet.repository}">Source code repository at GitHub</a></p>`;
-        }; //setupHelp
-        const normalizeStyles = (element, isAnchor) => {
+            }; //setupHelp
+        const normalizeStyles = element => {
+            element.style.cursor = "default";
+            const isAnchor = element.constructor == HTMLAnchorElement;
             element.style.marginTop = 0;
             element.style.marginBottom = element.constructor == HTMLHeadingElement ? "0.4em" : 0;
             element.style.textAlign = "left";
@@ -338,13 +356,17 @@ window.onload = () => {
             element.style.textDecoration = isAnchor ? "underline" : "none";
         }
         setTimeout(() => {
+            const closeBox = document.createElement("p");
+            closeBox.innerHTML = "&#x274C;";
+            closeBox.style.cssText = "position: absolute; right: 0; top: 0; margin: 0; padding: 0";
+            presentationElements.help.appendChild(closeBox);
             for (let element of presentationElements.help.children) {
                 normalizeStyles(element);
                 for (let child of element.children)
-                    normalizeStyles(child, true);
+                    normalizeStyles(child);
             }                
         }); //child styles
-        return { showError: showError, toggleHelp: toggleHelp, setupHelp: setupHelp};
+        return { showError: showError, toggleHelp: toggleHelp, setupHelp: setupHelp, helpElement: presentationElements.help };
     })(); //textUtility
 
     if (frames.constructor == String)
@@ -359,4 +381,4 @@ window.onload = () => {
         presentationElements.image, presentationElements.video, presentationElements.videoSource, presentationElements.html,
         textUtility, userStyle, options, frames);
 
-}; //window.onload
+}); //window.onload

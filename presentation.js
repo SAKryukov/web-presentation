@@ -186,7 +186,7 @@ function initializeViewer(image, video, videoSource, html, textUtility, userStyl
         } //if
     }; //resize
     let currentFrameElement = undefined;
-    const move = backward => { //backward true <= backward, backward false => forward, else initialization
+    const move = backward => { //backward true <= previous frame, backward false => next frame, else initialization
         video.pause();
         document.exitFullscreen();
         videoSource.src = undefined;
@@ -217,7 +217,7 @@ function initializeViewer(image, video, videoSource, html, textUtility, userStyl
             image.src = item.file;
             resize(image);
         } else //html
-        html.innerHTML = item.html;
+            html.innerHTML = item.html;
         if (currentFrameElement) document.body.removeChild(currentFrameElement);
         currentFrameElement = isVideo ? video : (item.type == frameType.image ? image : html);
         document.body.insertBefore(currentFrameElement, document.body.firstElementChild);
@@ -268,7 +268,7 @@ function initializeViewer(image, video, videoSource, html, textUtility, userStyl
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-window.addEventListener("load", () => {
+window.onload = () => {
   
     const userStyle = getStyle();
 

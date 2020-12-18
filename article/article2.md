@@ -78,16 +78,95 @@ The set of more than one file are used in two cases: to prescribe a list of imag
 
 ### Presentation with Frames of Different types
 
-The...
-SA???
+The simplest example shown above is just a shortcut good only for presentations composed only of the image files, vector or raster graphics. As there are two more presentation frame types, video and HTML, we need the way to indicate the type. For this purpose, the data is entered not in the text content of the `body`, but in separate elements, immediate children of the `body` element. If at least one element element is used in the `body` element, its text content is ignored.
+
+To define an element describing a frame, any element can be used. As a matter of fact, even the tags name not at all defined by the HTML standard do work; however, I would not rely on that. In all my demo and samples, I use the element `<i>`, because this is the shortest name which can be associated with the notions like "image", "item" or "input data".
+
+Let's start with some simple example:
+
+```{lang=HTML}
+&lt;!-- ... ---&gt;
+
+&lt;body&gt;
+
+&lt;!-- ... ---&gt;
+
+&lt;i class="image"&gt;single-vector-graphic-file.svg&lt;/i&gt;
+&lt;i class="image"&gt;"image.0.webp" "vector.1.svg"&lt;/i&gt;
+&lt;i class="image"&gt;vector.10.svg : vector.11.svg&lt;/i&gt;
+&lt;i class="video" title="My trip"&gt;my-video-file.webm : a-poster-for-my-video.webp&lt;/i&gt;
+&lt;i class="html"&gt;
+    &lt;h1&gt;Some HTML Content:&lt;h1&gt;
+    &lt;p&gt;Some paragraph&lt;p&gt;
+&lt;/i&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+```
+
+Here, to define the type of a presentation frame, the attribute `class` is used. In this context, it has nothing to do with CSS. It is used because it is a [global attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes) and its name suggests the notion of classification, related to the notion of "type". Besides, two classes can be combined in a single attribute value.
+
+For an element defining an image frame, the text content of the element should define one file or a list of files. For video, there must be a single video file or a list of two files, as explained in the [video options section](#heading-video-options).
+
+For the HTML type, the `innerHTML` of the frame element is shown when the corresponding frame is shown during the presentation. The parent element for this content is `<main>`. Naturally, a use can provide a stylesheet applicable to all the HTML frames.
+
+There are three presentation frame types: image, video and HTML. Correspondently, there are three classes: `image`, `video`, `html` and one additional class `autostart` which is used only in combination with `video`, for example:
+
+```{lang=HTML}
+
+&lt;i class="video autostart"&gt;&lt;!-- ... ---&gt;&lt;/i&gt;
+
+&lt;!-- same as: ---&gt;
+
+&lt;i class="autostart video"&gt;&lt;!-- ... ---&gt;&lt;/i&gt;
+```
+Autostart is one of the video options. All video options are described below.
 
 ### Video Options
 
-SA???
+Video has only three options: 1) it can be auto-started when its presentation frame (not to mix up with video frames) is activated, 2) it can come with a poster image, 3) it can have a title shown when a mouse pointer hovers over the `<video>` element. By default, there is no an autostart, and neither poster nor title are not shown. The following sample is self-explaining:
+
+```{lang=HTML}
+&lt;!-- ... ---&gt;
+
+&lt;body&gt;
+
+&lt;!-- ... ---&gt;
+
+&lt;i class="video" title="My trip"&gt;my-video-file.webm : a-poster-for-my-video.webp&lt;/i&gt;
+&lt;i class="html"&gt;&lt;h1&gt;Demonstration of video auto-start...&lt;h1&gt;&lt;/i&gt;
+&lt;i class="video autostart" title="My trip"&gt;my-video-file.webm&lt;/i&gt; &lt;!-- no need for a poster --&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+```
+
+Here, the element defining a video frame should specify one or two files; the first file is always a video file, and optional second file is always a poster image file.
+
+The attribute `title` and its value is collected from the user data and used for the `<video>` element.
 
 ### Presentation Options
 
-SA???
+The presentation options are prescribed in a `<select>` element:
+
+```{lang=HTML}
+&lt;!-- ... ---&gt;
+
+&lt;body&gt;
+
+&lt;!-- ... ---&gt;
+&lt;select&gt;
+    &lt;option value="false"&gt;hideHelpOnStart&lt;/option&gt;
+    &lt;option value="white"&gt;background&lt;/option&gt;
+    &lt;option value="false"&gt;rtl&lt;/option&gt;
+&lt;/select&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+```
+The definitions shown in this sample are defaults. The name is represented by the text content of an `<option>`, and the value --- by its `value` attribute. Any of these options can be omitted, we well as the `<select>` element, then the default values are used. Options can be repeated more than once, of the value of the last relevant line is define the effective option value. There should be no more than one `<select>` element in the file, immediate child element of the `body`.
+
+The application of the video options is [described on the previous article](https://www.codeproject.com/Articles/5286790/Web-Presentation-an-Application-in-a-Single-File#heading-video-properties).
 
 ## Implementation Detail
 
@@ -97,17 +176,106 @@ And, naturally, the method of collection of the user-defined presentation data i
 
 ### Collecting Presentation Data
 
+The elements representing the presentation frames are collected using the selector `body > *:not(select)`. If there are no of such elements, it can be the special case when there are only image-type frames defined in a text content of the `body` element. In both cases, a list `frameElements` is obtained:
+
+```{lang=JavaScript}
+const presentationFrameParser = selector => {
+// ...
+    let frameElements = document.querySelectorAll(selector);
+        if (frameElements.length &lt; 1) { //the fake content
+            const fakeElement =
+                document.createElement(frameTypeElement.fakeContent);
+            fakeElement.textContent = document.body.textContent;
+            frameElements = [fakeElement];
+        } //fake content
+}; //
+
+// ...
+
+const frames = presentationFrameParser("body > *:not(select)");
+```
+The list of elements is then processed by `presentationFrameParser` to extract and [validate](#heading-presentation-data-validation) the presentation frame data.
+
+Likewise, options are parsed and [validated](#heading-presentation-data-validation) using the selector for the `<select>` elements:
+
+```{lang=JavaScript}
+const options = optionParser("body > select");
+```
+
 ### Presentation Data Validation
+
+The major benefit of "the other way around" approach is that all mistakes the user can made are in HTML. And with HTML... there are no errors. Any wrong content is a subject of _[graceful degradation](https://en.wikipedia.org/wiki/Fault_tolerance)_. It provides a good opportunity to analize the validity of the user data as it is collected.
+
+All the analisys is performed by the functions `optionParser` and presentationFrameParser`. If validation fails, each of the functions immediately returns a string value describing the error. If all validations pass to the very end of the parsing, the functions return frame and option data objects. This way, further processing is based on the type checking of the result returned:
+
+```{lang=JavaScript}
+const optionParser = selector => {
+
+    // ...
+
+    // Options data:
+    const options = optionDefaults;
+    const select = document.querySelectorAll(selector);
+    // modify options using select data
+
+    // ...
+
+};
+
+window.onload = () => {
+
+// ...
+
+// Frame data:
+const frames = [];
+const frames = presentationFrameParser("body > *:not(select)");
+// Option data:
+const options = optionParser("body > select");
+
+// populate frames using frameElements
+
+// ...
+
+    if (frames.constructor == String)
+        return textUtility.showError(frames);
+    if (options.constructor == String)
+        return textUtility.showError(options);
+
+// ...
+
+// presentation starts here:
+initializeViewer(/* ... */)
+
+});
+```
+
+This way, on the first user error, the user gets detailed diagnostics helping to fix the first problem encountered, in this case, the presentation does not start. It makes the elimination of all potentially puzzling mistakes extremely easy.
+
+For example, the validation checks up that each `class` attribute defines one of the required classes or the combination of "video" and "autostart", that at least one file is specified for all elements defining a presentation frame or a set of frames, that each element of the `video` class defines more or two files, that the `<select>` element is only one or missing, and so on.
 
 ### Preserving Styles
 
 As I expected, the most serious problem in this approach is rooted in the fact that the user, a presentation creator, can use HTML frames and can introduce any stylesheet. Before I introduce this option???
 
-Hiding elements needed for the application frames requires the use of the style property `display` with the value `none`. When the element has to be shown, what value of the `display` property should be assigned. Before I introduced the HTML frame feature, it always was `block`, quite suitable for both `<img>` and `<video>` elements. For arbitrary HTML content, it makes no sense, because the user can use any other `display` value for the top HTML element used for the presentation frame. For example, for the layouts specific for presentations, `flex` is particularly useful. Of course, the initial style of this element can be detected on the `load` of the `window` content, but this is not a reasonable complication. Instead, now the frame element is inserted into the list of `body` children and removed when it is no longer needed.
+Hiding elements needed for the application frames requires the use of the style property `display` with the value `none`. When the element has to be shown, what value of the `display` property should be assigned. Before I introduced the HTML frame feature, it always was `block`, quite suitable for both `<img>` and `<video>` elements. For arbitrary HTML content, it makes no sense, because the user can use any other `display` value for the top HTML element used for the presentation frame. For example, for the layouts specific for presentations, `flex` is particularly useful. Of course, the initial style of this element can be detected on the `load` of the `window` content, but this is not a reasonable complication. Instead, now the frame element is inserted into the list of `body` children and removed when it is no longer needed:
 
-SA???
+```{lang=JavaScript}
+const move = backward =&gt; {
+    // backward == true =&gt; previous frame
+    // backward == false =&gt; next frame
+    // else =&gt; initialization (undefined passed)
+    // ...
+    if (currentFrameElement)
+        document.body.removeChild(currentFrameElement);
+    currentFrameElement = item.type == frameType.video ?
+        video : (item.type == frameType.image ? image : html);
+    document.body.insertBefore(
+        currentFrameElement,
+        document.body.firstElementChild);
+};
+```
 
-It is inserted and not appended by the following reason: another `body` child is the element showing help items. This element has `position: absolute`, and it can clash with any other `absolute`-positioned element introduced by the user.
+It is inserted and not appended by the following reason: another `body` child is the element showing help items. This element has `position: absolute`, and it can clash with any other `absolute`-positioned element introduced by the user. (A possible alternative solution would be using the CSS `z-index` property.)
 
 In principle, the user can devise some stylesheet that can break styling required for the presentation of other types of presentation frames. To prevent it, the critically important styles for `document.body` and the help element are preserved. For `document.body`, they are restored every time new presentation frame is displayed.
 

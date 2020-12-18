@@ -15,7 +15,7 @@
                 align-items: center; justify-content: space-between;
             }
             #intro > p:first-child { font-size: 15vmin; font-weight: bold; margin-top:10vmin; 
-                -webkit-text-stroke: black 2.2px; color: #FFCCA0;}
+                -webkit-text-stroke: black 2.2px; color: #FFCCA0 }
             #intro > p:nth-child(2) { font-size: 4.2vmin; }
             #intro > p:nth-child(3) { color: darkGreen;
                 animation: 4s land forwards ease-in-out; }
@@ -25,25 +25,27 @@
             #insights > p:first-of-type { animation: fromLeft 3s 0s both ease-out; color:purple }
             #insights > p:nth-of-type(2) { animation: fromRight 3s 1s both ease-out; color:slateblue }
             #insights > p:nth-of-type(3) { animation: fromLeft 3s 2s both ease-out; color:darkcyan }
-            #insights > p:nth-of-type(4) { color: red }
-            #insights > p:nth-of-type(4) { white-space: nowrap; animation: 3s 10s forwards ease-in; animation-name: disperse }
-            #insights > p:nth-of-type(4) > b:first-of-type { animation: zoomIn 3s 4s both ease-out; }
-            #insights > p:nth-of-type(4) > b:nth-of-type(2) { animation: zoomIn 3s 8s both ease-out; }
-            #insights > p:nth-of-type(4) > b:last-of-type { animation: zoomIn 3s 6s both ease-out; }
-            #insights > p:nth-of-type(5) > b:first-child { color:orangered }
-            #insights > p:nth-of-type(5) > b:last-child { color:deeppink }
-            #insights > p:nth-of-type(5) { animation: 4s 9s both ease-out; white-space: nowrap; animation-name: scaleIn; }
-            #insights > p:nth-of-type(5) > span { animation: 4s 9s both ease-out; animation-name: fromSides; }
-            #insights > p:nth-of-type(6) { animation: 3s 12s both ease-out; animation-name: scaleIn, fromLeft; color: brown }
-            #insights > p:nth-of-type(7), #insights > p:last-child { animation: scaleIn 2s 14s both ease-out; }
+            #insights section > * { padding: 0; margin: 0; font-weight: bold; color: red }
+            #insights section > p:first-child > b:first-of-type { animation: zoomIn 3s 4s both ease-out; }
+            #insights section > p:first-child b:nth-of-type(2) { animation: zoomIn 3s 8s both ease-out; }
+            #insights section > p:first-child b:last-of-type { animation: zoomIn 3s 6s both ease-out; }
+            #insights section > p:first-child { white-space: nowrap; animation: 3s 10s forwards ease-in; animation-name: disperse }
+            #insights section > p:last-child { text-align: center; color: green; padding-bottom: 0.8em; font-size: 5.2vmin;
+                animation: scaleIn 3s 12s both ease-in }
+            #insights > p:nth-of-type(4) > b:first-child { color:orangered }
+            #insights > p:nth-of-type(4) > b:last-child { color:deeppink }
+            #insights > p:nth-of-type(4) { animation: 4s 9s both ease-out; white-space: nowrap; animation-name: scaleIn; }
+            #insights > p:nth-of-type(4) > span { animation: 4s 9s both ease-out; animation-name: fromSides; }
+            #insights > p:nth-of-type(5) { animation: 3s 12s both ease-out; animation-name: scaleIn, fromLeft; color: brown }
+            #insights > p:nth-of-type(6), #insights > p:last-child { animation: scaleIn 2s 14s both ease-out; }
             #intro > p:last-child, #insights > p:last-child, #src > p:last-child, #autostart > p:last-child
                 { align-self: flex-end; justify-self: right; font-size: 3.2vmin; color: black; }
-            pre { font-size: 3vmin; }
-            pre:first-of-type { position: absolute; left: 5vmin; top: 10vmin; animation: zoomOut 3s 0.4s forwards ease-in; color: brown }
-            pre:last-of-type { animation: scaleIn 3s 0.6s both ease-in; color:purple }
+            #src pre { font-size: 3vmin; }
+            #src pre:first-of-type { position: absolute; left: 5vmin; top: 10vmin; animation: zoomOut 3s 1.8s forwards ease-in; color: brown }
+            #src pre:last-of-type { animation: scaleIn 5s 0s both ease-in; color:purple }
             #src { background-color:honeydew }
             #src p:first-child { font-weight: bold; font-size: 4vmin; color:darkGreen }
-            #src p:last-child { animation: scaleIn 2s 2.4s both ease-in; }
+            #src p:last-child { animation: scaleIn 2s 4s both ease-in; }
             #autostart > p:first-child { font-size: 9vmin; padding-top: 10vmin; color:darkmagenta;
                 animation: twist 0.6s infinite ease-in-out alternate; }
             #autostart > p:first-child > small { font-size: 4vmin; padding-top:0; color:darkviolet }
@@ -95,7 +97,10 @@
         <p>SVG: Scalable Vector Graphics</p>
         <p>WepP: Raster Graphics</p>
         <p>User-supplied custom HTML</p>
-        <p><b>Transition effects?</b> <b>Animation?</b> <b>Video?</b></p>
+        <section>
+            <p><b>Transition effects?</b> <b>Animation?</b> <b>Video?</b></p>
+            <p>Animation and Video:</p>
+        </section>
         <p><b>SVG Animation</b><span> </span><b>HTML with CSS Animation</b></p>
         <p>Animated WebP</p>
         <p>Video: any browser-compatible containers and codecs</p>

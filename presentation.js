@@ -381,4 +381,4 @@ window.onload = () => {
         presentationElements.image, presentationElements.video, presentationElements.videoSource, presentationElements.html,
         textUtility, userStyle, options, frames);
 
-}); //window.onload
+}; //window.onload

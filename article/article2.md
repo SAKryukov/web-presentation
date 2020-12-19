@@ -28,12 +28,17 @@ Another variant of the cross-platform replacement for all those office presentat
 ## Why Another Variant?
 
 This is a second article on the topic of Web Presentation in a single file:
+
 - [Web Presentation, the Other Way Around](https://www.codeproject.com/Articles/5286790/Web-Presentation-an-Application-in-a-Single-File)
-- This article
+- The present article
 
-Initially, a CodeProject member [Helena Munzarova](https://www.codeproject.com/script/Membership/View.aspx?mid=11286055) suggested another a different approach to SA???, 
+Initially, a CodeProject member [Helena Munzarova](https://www.codeproject.com/script/Membership/View.aspx?mid=11286055) have read my [first article](https://www.codeproject.com/Articles/5286790/Web-Presentation-an-Application-in-a-Single-File) and suggested a different approach. We had a detailed discussion. The approach she suggested was to provide a solution in a single JavaScript file, not an HTML file, as in my first solution. In this case, the user has to provide the presentation data in an HTML file.
 
-## Motivation
+My concern was that writing a presentation in the form of HTML would require much more knowledge from the users. Nevertheless, during the discussion I found the way to design the solution to keep it extremely simple for the user, the presentation author. At the same time, advanced users can use advanced HTML and CSS features and design more efficient appealing and mainainable presentation frames in a single HTML document. For [Helena](https://www.codeproject.com/script/Membership/View.aspx?mid=11286055), main benefit was adding a third type of the presentation frame: HTML. Two first types are graphics and video supplied by the user in separate files, but HTML should be developed by the user in the same presentation files, each frame represented by a separate HTML element and its `innerHTML`, and I found it easy enough to implement.
+
+But for me, even more important benefit of this "the other way around" approach is the [validation of the user data](#heading-presentation-data-validation).
+
+By the way, the image in top of this article and four new highly animated presentation frames in my demo are HTML frames.
 
 ## Usage
 
@@ -176,7 +181,7 @@ And, naturally, the method of collection of the user-defined presentation data i
 
 ### Collecting Presentation Data
 
-The elements representing the presentation frames are collected using the selector `body > *:not(select)`. If there are no of such elements, it can be the special case when there are only image-type frames defined in a text content of the `body` element. In both cases, a list `frameElements` is obtained:
+The elements representing the presentation frames are collected using the selector `body > *:not(select)`. If there are no such elements, it can be the special case when there are only image-type frames defined in a text content of the `body` element. In both cases, a list `frameElements` is obtained:
 
 ```{lang=JavaScript}
 const presentationFrameParser = selector => {
@@ -283,7 +288,7 @@ In principle, the user can devise some stylesheet that can break styling require
 
 #### 4.0.0
 
-December 16, 2020
+December SA20???, 2020
 
 This is the first version following v.&thinsp;3.0.0 and the first version with "presentation.js", "the other way around".
 

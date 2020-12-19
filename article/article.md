@@ -25,6 +25,13 @@ A cross-platform replacement for all those office presentation applications in a
 
 @toc
 
+## Introduction
+
+This article is the first article of the small series of articles on the Web presentation products:
+
+- The present article
+- [Web Presentation, the Other Way Around](https://www.codeproject.com/Articles/5290221/Web-Presentation-the-Other-Way-Around)
+
 ## Motivation
 
 For the last presentation I delivered, I already had a collection of SVG images mostly representing some architectural solutions. When you develop architectural and design solutions, you always have some, as SVG is the most universal vector format. While photos can be easily shown in a presentation manner using a suitable image viewer, SVG typically takes some extra effort, and probably the worst option would be messing with those office presentation applications. Why not showing the images themselves? After all, they are scalable and compatible with all non-nonsense Web browsers.
@@ -312,6 +319,12 @@ Video-ready release. In addition to images, a video can be added. The syntax of 
 December 6, 2020
 
 Style improvements for video. In response to feature requests (CodeProject member [gunamoi1](https://www.codeproject.com/Members/gunamoi1)), the video element is always centered or in the fullscreen mode.
+
+#### 4.0.0
+
+December 20SA???, 2020
+
+Minor fixes. In this release, an alternative product has been added, under the nickname "the other way around". It is described in a [separate article](https://www.codeproject.com/Articles/5290221/Web-Presentation-the-Other-Way-Around).
 
 ## License Note
 

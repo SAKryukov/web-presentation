@@ -13,8 +13,8 @@ A cross-platform replacement for all those office presentation applications in a
 <!-- copy to CodeProject from here ------------------------------------------->
 
 <ul class="download">
-	<li><a href="Web-presentation.zip">Download source code file and demo &mdash; 11.7 MB</a></li>
-	<li><a href="http://www.sakryukov.org/software/GitHub.live/web-presentation/demo">Live demo</a></li>
+	<li><a href="Web-presentation.zip">Download source code file and demo &mdash; 11.2 MB</a></li>
+	<li><a href="http://www.SAKryukov.org/software/GitHub.live/web-presentation/demo-the-other-way-around">Live demo</a></li>
 </ul>
 
 (This demo uses one AV1 video, which is compatible with almost all browsers, but not Microsoft Edge)

@@ -13,7 +13,7 @@ In a new variant of the Web Presentation product, the user defines the presentat
 <!-- copy to CodeProject from here ------------------------------------------->
 
 <ul class="download">
-	<li><a href="Web-presentation.zip">Download source code file and demo &mdash; 11.7 MB</a></li>
+	<li><a href="Web-presentation.zip">Download source code file and demo &mdash; 11.2 MB</a></li>
 	<li><a href="http://www.sakryukov.org/software/GitHub.live/web-presentation/demo">Live demo</a></li>
 </ul>
 
@@ -29,7 +29,7 @@ In a new variant of the Web Presentation product, the user defines the presentat
 
 This is a second article on the topic of Web Presentation in a single file:
 
-- [Web Presentation, the Other Way Around](https://www.codeproject.com/Articles/5286790/Web-Presentation-an-Application-in-a-Single-File)
+- [Web Presentation, an Application in a Single File, now with Video](https://www.codeproject.com/Articles/5286790/Web-Presentation-an-Application-in-a-Single-File)
 - The present article
 
 Initially, a CodeProject member [Helena Munzarova](https://www.codeproject.com/script/Membership/View.aspx?mid=11286055) have read my [first article](https://www.codeproject.com/Articles/5286790/Web-Presentation-an-Application-in-a-Single-File) and suggested a different approach. We had a detailed discussion. The approach she suggested was to provide a solution in a single JavaScript file, not an HTML file, as in my first solution. In this case, the user has to provide the presentation data in an HTML file.

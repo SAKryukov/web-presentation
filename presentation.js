@@ -1,7 +1,7 @@
 /*
     Web Presentation: a cross-platform replacement for all those office application packages in a single file :-)
     Original publication:
-    SA???
+    https://www.codeproject.com/Articles/5290221/Web-Presentation-the-Other-Way-Around
     
     Copyright (c) Sergey A Kryukov, 2017, 2020
     http://www.SAKryukov.org

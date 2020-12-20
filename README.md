@@ -15,4 +15,5 @@ Simply add a presentation description file with a list of vector, raster image f
 
 For detailed usage, see original publications:
 1. [Web Presentation, an Application in a Single File](https://www.codeproject.com/Articles/5286790/Web-Presentation)
-1. Web Presentation, the Other Way Around (coming soon)
+1. [Web Presentation, the Other Way Around](https://www.codeproject.com/Articles/5290221/Web-Presentation-the-Other-Way-Around)
+

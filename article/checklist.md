@@ -2,7 +2,11 @@
 
 1. Both article: adjust release date in text
 
-1. Check up .zip file sizes
+1. Both articles: update source code sizes
+
+1. Both articles: Check up .zip file sizes
+
+1. Both articles: remove releases from menu
 
 1. Post article
 

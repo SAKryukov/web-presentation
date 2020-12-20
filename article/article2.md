@@ -91,11 +91,11 @@ To define an element describing a frame, any element can be used. As a matter of
 Let's start with some simple example:
 
 ```{lang=HTML}
-&lt;!-- ... ---&gt;
+&lt;!-- ... --&gt;
 
 &lt;body&gt;
 
-&lt;!-- ... ---&gt;
+&lt;!-- ... --&gt;
 
 &lt;i class="image"&gt;single-vector-graphic-file.svg&lt;/i&gt;
 &lt;i class="image"&gt;"image.0.webp" "vector.1.svg"&lt;/i&gt;
@@ -120,11 +120,11 @@ There are three presentation frame types: image, video, and HTML. Correspondentl
 
 ```{lang=HTML}
 
-&lt;i class="video autostart"&gt;&lt;!-- ... ---&gt;&lt;/i&gt;
+&lt;i class="video autostart"&gt;&lt;!-- ... --&gt;&lt;/i&gt;
 
-&lt;!-- same as: ---&gt;
+&lt;!-- same as: --&gt;
 
-&lt;i class="autostart video"&gt;&lt;!-- ... ---&gt;&lt;/i&gt;
+&lt;i class="autostart video"&gt;&lt;!-- ... --&gt;&lt;/i&gt;
 ```
 Autostart is one of the video options. All video options are described below.
 
@@ -133,11 +133,11 @@ Autostart is one of the video options. All video options are described below.
 Video has only three options: 1) it can be auto-started when its presentation frame (not to mix up with video frames) is activated, 2) it can come with a poster image, 3) it can have a title shown when a mouse pointer hovers over the `<video>` element. By default, there is no autostart, and neither poster nor title is not shown. The following sample is self-explaining:
 
 ```{lang=HTML}
-&lt;!-- ... ---&gt;
+&lt;!-- ... --&gt;
 
 &lt;body&gt;
 
-&lt;!-- ... ---&gt;
+&lt;!-- ... --&gt;
 
 &lt;i class="video" title="My trip"&gt;my-video-file.webm : a-poster-for-my-video.webp&lt;/i&gt;
 &lt;i class="html"&gt;&lt;h1&gt;Demonstration of video auto-start...&lt;h1&gt;&lt;/i&gt;
@@ -156,11 +156,11 @@ The attribute `title` and its value are collected from the user data and used fo
 The presentation options are prescribed in a `<select>` element:
 
 ```{lang=HTML}
-&lt;!-- ... ---&gt;
+&lt;!-- ... --&gt;
 
 &lt;body&gt;
 
-&lt;!-- ... ---&gt;
+&lt;!-- ... --&gt;
 &lt;select&gt;
     &lt;option value="false"&gt;hideHelpOnStart&lt;/option&gt;
     &lt;option value="white"&gt;background&lt;/option&gt;
@@ -301,7 +301,7 @@ In principle, the user can devise some stylesheet that can break styling require
 
 #### 4.0.0
 
-December SA??? 20, 2020
+December 20, 2020
 
 This is the first version following v.&thinsp;3.0.0 and the first version with "presentation.js", "the other way around".
 

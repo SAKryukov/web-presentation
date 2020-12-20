@@ -7,4 +7,9 @@
     "markdown.styles": [
         "smoothly-sized-styles.css"
     ],
+    "markdown.extensibleMarkdown.TOC.includeLevels": [
+        1,
+        2,
+        3,
+    ],
 }

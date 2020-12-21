@@ -74,7 +74,7 @@ The sample of the presentation shown above suggests that the image files should 
 
 Naturally, both forms allow the file names with space characters inside. If a file name contains one of the separator characters, another one should be used as a separator.
 
-Recommendation: the best idea is avoiding the use of any separator characters in file names. I would even not recommend blank space characters in file names. Everything will work with this particular application, but with many other applications, this is a source of inconveniences.
+Recommendations: the best idea is avoiding the use of any separator characters in file names. I would even not recommend blank space characters in file names. Everything will work with this particular application, but with many other applications, this is a source of inconveniences. And, after all, the ultimate decision is not to use any separators at all, as [each file name can be placed in a separate HTML element](#heading-presentation-with-frames-of-different-types). Then the only case where two file names are required is the case of a [video frame with a poster](#heading-video-options).
 
 Perhaps I have to explain why the rules use two separators. First of all, in Windows, the double quotation mark is not a valid character for file names, but the colon is used in the special cases we all know. Using colon as a part of a file name makes little practical sense, but still, a user can enter such names using double quotation marks. These marks are also usually used for entering file names with some blank characters inside.
 

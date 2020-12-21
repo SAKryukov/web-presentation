@@ -322,7 +322,7 @@ Style improvements for video. In response to feature requests (CodeProject membe
 
 #### 4.0.0
 
-December 20SA???, 2020
+December 21, 2020
 
 Minor fixes. In this release, an alternative product has been added, under the nickname "the other way around". It is described in a [separate article](https://www.codeproject.com/Articles/5290221/Web-Presentation-the-Other-Way-Around).
 

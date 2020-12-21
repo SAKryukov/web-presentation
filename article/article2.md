@@ -301,7 +301,7 @@ In principle, the user can devise some stylesheet that can break styling require
 
 #### 4.0.0
 
-December 20, 2020
+December 21, 2020
 
 This is the first version following v.&thinsp;3.0.0 and the first version with "presentation.js", "the other way around".
 

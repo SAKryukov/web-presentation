@@ -6,8 +6,8 @@ There are two independent solutions: 1) the single file is `presentation.html`, 
 ### Live Demo
 
 See the live demo presentation in &ldquo;./demo&rdquo; and &ldquo;./demo-the-other-way-around&rdquo;, run the live demo in the browser:
-1. [based on presentation.html](http://www.SAKryukov.org/software/GitHub.live/web-presentation/demo),
-1. [based on presentation.js](http://www.SAKryukov.org/software/GitHub.live/web-presentation/demo-the-other-way-around), the other way around.
+1. [based on presentation.html](https://SAKryukov.github.io/web-presentation/demo/),
+1. [based on presentation.js](https://SAKryukov.github.io/web-presentation/demo-the-other-way-around/), the other way around.
 
 ### Usage
 

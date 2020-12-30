@@ -14,7 +14,7 @@ A cross-platform replacement for all those office presentation applications in a
 
 <ul class="download">
 	<li><a href="Web-presentation.zip">Download source code file and demo &mdash; 11.2 MB</a></li>
-	<li><a href="http://www.SAKryukov.org/software/GitHub.live/web-presentation/demo-the-other-way-around">Live demo</a></li>
+	<li><a href="https://SAKryukov.github.io/web-presentation/demo">Live demo</a></li>
 </ul>
 
 (This demo uses one AV1 video, which is compatible with almost all browsers, but not Microsoft Edge)
@@ -42,7 +42,7 @@ In the demo, I added some animated SVG, static WebP photographs, and a WebP vide
 
 ## Usage
 
-The basic usage is probably as simple as it can be. The [live demo](http://www.sakryukov.org/software/GitHub.live/web-presentation/demo) also provides an introduction to the presentation system and shows its features.
+The basic usage is probably as simple as it can be. The [live demo](https://SAKryukov.github.io/web-presentation/demo) also provides an introduction to the presentation system and shows its features.
 
 Basically, the presenter creates a set of files each representing a presentation frame, lists their paths in required order in a presentation data file, and loads "presentation.h" in a browser, passing the presentation data file in the URL query string. Presentation starts.
 

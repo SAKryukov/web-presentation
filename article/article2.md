@@ -14,7 +14,7 @@ In a new variant of the Web Presentation product, the user defines the presentat
 
 <ul class="download">
 	<li><a href="Web-presentation.zip">Download source code file and demo &mdash; 11.2 MB</a></li>
-	<li><a href="http://www.sakryukov.org/software/GitHub.live/web-presentation/demo">Live demo</a></li>
+	<li><a href="https://SAKryukov.github.io/web-presentation/demo-the-other-way-around">Live demo</a></li>
 </ul>
 
 (This demo uses one AV1 video, which is compatible with almost all browsers, but not Microsoft Edge)
@@ -53,9 +53,9 @@ Let's take a look at the presentation sample "demo-the-other-way-around/minimal.
         &lt;title&gt;Minimal Presentation Demo&lt;/title&gt;
     &lt;/head&gt;
 &lt;body&gt;
-    "../demo-resources/2007-06-23.panorama.webp"
-    "../demo-resources/2019-05-18.088.webp"
-    "../demo-resources/2020-09-17.video.32.webp"
+    "../demo-resources/diagram.svg"
+    "../demo-resources/workflow.svg"
+    "../demo-resources/photo.webp"
 &lt;/body&gt;
 &lt;/html&gt;
 ```
@@ -184,7 +184,7 @@ For simplicity, I would also recommend one simple technique: for each HTML prese
 
 Fitting the page area with an HTML frame content takes more advanced styling than the usual styling. I would advise considering the `flex` `display` and wide use of [relative units based on the viewport sizes](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Values_and_units): `vw`, `vh`, `vmin` or `vmax`.
 
-You can find many techniques in "demo-the-other-way-around/index.html". It doesn't mean that you should show all the animation techniques I do. Just the opposite: better try to minimize the use of animations almost everywhere or use no animation at all. I do all those animations because of the subject of my demo, a need to show many possibilities. For the presentations on other topics, the best style would be some combination of vector graphics with some nicely-formatted text, without excessive decorations.
+You can find many techniques in "demo-the-other-way-around/index.html", the presentation shown as [live demo](https://SAKryukov.github.io/web-presentation/demo-the-other-way-around). It doesn't mean that you should show all the animation techniques I do. Just the opposite: better try to minimize the use of animations almost everywhere or use no animation at all. I do all those animations because of the subject of my demo, a need to show many possibilities. For the presentations on other topics, the best style would be some combination of vector graphics with some nicely-formatted text, without excessive decorations.
 
 ## Implementation Detail
 

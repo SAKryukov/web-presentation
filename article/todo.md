@@ -4,8 +4,6 @@
 
 ### Improvements to article2.md:
 
-- Simplest Presentation, code sample: 1 or 2 images should be .SVG
 
-- Recommendation for HTML Content Authoring: add a Live Demo link
 
 

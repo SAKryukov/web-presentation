@@ -3,7 +3,7 @@
     Original publication:
     https://www.codeproject.com/Articles/5290221/Web-Presentation-the-Other-Way-Around
     
-    Copyright (c) Sergey A Kryukov, 2017, 2020
+    Copyright (c) Sergey A Kryukov, 2017, 2021
     http://www.SAKryukov.org
     http://www.codeproject.com/Members/SAKryukov
     https://github.com/SAKryukov

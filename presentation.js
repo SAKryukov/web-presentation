@@ -321,8 +321,9 @@ window.onload = () => {
                 presentationElements.help.style.display = helpActive ? "block" : "none";
             };
         })(); //toggleHelp
+        const borderColor = "CornflowerBlue";
         const setupHelp = isRtl => {
-            presentationElements.help.style.border = "solid 1px lightBlue";
+            presentationElements.help.style.border = `solid 1px ${borderColor}`;
             presentationElements.help.style.backgroundColor = "azure";
             presentationElements.help.style.padding = "0.6em 1.2em 0.6em 1.2em";
             presentationElements.help.style.left = "1.2em";
@@ -354,12 +355,19 @@ window.onload = () => {
             element.style.fontVariant = "normal";
             element.style.fontSize = element.constructor == HTMLHeadingElement ? "120%" : "100%";
             element.style.textDecoration = isAnchor ? "underline" : "none";
-        }
+        };
+        const createCloseBox = (size, background, border, stroke) => {
+            const ns = "http://www.w3.org/2000/svg";
+            const createNS = (name) => document.createElementNS(ns, name);
+            const svg = createNS("svg");
+            svg.style.cssText = `background-color: ${background}; stroke: ${stroke}; stroke-width: 0.1;
+                border-left: ${border} thin solid; border-bottom: ${border} thin solid; width: ${size}; position: absolute; top: 0; right: 0`;
+            svg.setAttribute("viewBox", "0 0 1 1");
+            svg.innerHTML = `<g><line x1="0.2" y1="0.2" x2="0.8" y2="0.8"/><line x1="0.2" y1="0.8" x2="0.8" y2="0.2"/></g>`;
+            return svg;
+        };
         setTimeout(() => {
-            const closeBox = document.createElement("p");
-            closeBox.innerHTML = "&#x274C;";
-            closeBox.style.cssText = "position: absolute; right: 0; top: 0; margin: 0; padding: 0";
-            presentationElements.help.appendChild(closeBox);
+            presentationElements.help.appendChild(createCloseBox(16, "yellow", borderColor, "red"));
             for (let element of presentationElements.help.children) {
                 normalizeStyles(element);
                 for (let child of element.children)

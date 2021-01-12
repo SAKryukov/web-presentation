@@ -17,3 +17,6 @@ For detailed usage, see original publications:
 1. [Web Presentation, an Application in a Single File](https://www.codeproject.com/Articles/5286790/Web-Presentation)
 1. [Web Presentation, the Other Way Around](https://www.codeproject.com/Articles/5290221/Web-Presentation-the-Other-Way-Around)
 
+----
+
+<br/><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/3.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.

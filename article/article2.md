@@ -305,9 +305,9 @@ December 21, 2020
 
 This is the first version following v.&thinsp;3.0.0 and the first version with "presentation.js", "the other way around".
 
-#### 4.1.0
+#### 4.2.0
 
-January 11, 2021
+January 12, 2021
 
 In both products, the Help element close box replaced with platform-independent SVG
 

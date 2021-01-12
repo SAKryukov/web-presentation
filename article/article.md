@@ -326,9 +326,9 @@ December 21, 2020
 
 Minor fixes. In this release, an alternative product has been added, under the nickname "the other way around". It is described in a [separate article](https://www.codeproject.com/Articles/5290221/Web-Presentation-the-Other-Way-Around).
 
-#### 4.1.0
+#### 4.2.0
 
-January 11, 2021
+January 12, 2021
 
 The help element close box replaced with platform-independent SVG
 

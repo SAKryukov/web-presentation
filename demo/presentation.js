@@ -25,7 +25,7 @@ const presentation = {
          text: {
              background: "azure",
              foreground: "black",
-             border: "lightBlue",
+             border: "cornflowerBlue",
          },
      },
      rtl: false,

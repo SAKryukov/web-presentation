@@ -332,6 +332,12 @@ January 12, 2021
 
 The help element close box replaced with platform-independent SVG
 
+#### 4.3.0
+
+January 17, 2021
+
+Fixed close box size problem manifested with Gecko and Goanna engines.
+
 ## License Note
 
 All photo, video, and graphics materials used in the demo are created by the [author of this article](https://www.codeproject.com/Members/SAKryukov) and protected by the license referenced below.

@@ -19,7 +19,7 @@ A cross-platform replacement for all those office presentation applications in a
 
 (This demo uses one AV1 video, which is compatible with almost all browsers, but not Microsoft Edge)
 
-![presentation.h](main.jpg)
+![presentation.h](main.png)
 
 ## Contents{no-toc}
 

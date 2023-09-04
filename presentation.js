@@ -12,7 +12,7 @@
 "use strict";
 
 const definitionSet = {
-    version: "4.3.0",
+    version: "4.4.0",
     productName: "Web Presentation",
     repository: "https://github.com/SAKryukov/web-presentation"
 }; //definitionSet

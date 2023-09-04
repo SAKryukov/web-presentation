@@ -338,6 +338,14 @@ January 17, 2021
 
 Fixed close box size problem manifested with Gecko and Goanna engines.
 
+#### 4.4.0
+
+September 4, 2023 Fixed typo in both Presentation products
+
+## Credits
+
+Code Project contributor [https://www.codeproject.com/script/Membership/View.aspx?mid=2965702](Nelek) found [typo in both Presentation products](https://www.codeproject.com/Messages/5960015/Re-Power-Point) I fixed in v.&thinsp;4.4.0
+
 ## License Note
 
 All photo, video, and graphics materials used in the demo are created by the [author of this article](https://www.codeproject.com/Members/SAKryukov) and protected by the license referenced below.
